@@ -9,7 +9,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage
 )
-from . import buttonLine
+from buttonLine import *
 
 app = Flask(__name__)
 
@@ -40,13 +40,12 @@ def callback():
 def handle_message(event):
     text = event.message.text
     if text == 'ดูข้อมูลรถทั้งหมด':
-        flex_message = buttonLine.Allvalue()
+        flex_message = Allvalue()
         line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
-
 
 if __name__ == "__main__":
     app.run()
