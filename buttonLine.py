@@ -8,6 +8,30 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage
 )
 
+import sqlalchemy as sa
+from sqlalchemy.sql import text as sa_text
+import urllib
+import pandas as pd
+
+def ConnectDB(db,table):
+    #configure sql server
+    server = '172.31.8.25'
+    database =  db
+    username = 'boon'
+    password = 'Boon@DA123'
+    driver = '{ODBC Driver 17 for SQL Server}'
+    dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
+    params = urllib.parse.quote_plus(dsn)
+    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
+    connection = engine.connect()
+    metadata = sa.MetaData()
+    tablename = sa.Table(table, metadata, autoload=True, autoload_with=engine)
+    query = sa.select([tablename])
+    ResultProxy = connection.execute(query)
+    ResultSet = ResultProxy.fetchall()
+    df = pd.DataFrame(ResultSet)
+    return df
+
 def Allvalue():
     flex_message = FlexSendMessage(
     alt_text='hello',
@@ -19,7 +43,7 @@ def Allvalue():
         "size": "micro",
         "hero": {
             "type": "image",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip10.jpg",
+            "url": "https://www.w3schools.com/howto/img_avatar.png",
             "size": "full",
             "aspectMode": "cover",
             "aspectRatio": "320:213"
@@ -100,179 +124,11 @@ def Allvalue():
             "paddingAll": "13px"
         }
         },
-        {
-        "type": "bubble",
-        "size": "micro",
-        "hero": {
-            "type": "image",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip11.jpg",
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "320:213"
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-            {
-                "type": "text",
-                "text": "Brow&Cony's Restaurant",
-                "weight": "bold",
-                "size": "sm",
-                "wrap": True
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
-                },
-                {
-                    "type": "text",
-                    "text": "4.0",
-                    "size": "sm",
-                    "color": "#8c8c8c",
-                    "margin": "md",
-                    "flex": 0
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "แง้นๆ",
-                        "wrap": True,
-                        "color": "#8c8c8c",
-                        "size": "xs",
-                        "flex": 5
-                    }
-                    ]
-                }
-                ]
-            }
-            ],
-            "spacing": "sm",
-            "paddingAll": "13px"
-        }
-        },
-        {
-        "type": "bubble",
-        "size": "micro",
-        "hero": {
-            "type": "image",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip12.jpg",
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "320:213"
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-            {
-                "type": "text",
-                "text": "Tata",
-                "weight": "bold",
-                "size": "sm"
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
-                },
-                {
-                    "type": "text",
-                    "text": "4.0",
-                    "size": "sm",
-                    "color": "#8c8c8c",
-                    "margin": "md",
-                    "flex": 0
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "งิ้วๆ",
-                        "wrap": True,
-                        "color": "#8c8c8c",
-                        "size": "xs",
-                        "flex": 5
-                    }
-                    ]
-                }
-                ]
-            }
-            ],
-            "spacing": "sm",
-            "paddingAll": "13px"
-        }
-        }
     ]
     }
     )
     return flex_message
-print(Allvalue())
+
+df = ConnectDB('Line Data','Profile Line')
+df = df.query('UserId == "Ud41fb829bb1e5220c1d2b39fb366996b"')
+print(df)

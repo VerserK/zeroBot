@@ -42,6 +42,7 @@ def handle_message(event):
     if text == 'ดูข้อมูลรถทั้งหมด':
         flex_message = Allvalue()
         line_bot_api.reply_message(event.reply_token,flex_message)
+        line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
         event.reply_token,
