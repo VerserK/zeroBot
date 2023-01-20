@@ -9,7 +9,6 @@ from linebot.models import (
 )
 
 import sqlalchemy as sa
-from sqlalchemy.sql import text as sa_text
 import urllib
 import pandas as pd
 
