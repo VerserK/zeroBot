@@ -164,3 +164,5 @@ def Allvalue():
     }
     }
     )
+    return flex_message
+print(Allvalue())

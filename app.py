@@ -40,7 +40,8 @@ def callback():
 def handle_message(event):
     text = event.message.text
     if text == 'ดูข้อมูลรถทั้งหมด':
-        line_bot_api.reply_message(event.reply_token,buttonLine.Allvalue())
+        flex_message = buttonLine.Allvalue()
+        line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
         event.reply_token,
