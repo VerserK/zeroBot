@@ -147,7 +147,7 @@ def handle_message(event):
                     {
                         "type": "text",
                         "text": "10:00 - 23:00",
-                        "wrap": true,
+                        "wrap": True,
                         "color": "#666666",
                         "size": "sm",
                         "flex": 5
