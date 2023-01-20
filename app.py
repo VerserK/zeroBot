@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage
 )
 
 app = Flask(__name__)
@@ -37,7 +37,25 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
+    text = event.message.text
+    if text == 'ดูข้อมูลรถทั้งหมด':
+        flex_message = FlexSendMessage(
+        alt_text='hello',
+        contents={
+            'type': 'bubble',
+            'direction': 'ltr',
+            'hero': {
+                'type': 'image',
+                'url': 'https://example.com/cafe.jpg',
+                'size': 'full',
+                'aspectRatio': '20:13',
+                'aspectMode': 'cover',
+                'action': { 'type': 'uri', 'uri': 'http://example.com', 'label': 'label' }
+            }
+        }
+        )
+    else:
+        line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
