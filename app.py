@@ -42,10 +42,10 @@ def handle_message(event):
     if text == 'ดูข้อมูลรถทั้งหมด':
         df = ConnectDB('Line Data','Profile Line')
         profile = line_bot_api.get_profile(event.source.user_id)
-        displayName = profile.display_name
-        df = df.query('UserId == "U4ae27e582f6801412b2abf2aaa7a07ac"')
+        userId = profile.user_id
+        df = df.query('UserId == '+ userId)
         nameF = df['Name'].values[0]
-        flex_message = Allvalue(displayName)
+        flex_message = Allvalue(nameF)
         line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
