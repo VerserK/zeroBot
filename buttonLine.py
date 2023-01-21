@@ -128,3 +128,10 @@ def Allvalue(nameF):
     }
     )
     return flex_message
+
+df = ConnectDB('Line Data','Profile Line')
+df = df.query('UserId == "Ud41fb829bb1e5220c1d2b39fb366996b"')
+nameF = str(df['Name'].values[0])
+flex_message = Allvalue(nameF)
+
+print(flex_message)
