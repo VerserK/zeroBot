@@ -57,6 +57,9 @@ def handle_message(event):
                     ),
                     TextSendMessage(
                         text='Status message: ' + profile.status_message
+                    ),
+                    TextSendMessage(
+                        text='Status message: ' + profile.user_id
                     )
                 ]
             )
