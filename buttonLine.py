@@ -12,25 +12,6 @@ import sqlalchemy as sa
 import urllib
 import pandas as pd
 
-def ConnectDB(db,table):
-    #configure sql server
-    server = '172.31.8.25'
-    database =  db
-    username = 'boon'
-    password = 'Boon@DA123'
-    driver = '{ODBC Driver 17 for SQL Server}'
-    dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
-    params = urllib.parse.quote_plus(dsn)
-    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
-    connection = engine.connect()
-    metadata = sa.MetaData()
-    tablename = sa.Table(table, metadata, autoload=True, autoload_with=engine)
-    query = sa.select([tablename])
-    ResultProxy = connection.execute(query)
-    ResultSet = ResultProxy.fetchall()
-    df = pd.DataFrame(ResultSet)
-    return df
-
 def Allvalue(nameF):
     nameF = nameF
     flex_message = FlexSendMessage(
