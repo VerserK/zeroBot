@@ -8,7 +8,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage
 )
 
-import pyodbc
+import sqlalchemy as sa
+import urllib
 import pandas as pd
 
 def ConnectDB(db,table):
@@ -19,15 +20,19 @@ def ConnectDB(db,table):
     password = 'Boon@DA123'
     driver = '{ODBC Driver 17 for SQL Server}'
     dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
-    conn = pyodbc.connect(dsn)
-    query = 'SELECT * FROM'+ table
-    df = pd.read_sql(query,conn)
+    params = urllib.parse.quote_plus(dsn)
+    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
+    connection = engine.connect()
+    metadata = sa.MetaData()
+    tablename = sa.Table(table, metadata, autoload=True, autoload_with=engine)
+    query = sa.select([tablename])
+    ResultProxy = connection.execute(query)
+    ResultSet = ResultProxy.fetchall()
+    df = pd.DataFrame(ResultSet)
     return df
 
-def Allvalue():
-    df = ConnectDB('Line Data','[Profile Line]')
-    df = df.query('UserId == "Ud41fb829bb1e5220c1d2b39fb366996b"')
-    nameF = str(df['Name'].values[0])
+def Allvalue(nameF):
+    nameF = nameF
     flex_message = FlexSendMessage(
     alt_text='hello',
     contents={
