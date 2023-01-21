@@ -32,10 +32,9 @@ def ConnectDB(db,table):
     return df
 
 def Allvalue():
-    # df = ConnectDB('Line Data','Profile Line')
-    # df = df.query('UserId == "Ud41fb829bb1e5220c1d2b39fb366996b"')
-    # nameF = df['Name'].values[0]
-    nameF = 'TEST'
+    df = ConnectDB('Line Data','Profile Line')
+    df = df.query('UserId == "Ud41fb829bb1e5220c1d2b39fb366996b"')
+    nameF = df['Name'].values[0]
     flex_message = FlexSendMessage(
     alt_text='hello',
     contents={
