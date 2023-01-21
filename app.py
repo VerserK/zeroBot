@@ -45,8 +45,14 @@ def handle_message(event):
         userId = profile.user_id
         df = df.query('UserId == @userId')
         nameF = df['Name'].values[0]
-        flex_message = Allvalue(nameF)
-        line_bot_api.reply_message(event.reply_token,flex_message)
+        dfSelectVIN = ConnectDB('CRM Data','ID_Address_Consent')
+        dfSelectVIN = dfSelectVIN.rename({'Tax ID': 'Tax_ID'}, axis=1) 
+        dfSelectVIN = dfSelectVIN.query("Tax_ID == @nameF")
+        # flex_message = Allvalue(nameF)
+        for index, row in dfSelectVIN.iterrows():
+            flex_message = Allvalue(row['Firstname'])
+            line_bot_api.reply_message(event.reply_token,flex_message)
+        # line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
