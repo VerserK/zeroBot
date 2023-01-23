@@ -37,77 +37,82 @@ def Allvalue(TaxID,VIN):
     flex_message = FlexSendMessage(
     alt_text='hello',
     contents={
-    "type": "carousel",
-    "contents": [
+    "type": "bubble",
+    "hero": {
+        "type": "image",
+        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "cover",
+        "action": {
+        "type": "uri",
+        "uri": "http://linecorp.com/"
+        }
+    },
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
         {
-        "type": "bubble",
-        "size": "micro",
-        "hero": {
-            "type": "image",
-            "url": "https://www.w3schools.com/howto/img_avatar.png",
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "320:213"
+            "type": "text",
+            "text": "Brown Cafe",
+            "weight": "bold",
+            "size": "xl"
         },
-        "body": {
+        {
             "type": "box",
             "layout": "vertical",
+            "margin": "lg",
+            "spacing": "sm",
             "contents": [
             {
-                "type": "text",
-                "text": "ข้อมูลลูกค้า",
-                "weight": "bold",
-                "size": "sm",
-                "wrap": True
-            },
-            {
                 "type": "box",
-                "layout": "vertical",
+                "layout": "baseline",
+                "spacing": "sm",
                 "contents": [
                 {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": TaxID,
-                        "wrap": True,
-                        "color": "#8c8c8c",
-                        "size": "xs",
-                        "flex": 5
-                    }
-                    ]
+                    "type": "text",
+                    "text": "TaxID",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 1
+                },
+                {
+                    "type": "text",
+                    "text": TaxID,
+                    "wrap": True,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
                 }
                 ]
             },
             {
                 "type": "box",
-                "layout": "vertical",
+                "layout": "baseline",
+                "spacing": "sm",
                 "contents": [
                 {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": VIN,
-                        "wrap": True,
-                        "color": "#8c8c8c",
-                        "size": "xs",
-                        "flex": 5
-                    }
-                    ]
+                    "type": "text",
+                    "text": "VIN",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 1
+                },
+                {
+                    "type": "text",
+                    "text": VIN,
+                    "wrap": True,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
                 }
                 ]
             }
-            ],
-            "spacing": "sm",
-            "paddingAll": "13px"
+            ]
         }
-        }
-    ]
+        ]
+    }
     }
     )
     return flex_message
