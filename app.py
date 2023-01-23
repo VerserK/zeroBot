@@ -48,7 +48,7 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
             for i in results_as_dict:
-                flex_message = Allvalue(i['Firstname'])
+                flex_message = Allvalue('TESTZZZ')
                 line_bot_api.reply_message(event.reply_token,flex_message)
         # line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
