@@ -31,112 +31,187 @@ def ConnectDB(db):
     # df = pd.DataFrame(ResultSet)
     return engine
 
-def Allvalue(nameF):
-    nameF = nameF
+def Allvalue(TaxID,VIN):
+    TaxID = TaxID
+    VIN = VIN
     flex_message = FlexSendMessage(
     alt_text='hello',
     contents={
-    "type": "carousel",
-    "contents": [
-        {
-        "type": "bubble",
-        "size": "micro",
-        "hero": {
-            "type": "image",
-            "url": "https://www.w3schools.com/howto/img_avatar.png",
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "320:213"
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
+        "type": "carousel",
+        "contents": [
             {
-                "type": "text",
-                "text": "ข้อมูลลูกค้า",
-                "weight": "bold",
-                "size": "sm",
-                "wrap": True
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "size": "full",
+                "aspectRatio": "20:13",
+                "aspectMode": "cover",
+                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_5_carousel.png"
             },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                },
-                {
-                    "type": "icon",
-                    "size": "xs",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
-                },
-                {
-                    "type": "text",
-                    "text": "4.0",
-                    "size": "xs",
-                    "color": "#8c8c8c",
-                    "margin": "md",
-                    "flex": 0
-                }
-                ]
-            },
-            {
+            "body": {
                 "type": "box",
                 "layout": "vertical",
+                "spacing": "sm",
                 "contents": [
+                {
+                    "type": "text",
+                    "text": TaxID,
+                    "wrap": True,
+                    "weight": "bold",
+                    "size": "xl"
+                },
                 {
                     "type": "box",
                     "layout": "baseline",
-                    "spacing": "sm",
                     "contents": [
                     {
                         "type": "text",
-                        "text": nameF,
+                        "text": VIN,
                         "wrap": True,
-                        "color": "#8c8c8c",
-                        "size": "xs",
-                        "flex": 5
+                        "weight": "bold",
+                        "size": "xl",
+                        "flex": 0
+                    },
+                    {
+                        "type": "text",
+                        "text": ".99",
+                        "wrap": True,
+                        "weight": "bold",
+                        "size": "sm",
+                        "flex": 0
                     }
                     ]
                 }
                 ]
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "button",
+                    "style": "primary",
+                    "action": {
+                    "type": "uri",
+                    "label": "Add to Cart",
+                    "uri": "https://linecorp.com"
+                    }
+                },
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "uri",
+                    "label": "Add to wishlist",
+                    "uri": "https://linecorp.com"
+                    }
+                }
+                ]
             }
-            ],
-            "spacing": "sm",
-            "paddingAll": "13px"
+            },
+            {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "size": "full",
+                "aspectRatio": "20:13",
+                "aspectMode": "cover",
+                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_6_carousel.png"
+            },
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "Metal Desk Lamp",
+                    "wrap": True,
+                    "weight": "bold",
+                    "size": "xl"
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "flex": 1,
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "$11",
+                        "wrap": True,
+                        "weight": "bold",
+                        "size": "xl",
+                        "flex": 0
+                    },
+                    {
+                        "type": "text",
+                        "text": ".99",
+                        "wrap": True,
+                        "weight": "bold",
+                        "size": "sm",
+                        "flex": 0
+                    }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "text": "Temporarily out of stock",
+                    "wrap": True,
+                    "size": "xxs",
+                    "margin": "md",
+                    "color": "#ff5551",
+                    "flex": 0
+                }
+                ]
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "button",
+                    "flex": 2,
+                    "style": "primary",
+                    "color": "#aaaaaa",
+                    "action": {
+                    "type": "uri",
+                    "label": "Add to Cart",
+                    "uri": "https://linecorp.com"
+                    }
+                },
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "uri",
+                    "label": "Add to wish list",
+                    "uri": "https://linecorp.com"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "button",
+                    "flex": 1,
+                    "gravity": "center",
+                    "action": {
+                    "type": "uri",
+                    "label": "See more",
+                    "uri": "https://linecorp.com"
+                    }
+                }
+                ]
+            }
+            }
+        ]
         }
-        }
-    ]
-    }
     )
     return flex_message
-
-# con = ConnectDB('Line Data')
-# with con.begin() as conn:
-#     qry = sa.text('''SELECT Name,TaxId,[Firstname] FROM [Line Data].[dbo].[Profile Line] PL INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-#      WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
-#      ''')
-#     resultset = conn.execute(qry)
-#     results_as_dict = resultset.mappings().all()
-#     for i in results_as_dict:
-#         print(i['Firstname'])
-#         flex_message = Allvalue(i['Firstname'])
-#         print(flex_message)

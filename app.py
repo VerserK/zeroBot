@@ -48,9 +48,10 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
             for i in results_as_dict:
-                testname = i['Firstname']
-                flex_message = Allvalue(testname)
-                return line_bot_api.reply_message(event.reply_token,flex_message)
+                TaxID = i['TaxId']
+                VIN = i['VIN']
+                flex_message = Allvalue(TaxID,VIN)
+                line_bot_api.reply_message(event.reply_token,flex_message)
         # line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
