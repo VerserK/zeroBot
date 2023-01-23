@@ -189,30 +189,3 @@ def testbub(VIN):
     }
     }
     return bub
-
-# con = ConnectDB('Line Data')
-# with con.begin() as conn:
-#     qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-#     WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
-#     ''')
-#     resultset = conn.execute(qry)
-#     results_as_dict = resultset.mappings().all()
-#     bubbleJson = ''
-#     # for i in results_as_dict:
-#         # ProductType = i['Product Type']
-#         # Model = i['Model']
-#         # VIN = i['VIN']
-#         # UsageHour = i['Usage Hours']
-#         # SaleDate = i['Sale Date']
-#     #     # bubbleJson = bubbleJson+str(bubble(i['Product Type'],i['Model'],i['VIN'],i['Usage Hours'],i['Sale Date']))
-#     #     bubbleJson = bubbleJson+str(testbub(i['VIN']))
-#     #     bubbleJson = re.sub(r'[()]', '', bubbleJson)
-#     for i in results_as_dict:
-#         ProductType = i['Product Type']
-#         Model = i['Model']
-#         VIN = i['VIN']
-#         UsageHour = i['Usage Hours']
-#         SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-#         bubbleJsonZ = bubble(ProductType,Model,VIN,UsageHour,SaleDate)
-#     flex_message = Allvalue(bubbleJsonZ)
-#     print(flex_message)
