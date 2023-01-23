@@ -42,7 +42,7 @@ def handle_message(event):
     if text == 'ดูข้อมูลรถทั้งหมด':
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text('''SELECT Name,TaxId,[Firstname] FROM [Line Data].[dbo].[Profile Line] PL INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+            qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
             ''')
             resultset = conn.execute(qry)
