@@ -11,8 +11,7 @@ from linebot.models import (
 import sqlalchemy as sa
 import urllib
 import pandas as pd
-import re
-import json
+import datetime
 
 def ConnectDB(db):
     #configure sql server
@@ -37,135 +36,9 @@ def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
     alt_text='hello',
     contents={
-    "type": "carousel",
-    "contents": [
-        {
-        "type": "bubble",
-        "hero": {
-            "type": "image",
-            "url": "https://www.w3schools.com/howto/img_avatar.png",
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "20:13"
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-            {
-                "type": "text",
-                "text": "ข้อมูลรถของคุณ",
-                "size": "xl",
-                "weight": "bold"
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "ผลิตภัณฑ์",
-                    "size": "sm",
-                    "flex": 1,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": "ProductType",
-                    "size": "sm",
-                    "flex": 1,
-                    "wrap": True,
-                    "color": "#666666"
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "รุ่น",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": "Model",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "หมายเลขรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": "VIN",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "ชั่วโมงสะสม 'เฉพาะรุ่น KIS'",
-                    "flex": 1,
-                    "wrap": True,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": "UsageHour",
-                    "flex": 1,
-                    "size": "sm",
-                    "wrap": True,
-                    "color": "#666666"
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "วันที่ซื้อรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": "SaleDate",
-                    "color": "#666666",
-                    "size": "sm",
-                    "wrap": True,
-                    "flex": 1
-                }
-                ]
-            }
-            ]
-        }
-        },
+  "type": "carousel",
+  "contents": [
+        bubbleJS
     ]
     }
     )
@@ -260,7 +133,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 "contents": [
                 {
                     "type": "text",
-                    "text": "ชั่วโมงสะสม 'เฉพาะรุ่น KIS'",
+                    "text": "ชั่วโมงสะสม (เฉพาะรุ่น KIS)",
                     "flex": 1,
                     "wrap": True,
                     "color": "#aaaaaa"
@@ -288,7 +161,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": SaleDate,
+                    "text": "วันที่ซื้อรถ(Para)",
                     "color": "#666666",
                     "size": "sm",
                     "wrap": True,
@@ -298,8 +171,24 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
             }
             ]
         }
-        },
+        }
     return bubbleJson
+
+def testbub(VIN):
+    bub = {
+    "type": "bubble",
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+        {
+            "type": "text",
+            "text": VIN
+        }
+        ]
+    }
+    }
+    return bub
 
 # con = ConnectDB('Line Data')
 # with con.begin() as conn:
@@ -309,14 +198,21 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
 #     resultset = conn.execute(qry)
 #     results_as_dict = resultset.mappings().all()
 #     bubbleJson = ''
+#     # for i in results_as_dict:
+#         # ProductType = i['Product Type']
+#         # Model = i['Model']
+#         # VIN = i['VIN']
+#         # UsageHour = i['Usage Hours']
+#         # SaleDate = i['Sale Date']
+#     #     # bubbleJson = bubbleJson+str(bubble(i['Product Type'],i['Model'],i['VIN'],i['Usage Hours'],i['Sale Date']))
+#     #     bubbleJson = bubbleJson+str(testbub(i['VIN']))
+#     #     bubbleJson = re.sub(r'[()]', '', bubbleJson)
 #     for i in results_as_dict:
 #         ProductType = i['Product Type']
 #         Model = i['Model']
 #         VIN = i['VIN']
 #         UsageHour = i['Usage Hours']
-#         SaleDate = i['Sale Date']
-#         bubbleJson = bubbleJson+str(bubble(i['Product Type'],i['Model'],i['VIN'],i['Usage Hours'],i['Sale Date']))
-#         bubbleJson = re.sub(r'[()]', '', bubbleJson)
-#     # y = json.dumps(bubbleJson)
-#     flex_message = Allvalue(bubbleJson)
+#         SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+#         bubbleJsonZ = bubble(ProductType,Model,VIN,UsageHour,SaleDate)
+#     flex_message = Allvalue(bubbleJsonZ)
 #     print(flex_message)
