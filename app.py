@@ -50,7 +50,8 @@ def handle_message(event):
         dfSelectVIN = dfSelectVIN.query("Tax_ID == @nameF")
         # flex_message = Allvalue(nameF)
         for index, row in dfSelectVIN.iterrows():
-            flex_message = Allvalue(row['Firstname'])
+            nameSend = row['Firstname']
+            flex_message = Allvalue(nameSend)
             line_bot_api.reply_message(event.reply_token,flex_message)
         # line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
