@@ -37,82 +37,144 @@ def Allvalue(TaxID,VIN):
     flex_message = FlexSendMessage(
     alt_text='hello',
     contents={
-    "type": "bubble",
-    "hero": {
-        "type": "image",
-        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-        "size": "full",
-        "aspectRatio": "20:13",
-        "aspectMode": "cover",
-        "action": {
-        "type": "uri",
-        "uri": "http://linecorp.com/"
-        }
-    },
-    "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
+    "type": "carousel",
+    "contents": [
         {
-            "type": "text",
-            "text": "Brown Cafe",
-            "weight": "bold",
-            "size": "xl"
+        "type": "bubble",
+        "hero": {
+            "type": "image",
+            "url": "https://www.w3schools.com/howto/img_avatar.png",
+            "size": "full",
+            "aspectMode": "cover",
+            "aspectRatio": "20:13"
         },
-        {
+        "body": {
             "type": "box",
             "layout": "vertical",
-            "margin": "lg",
-            "spacing": "sm",
             "contents": [
+            {
+                "type": "text",
+                "text": "ข้อมูลรถของคุณ",
+                "size": "xl",
+                "weight": "bold"
+            },
             {
                 "type": "box",
                 "layout": "baseline",
-                "spacing": "sm",
                 "contents": [
                 {
                     "type": "text",
-                    "text": "TaxID",
-                    "color": "#aaaaaa",
+                    "text": "ผลิตภัณฑ์",
                     "size": "sm",
-                    "flex": 1
+                    "flex": 1,
+                    "color": "#aaaaaa"
                 },
                 {
                     "type": "text",
-                    "text": TaxID,
-                    "wrap": True,
-                    "color": "#666666",
+                    "text": "ผลิตภัณฑ์(Para)",
                     "size": "sm",
-                    "flex": 5
+                    "flex": 1,
+                    "wrap": True,
+                    "color": "#666666"
                 }
                 ]
             },
             {
                 "type": "box",
                 "layout": "baseline",
-                "spacing": "sm",
                 "contents": [
                 {
                     "type": "text",
-                    "text": "VIN",
-                    "color": "#aaaaaa",
+                    "text": "รุ่น",
+                    "flex": 1,
                     "size": "sm",
-                    "flex": 1
+                    "color": "#aaaaaa"
                 },
                 {
                     "type": "text",
-                    "text": VIN,
+                    "text": "รุ่น(Para)",
+                    "flex": 1,
+                    "size": "sm",
+                    "color": "#666666",
+                    "wrap": True
+                }
+                ]
+            },
+            {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "หมายเลขรถ",
+                    "flex": 1,
+                    "size": "sm",
+                    "color": "#aaaaaa"
+                },
+                {
+                    "type": "text",
+                    "text": "หมายเลขรถ(Para)",
+                    "flex": 1,
+                    "size": "sm",
+                    "color": "#666666",
+                    "wrap": True
+                }
+                ]
+            },
+            {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "ชั่วโมงสะสม (เฉพาะรุ่น KIS)",
+                    "flex": 1,
                     "wrap": True,
+                    "color": "#aaaaaa"
+                },
+                {
+                    "type": "text",
+                    "text": "ชั่วโมงสะสม",
+                    "flex": 1,
+                    "size": "sm",
+                    "wrap": True,
+                    "color": "#666666"
+                }
+                ]
+            },
+            {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "วันที่ซื้อรถ",
+                    "flex": 1,
+                    "size": "sm",
+                    "color": "#aaaaaa"
+                },
+                {
+                    "type": "text",
+                    "text": "วันที่ซื้อรถ(Para)",
                     "color": "#666666",
                     "size": "sm",
-                    "flex": 5
+                    "wrap": True,
+                    "flex": 1
                 }
                 ]
             }
             ]
         }
-        ]
-    }
+        },
+        {
+        "type": "bubble",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": []
+        }
+        }
+    ]
     }
     )
     return flex_message
