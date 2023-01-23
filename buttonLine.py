@@ -36,11 +36,11 @@ def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
     alt_text='hello',
     contents={
-  "type": "carousel",
-  "contents": [
-        bubbleJS
-    ]
-    }
+        "type": "carousel",
+        "contents": [
+            bubbleJS
+        ]
+        }
     )
     return flex_message
 
