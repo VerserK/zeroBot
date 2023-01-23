@@ -56,7 +56,7 @@ def handle_message(event):
                 SaleDate = i['Sale Date'].strftime("%d %B, %Y")
                 bubbleJsonZ = bubble(ProductType,Model,VIN,UsageHour,SaleDate)
                 flex_message = Allvalue(bubbleJsonZ)
-                line_bot_api.reply_message(event.reply_token,flex_message)
+            line_bot_api.reply_message(event.reply_token,flex_message)
         # line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
