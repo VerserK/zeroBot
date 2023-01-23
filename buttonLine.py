@@ -161,7 +161,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": "วันที่ซื้อรถ(Para)",
+                    "text": SaleDate,
                     "color": "#666666",
                     "size": "sm",
                     "wrap": True,
