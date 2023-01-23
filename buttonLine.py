@@ -128,3 +128,16 @@ def Allvalue(nameF):
     }
     )
     return flex_message
+
+# df = ConnectDB('Line Data','Profile Line')
+# # profile = line_bot_api.get_profile(event.source.user_id)
+# userId = 'U97caf21a53b92919005e158b429c8c2b'
+# df = df.query('UserId == @userId')
+# TaxID = df['TaxId'].values[0]
+# dfSelectVIN = ConnectDB('CRM Data','ID_Address_Consent')
+# dfSelectVIN = dfSelectVIN.rename({'Tax ID': 'Tax_ID'}, axis=1) 
+# dfSelectVIN = dfSelectVIN.query("Tax_ID == @TaxID")
+# for index, row in dfSelectVIN.iterrows():
+#     flex_message = Allvalue(row['Firstname'])
+#     line_bot_api.reply_message(event.reply_token,flex_message)
+# #     print(flex_message)
