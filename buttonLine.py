@@ -12,7 +12,7 @@ import sqlalchemy as sa
 import urllib
 import pandas as pd
 
-def ConnectDB(db,table):
+def ConnectDB(db):
     #configure sql server
     server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
     database =  db
@@ -22,14 +22,14 @@ def ConnectDB(db,table):
     dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
     params = urllib.parse.quote_plus(dsn)
     engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
-    connection = engine.connect()
-    metadata = sa.MetaData()
-    tablename = sa.Table(table, metadata, autoload=True, autoload_with=engine)
-    query = sa.select([tablename])
-    ResultProxy = connection.execute(query)
-    ResultSet = ResultProxy.fetchall()
-    df = pd.DataFrame(ResultSet)
-    return df
+    # connection = engine.connect()
+    # metadata = sa.MetaData()
+    # tablename = sa.Table(table, metadata, autoload=True, autoload_with=engine)
+    # query = sa.select([tablename])
+    # ResultProxy = connection.execute(query)
+    # ResultSet = ResultProxy.fetchall()
+    # df = pd.DataFrame(ResultSet)
+    return engine
 
 def Allvalue(nameF):
     nameF = nameF
@@ -129,15 +129,14 @@ def Allvalue(nameF):
     )
     return flex_message
 
-# df = ConnectDB('Line Data','Profile Line')
-# # profile = line_bot_api.get_profile(event.source.user_id)
-# userId = 'U97caf21a53b92919005e158b429c8c2b'
-# df = df.query('UserId == @userId')
-# TaxID = df['TaxId'].values[0]
-# dfSelectVIN = ConnectDB('CRM Data','ID_Address_Consent')
-# dfSelectVIN = dfSelectVIN.rename({'Tax ID': 'Tax_ID'}, axis=1) 
-# dfSelectVIN = dfSelectVIN.query("Tax_ID == @TaxID")
-# for index, row in dfSelectVIN.iterrows():
-#     flex_message = Allvalue(row['Firstname'])
-#     line_bot_api.reply_message(event.reply_token,flex_message)
-# #     print(flex_message)
+# con = ConnectDB('Line Data')
+# with con.begin() as conn:
+#     qry = sa.text('''SELECT Name,TaxId,[Firstname] FROM [Line Data].[dbo].[Profile Line] PL INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+#      WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
+#      ''')
+#     resultset = conn.execute(qry)
+#     results_as_dict = resultset.mappings().all()
+#     for i in results_as_dict:
+#         print(i['Firstname'])
+#         flex_message = Allvalue(i['Firstname'])
+#         print(flex_message)

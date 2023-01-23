@@ -40,18 +40,16 @@ def callback():
 def handle_message(event):
     text = event.message.text
     if text == 'ดูข้อมูลรถทั้งหมด':
-        df = ConnectDB('Line Data','Profile Line')
-        profile = line_bot_api.get_profile(event.source.user_id)
-        userId = profile.user_id
-        df = df.query('UserId == @userId')
-        TaxID = df['TaxId'].values[0]
-        dfSelectVIN = ConnectDB('CRM Data','ID_Address_Consent')
-        dfSelectVIN = dfSelectVIN.rename({'Tax ID': 'Tax_ID'}, axis=1) 
-        dfSelectVIN = dfSelectVIN.query("Tax_ID == @TaxID")
-        # flex_message = Allvalue(nameF)
-        for index, row in dfSelectVIN.iterrows():
-            flex_message = Allvalue(row['Firstname'])
-            line_bot_api.reply_message(event.reply_token,flex_message)
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text('''SELECT Name,TaxId,[Firstname] FROM [Line Data].[dbo].[Profile Line] PL INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+            WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
+            ''')
+            resultset = conn.execute(qry)
+            results_as_dict = resultset.mappings().all()
+            for i in results_as_dict:
+                flex_message = Allvalue(i['Firstname'])
+                line_bot_api.reply_message(event.reply_token,flex_message)
         # line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
