@@ -80,7 +80,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                     "text": ProductType,
                     "size": "sm",
                     "flex": 1,
-                    "wrap": True,
+                    "wrap": True, 
                     "color": "#666666"
                 }
                 ]
@@ -174,18 +174,11 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
         }
     return bubbleJson
 
-def testbub(VIN):
-    bub = {
-    "type": "bubble",
-    "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-        {
-            "type": "text",
-            "text": VIN
-        }
-        ]
-    }
-    }
-    return bub
+# ProductType = 'MINI EXCAVATOR'
+# Model = 'KX033-4 KIS'
+# VIN = 'KBCCZ494VM3F30232'
+# UsageHour = '919'
+# SaleDate = '2565-01-15'
+# bubbleJsonZ = bubble(ProductType,Model,VIN,UsageHour,SaleDate)
+# flex_message = Allvalue(bubbleJsonZ)
+# print(flex_message)
