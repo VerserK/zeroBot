@@ -173,8 +173,13 @@ def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate):
         }
     return bubbleJson
 
-def CellButtonSelectByVIN(VIN):
-    CallButton = {
+def callButtonBody(bodyVIN):
+    flex_message = FlexSendMessage(
+    alt_text='hello',
+    contents={
+        "type": "carousel",
+        "contents": [
+            {
         "type": "bubble",
         "size": "giga",
         "header": {
@@ -195,7 +200,17 @@ def CellButtonSelectByVIN(VIN):
             "type": "box",
             "layout": "vertical",
             "contents": [
-            {
+                bodyVIN
+            ]
+        }
+        }
+        ]
+        }
+    )
+    return flex_message
+
+def CallButtonSelectByVIN(VIN):
+    CallButton = {
                 "type": "button",
                 "action": {
                 "type": "message",
@@ -206,7 +221,4 @@ def CellButtonSelectByVIN(VIN):
                 "color": "#343A3A",
                 "margin": "sm"
             }
-            ]
-        }
-        }
     return CallButton

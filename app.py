@@ -104,8 +104,8 @@ def handle_message(event):
             CallButtonJson = []
             for i in results_as_dict:
                 VIN = i['VIN']
-                CallButtonJson.append(CellButtonSelectByVIN(VIN))
-            flex_message = Allvalue(CallButtonJson)
+                CallButtonJson.append(CallButtonSelectByVIN(VIN))
+            flex_message = callButtonBody(CallButtonJson)
             line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
