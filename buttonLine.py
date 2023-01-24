@@ -75,7 +75,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": "ผลิตภัณฑ์(Para)",
+                    "text": ProductType,
                     "size": "sm",
                     "flex": 1,
                     "wrap": True,
@@ -96,7 +96,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": "รุ่น(Para)",
+                    "text": Model,
                     "flex": 1,
                     "size": "sm",
                     "color": "#666666",
@@ -117,7 +117,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": "หมายเลขรถ(Para)",
+                    "text": VIN,
                     "flex": 1,
                     "size": "sm",
                     "color": "#666666",
@@ -138,7 +138,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": "ชั่วโมงสะสม",
+                    "text": UsageHour,
                     "flex": 1,
                     "size": "sm",
                     "wrap": True,
@@ -159,7 +159,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": "วันที่ซื้อรถ(Para)",
+                    "text": SaleDate,
                     "color": "#666666",
                     "size": "sm",
                     "wrap": True,
