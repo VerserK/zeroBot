@@ -43,156 +43,173 @@ def Allvalue(bubbleJS):
     return flex_message
 
 def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
-    bubbleJson = [{
-        "type": "bubble",
-        "hero": {
-            "type": "image",
-            "url": "https://www.w3schools.com/howto/img_avatar.png",
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "20:13"
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-            {
-                "type": "text",
-                "text": "ข้อมูลรถของคุณ",
-                "size": "xl",
-                "weight": "bold"
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "ผลิตภัณฑ์",
-                    "size": "sm",
-                    "flex": 1,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": ProductType,
-                    "size": "sm",
-                    "flex": 1,
-                    "wrap": True, 
-                    "color": "#666666"
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "รุ่น",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": Model,
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "หมายเลขรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": VIN,
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "ชั่วโมงสะสม (เฉพาะรุ่น KIS)",
-                    "flex": 1,
-                    "wrap": True,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": UsageHour,
-                    "flex": 1,
-                    "size": "sm",
-                    "wrap": True,
-                    "color": "#666666"
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "วันที่ซื้อรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": SaleDate,
-                    "color": "#666666",
-                    "size": "sm",
-                    "wrap": True,
-                    "flex": 1
-                }
-                ]
-            }
-            ]
-        }
-        },
-        {
+    # bubbleJson = {
+    #     "type": "bubble",
+    #     "hero": {
+    #         "type": "image",
+    #         "url": "https://www.w3schools.com/howto/img_avatar.png",
+    #         "size": "full",
+    #         "aspectMode": "cover",
+    #         "aspectRatio": "20:13"
+    #     },
+    #     "body": {
+    #         "type": "box",
+    #         "layout": "vertical",
+    #         "contents": [
+    #         {
+    #             "type": "text",
+    #             "text": "ข้อมูลรถของคุณ",
+    #             "size": "xl",
+    #             "weight": "bold"
+    #         },
+    #         {
+    #             "type": "box",
+    #             "layout": "baseline",
+    #             "contents": [
+    #             {
+    #                 "type": "text",
+    #                 "text": "ผลิตภัณฑ์",
+    #                 "size": "sm",
+    #                 "flex": 1,
+    #                 "color": "#aaaaaa"
+    #             },
+    #             {
+    #                 "type": "text",
+    #                 "text": ProductType,
+    #                 "size": "sm",
+    #                 "flex": 1,
+    #                 "wrap": True, 
+    #                 "color": "#666666"
+    #             }
+    #             ]
+    #         },
+    #         {
+    #             "type": "box",
+    #             "layout": "baseline",
+    #             "contents": [
+    #             {
+    #                 "type": "text",
+    #                 "text": "รุ่น",
+    #                 "flex": 1,
+    #                 "size": "sm",
+    #                 "color": "#aaaaaa"
+    #             },
+    #             {
+    #                 "type": "text",
+    #                 "text": Model,
+    #                 "flex": 1,
+    #                 "size": "sm",
+    #                 "color": "#666666",
+    #                 "wrap": True
+    #             }
+    #             ]
+    #         },
+    #         {
+    #             "type": "box",
+    #             "layout": "baseline",
+    #             "contents": [
+    #             {
+    #                 "type": "text",
+    #                 "text": "หมายเลขรถ",
+    #                 "flex": 1,
+    #                 "size": "sm",
+    #                 "color": "#aaaaaa"
+    #             },
+    #             {
+    #                 "type": "text",
+    #                 "text": VIN,
+    #                 "flex": 1,
+    #                 "size": "sm",
+    #                 "color": "#666666",
+    #                 "wrap": True
+    #             }
+    #             ]
+    #         },
+    #         {
+    #             "type": "box",
+    #             "layout": "baseline",
+    #             "contents": [
+    #             {
+    #                 "type": "text",
+    #                 "text": "ชั่วโมงสะสม (เฉพาะรุ่น KIS)",
+    #                 "flex": 1,
+    #                 "wrap": True,
+    #                 "color": "#aaaaaa"
+    #             },
+    #             {
+    #                 "type": "text",
+    #                 "text": UsageHour,
+    #                 "flex": 1,
+    #                 "size": "sm",
+    #                 "wrap": True,
+    #                 "color": "#666666"
+    #             }
+    #             ]
+    #         },
+    #         {
+    #             "type": "box",
+    #             "layout": "baseline",
+    #             "contents": [
+    #             {
+    #                 "type": "text",
+    #                 "text": "วันที่ซื้อรถ",
+    #                 "flex": 1,
+    #                 "size": "sm",
+    #                 "color": "#aaaaaa"
+    #             },
+    #             {
+    #                 "type": "text",
+    #                 "text": SaleDate,
+    #                 "color": "#666666",
+    #                 "size": "sm",
+    #                 "wrap": True,
+    #                 "flex": 1
+    #             }
+    #             ]
+    #         }
+    #         ]
+    #     }
+    #     },
+    #     {
+    #     "type": "bubble",
+    #     "body": {
+    #         "type": "box",
+    #         "layout": "vertical",
+    #         "contents": []
+    #     }
+    #     },
+    #     {
+    #     "type": "bubble",
+    #     "body": {
+    #         "type": "box",
+    #         "layout": "vertical",
+    #         "contents": []
+    #     }
+    #     }
+    bubbleJson = {
         "type": "bubble",
         "body": {
             "type": "box",
             "layout": "vertical",
             "contents": []
         }
-        },
-        {
-        "type": "bubble",
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": []
         }
-        }]
     return bubbleJson
-
-ProductType = 'MINI EXCAVATOR'
-Model = 'KX033-4 KIS'
-VIN = 'KBCCZ494VM3F30232'
-UsageHour = '919'
-SaleDate = '2565-01-15'
-bubbleJsonZ = bubble(ProductType,Model,VIN,UsageHour,SaleDate)
-flex_message = Allvalue(bubbleJsonZ)
-print(flex_message)
+# con = ConnectDB('Line Data')
+# with con.begin() as conn:
+#     qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
+#     INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+#     WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
+#     ''')
+#     resultset = conn.execute(qry)
+#     results_as_dict = resultset.mappings().all()
+#     bubbleJsonZ = []
+#     for i in results_as_dict:
+#         ProductType = i['Product Type']
+#         Model = i['Model']
+#         VIN = i['VIN']
+#         UsageHour = i['Usage Hours']
+#         SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+#         bubbleJsonZ.append(bubble(ProductType,Model,VIN,UsageHour,SaleDate))
+#     flex_message = Allvalue(bubbleJsonZ)
+#     print(flex_message)
