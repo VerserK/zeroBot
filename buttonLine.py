@@ -169,140 +169,22 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
             }
             ]
         }
-        }],[{
-        "type": "bubble",
-        "hero": {
-            "type": "image",
-            "url": "https://www.w3schools.com/howto/img_avatar.png",
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "20:13"
         },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-            {
-                "type": "text",
-                "text": "ข้อมูลรถของคุณ",
-                "size": "xl",
-                "weight": "bold"
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "ผลิตภัณฑ์",
-                    "size": "sm",
-                    "flex": 1,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": ProductType,
-                    "size": "sm",
-                    "flex": 1,
-                    "wrap": True, 
-                    "color": "#666666"
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "รุ่น",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": Model,
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "หมายเลขรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": VIN,
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "ชั่วโมงสะสม (เฉพาะรุ่น KIS)",
-                    "flex": 1,
-                    "wrap": True,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": UsageHour,
-                    "flex": 1,
-                    "size": "sm",
-                    "wrap": True,
-                    "color": "#666666"
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                {
-                    "type": "text",
-                    "text": "วันที่ซื้อรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": SaleDate,
-                    "color": "#666666",
-                    "size": "sm",
-                    "wrap": True,
-                    "flex": 1
-                }
-                ]
-            }
-            ]
-        }
-        }]
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": []
+      }
+    }]
     return bubbleJson
 
-# ProductType = 'MINI EXCAVATOR'
-# Model = 'KX033-4 KIS'
-# VIN = 'KBCCZ494VM3F30232'
-# UsageHour = '919'
-# SaleDate = '2565-01-15'
-# bubbleJsonZ = bubble(ProductType,Model,VIN,UsageHour,SaleDate)
-# flex_message = Allvalue(bubbleJsonZ)
-# print(flex_message)
+ProductType = 'MINI EXCAVATOR'
+Model = 'KX033-4 KIS'
+VIN = 'KBCCZ494VM3F30232'
+UsageHour = '919'
+SaleDate = '2565-01-15'
+bubbleJsonZ = bubble(ProductType,Model,VIN,UsageHour,SaleDate)
+flex_message = Allvalue(bubbleJsonZ)
+print(flex_message)
