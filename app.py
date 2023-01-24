@@ -41,11 +41,12 @@ def callback():
 def handle_message(event):
     text = event.message.text
     if text == 'ดูข้อมูลรถทั้งหมด':
+        userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-            WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
+            WHERE UserId = @userid
             ''')
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
@@ -88,6 +89,8 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
+    elif text == 'ค้นหารถ':
+        pass
     else:
         line_bot_api.reply_message(
         event.reply_token,
