@@ -75,7 +75,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": ProductType,
+                    "text": str(ProductType),
                     "size": "sm",
                     "flex": 1,
                     "wrap": True,
@@ -96,7 +96,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": Model,
+                    "text": str(Model),
                     "flex": 1,
                     "size": "sm",
                     "color": "#666666",
@@ -117,7 +117,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": VIN,
+                    "text": str(VIN),
                     "flex": 1,
                     "size": "sm",
                     "color": "#666666",
@@ -138,7 +138,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": UsageHour,
+                    "text": str(UsageHour),
                     "flex": 1,
                     "size": "sm",
                     "wrap": True,
@@ -159,7 +159,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": SaleDate,
+                    "text": str(SaleDate),
                     "color": "#666666",
                     "size": "sm",
                     "wrap": True,
@@ -181,21 +181,21 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
     #     }
     #     }
     return bubbleJson
-# con = ConnectDB('Line Data')
-# with con.begin() as conn:
-#     qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
-#     INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-#     WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
-#     ''')
-#     resultset = conn.execute(qry)
-#     results_as_dict = resultset.mappings().all()
-#     bubbleJsonZ = []
-#     for i in results_as_dict:
-#         ProductType = i['Product Type']
-#         Model = i['Model']
-#         VIN = i['VIN']
-#         UsageHour = i['Usage Hours']
-#         SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-#         bubbleJsonZ.append(bubble(ProductType,Model,VIN,UsageHour,SaleDate))
-#     flex_message = Allvalue(bubbleJsonZ)
-#     print(flex_message)
+con = ConnectDB('Line Data')
+with con.begin() as conn:
+    qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
+    INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+    WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
+    ''')
+    resultset = conn.execute(qry)
+    results_as_dict = resultset.mappings().all()
+    bubbleJsonZ = []
+    for i in results_as_dict:
+        ProductType = i['Product Type']
+        Model = i['Model']
+        VIN = i['VIN']
+        UsageHour = i['Usage Hours']
+        SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+        bubbleJsonZ.append(bubble(ProductType,Model,VIN,UsageHour,SaleDate))
+    flex_message = Allvalue(bubbleJsonZ)
+    print(flex_message)
