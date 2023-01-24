@@ -169,7 +169,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
             }
             ]
         },
-        "size": "micro"
+        "size": "kilo"
         }
 
     # bubbleJson = {
