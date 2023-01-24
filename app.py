@@ -41,6 +41,7 @@ def callback():
 def handle_message(event):
     text = event.message.text
     if text == 'ดูข้อมูลรถทั้งหมด':
+        profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
