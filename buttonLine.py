@@ -42,12 +42,12 @@ def Allvalue(bubbleJS):
     )
     return flex_message
 
-def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
+def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate):
     bubbleJson =  {
         "type": "bubble",
         "hero": {
             "type": "image",
-            "url": "https://www.w3schools.com/howto/img_avatar.png",
+            "url": str(url),
             "size": "full",
             "aspectMode": "cover",
             "aspectRatio": "20:13"

@@ -52,11 +52,19 @@ def handle_message(event):
             bubbleJsonZ = []
             for i in results_as_dict:
                 ProductType = i['Product Type']
+                if ProductType == 'TRACTOR':
+                    url = 'https://sv1.img.in.th/eQ7GO.png'
+                elif ProductType == 'MINI EXCAVATOR':
+                    url = 'https://sv1.img.in.th/eQhBY.png'
+                elif ProductType == 'RICE TRANSPLANTER':
+                    url = 'https://sv1.img.in.th/eQrpf.png'
+                elif ProductType == 'COMBINE HARVESTER':
+                    url = 'https://sv1.img.in.th/e0pbC.png'
                 Model = i['Model']
                 VIN = i['VIN']
                 UsageHour = i['Usage Hours']
                 SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-                bubbleJsonZ.append(bubble(ProductType,Model,VIN,UsageHour,SaleDate))
+                bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
             flex_message = Allvalue(bubbleJsonZ)
             line_bot_api.reply_message(event.reply_token,flex_message)
         # line_bot_api.reply_message(event.reply_token,flex_message)
