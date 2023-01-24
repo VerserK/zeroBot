@@ -172,29 +172,41 @@ def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate):
         "size": "kilo"
         }
     return bubbleJson
-# con = ConnectDB('Line Data')
-# with con.begin() as conn:
-#     qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
-#     INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-#     WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b'
-#     ''')
-#     resultset = conn.execute(qry)
-#     results_as_dict = resultset.mappings().all()
-#     bubbleJsonZ = []
-#     for i in results_as_dict:
-#         ProductType = i['Product Type']
-#         if ProductType == 'TRACTOR':
-#             url = 'https://sv1.img.in.th/eQ7GO.png'
-#         elif ProductType == 'MINI EXCAVATOR':
-#             url = 'https://sv1.img.in.th/eQhBY.png'
-#         elif ProductType == 'RICE TRANSPLANTER':
-#             url = 'https://sv1.img.in.th/eQrpf.png'
-#         elif ProductType == 'COMBINE HARVESTER':
-#             url = 'https://sv1.img.in.th/e0pbC.png'
-#         Model = i['Model']
-#         VIN = i['VIN']
-#         UsageHour = i['Usage Hours']
-#         SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-#         bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
-# flex_message = Allvalue(bubbleJsonZ)
-# print(flex_message)
+
+def CellButtonSelectByVIN(VIN):
+    CallButton = {
+        "type": "bubble",
+        "size": "giga",
+        "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "เลือกรถของคุณ",
+                "color": "#FFFFFF",
+                "size": "xl",
+                "align": "center"
+            }
+            ],
+            "backgroundColor": "#00A8A9"
+        },
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "button",
+                "action": {
+                "type": "message",
+                "label": str(VIN),
+                "text": "hello"
+                },
+                "style": "primary",
+                "color": "#343A3A",
+                "margin": "sm"
+            }
+            ]
+        }
+        }
+    return CallButton

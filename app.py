@@ -91,7 +91,22 @@ def handle_message(event):
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
     elif text == 'ค้นหารถ':
-        pass
+        profile = line_bot_api.get_profile(event.source.user_id)
+        userid = profile.user_id
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
+            INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+            WHERE UserId = (:userid)
+            ''')
+            resultset = conn.execute(qry, userid=userid)
+            results_as_dict = resultset.mappings().all()
+            CallButtonJson = []
+            for i in results_as_dict:
+                VIN = i['VIN']
+                CallButtonJson.append(CellButtonSelectByVIN(VIN))
+            flex_message = Allvalue(CallButtonJson)
+            line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
         event.reply_token,
