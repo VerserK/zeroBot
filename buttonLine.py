@@ -43,7 +43,7 @@ def Allvalue(bubbleJS):
     return flex_message
 
 def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
-    bubbleJson = {
+    bubbleJson =  {
         "type": "bubble",
         "hero": {
             "type": "image",
@@ -75,10 +75,10 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": ProductType,
+                    "text": "ผลิตภัณฑ์(Para)",
                     "size": "sm",
                     "flex": 1,
-                    "wrap": True, 
+                    "wrap": True,
                     "color": "#666666"
                 }
                 ]
@@ -96,7 +96,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": Model,
+                    "text": "รุ่น(Para)",
                     "flex": 1,
                     "size": "sm",
                     "color": "#666666",
@@ -117,7 +117,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": VIN,
+                    "text": "หมายเลขรถ(Para)",
                     "flex": 1,
                     "size": "sm",
                     "color": "#666666",
@@ -138,7 +138,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": UsageHour,
+                    "text": "ชั่วโมงสะสม",
                     "flex": 1,
                     "size": "sm",
                     "wrap": True,
@@ -159,7 +159,7 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 },
                 {
                     "type": "text",
-                    "text": SaleDate,
+                    "text": "วันที่ซื้อรถ(Para)",
                     "color": "#666666",
                     "size": "sm",
                     "wrap": True,
@@ -168,8 +168,10 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
                 ]
             }
             ]
+        },
+        "size": "micro"
         }
-        }
+
     # bubbleJson = {
     #     "type": "bubble",
     #     "body": {
