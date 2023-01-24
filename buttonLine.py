@@ -11,7 +11,6 @@ from linebot.models import (
 import sqlalchemy as sa
 import urllib
 import pandas as pd
-import datetime
 
 def ConnectDB(db):
     #configure sql server
@@ -213,26 +212,10 @@ def CallButtonSelectByVIN(VIN):
                 "action": {
                 "type": "message",
                 "label": str(VIN),
-                "text": "hello"
+                "text": "เลือกรหัส | "+str(VIN)
                 },
                 "style": "primary",
                 "color": "#343A3A",
                 "margin": "sm"
             }
     return CallButton
-
-# userid = 'U97caf21a53b92919005e158b429c8c2b'
-# con = ConnectDB('Line Data')
-# with con.begin() as conn:
-#     qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
-#     INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-#     WHERE UserId = (:userid)
-#     ''')
-#     resultset = conn.execute(qry, userid=userid)
-#     results_as_dict = resultset.mappings().all()
-#     CallButtonJson = []
-#     for i in results_as_dict:
-#         VIN = i['VIN']
-#         CallButtonJson.append(CallButtonSelectByVIN(VIN))
-#     flex_message = callButtonBody(CallButtonJson)
-#     print(CallButtonJson)

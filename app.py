@@ -107,6 +107,15 @@ def handle_message(event):
                 CallButtonJson.append(CallButtonSelectByVIN(VIN))
             flex_message = callButtonBody(CallButtonJson)
             line_bot_api.reply_message(event.reply_token,flex_message)
+    elif 'เลือกรหัส' in text:
+        text = 'เลือกรหัส | L3608DT121858'
+        cleantext = text.split("|")
+        VINnumber = ''.join(cleantext[1])
+        VINnumber = VINnumber.lstrip()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(VINnumber=event.message.text))
+        # con = ConnectDB('KIS Data')
+        # with con.begin() as conn:
+        #     qry = sa.text(''' SELECT * FROM  ''')
     else:
         line_bot_api.reply_message(
         event.reply_token,
