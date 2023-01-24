@@ -170,14 +170,22 @@ def bubble(ProductType,Model,VIN,UsageHour,SaleDate):
             ]
         }
         },
-    {
-      "type": "bubble",
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": []
-      }
-    }]
+        {
+        "type": "bubble",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": []
+        }
+        },
+        {
+        "type": "bubble",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": []
+        }
+        }]
     return bubbleJson
 
 ProductType = 'MINI EXCAVATOR'
