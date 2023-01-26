@@ -5,7 +5,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage
+    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,LocationSendMessage
 )
 
 import sqlalchemy as sa
@@ -300,6 +300,15 @@ def CallLocVINText(ProductType,EquipmentName,Address):
     }
     return Callloc
 
+def locMap(EquipmentName,latitude,longitude,Address):
+    location_message = LocationSendMessage(
+    title=str(EquipmentName),
+    address=str(Address),
+    latitude=str(latitude),
+    longitude=str(longitude)
+    )
+    return location_message
+
 # text = 'เลือกรหัส | KBCDZ552HL3F61515'
 # cleantext = text.split("|")
 # VINnumber = ''.join(cleantext[1])
@@ -334,6 +343,7 @@ def CallLocVINText(ProductType,EquipmentName,Address):
 #             print('รถของคุณไม่ถูกใช้งานในวันนี้ ทำให้ไม่สามารถระบุตำแหน่งปัจจุบันได้')
 #         else:
 #             queryEngineLocationAgg = []
+#             locMaplist = []
 #             for i in results_as_dict:
 #                 ProductType = i['Product Type']
 #                 EquipmentName = i['EquipmentName']
@@ -346,4 +356,5 @@ def CallLocVINText(ProductType,EquipmentName,Address):
 #                 Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
 #                 queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
 #             flex_message = Allvalue(queryEngineLocationAgg)
-#             print(flex_message)
+#             locMaplist.append(locMap(EquipmentName,latitude,longitude,Address))
+#             print(locMaplist)
