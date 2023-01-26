@@ -301,13 +301,14 @@ def CallLocVINText(ProductType,EquipmentName,Address):
     return Callloc
 
 def locMap(EquipmentName,latitude,longitude,Address):
-    location_message = LocationSendMessage(
-    title=str(EquipmentName),
-    address=str(Address),
-    latitude=str(latitude),
-    longitude=str(longitude)
-    )
-    return location_message
+    loc = {
+    "type": "location",
+    "title": str(EquipmentName),
+    "address": str(Address),
+    "latitude": str(latitude),
+    "longitude": str(longitude)
+    }
+    return loc
 
 # text = 'เลือกรหัส | KBCDZ552HL3F61515'
 # cleantext = text.split("|")
