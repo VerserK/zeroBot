@@ -69,7 +69,6 @@ def handle_message(event):
                 bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
             flex_message = Allvalue(bubbleJsonZ)
             line_bot_api.reply_message(event.reply_token,flex_message)
-        # line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
@@ -155,9 +154,10 @@ def handle_message(event):
                         Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
                         queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
                     flex_message = Allvalue(queryEngineLocationAgg)
-                    location_message = locMap(EquipmentName,latitude,longitude,Address)
-                    # line_bot_api.reply_message(event.reply_token,flex_message)
-                    line_bot_api.reply_message(event.reply_token,location_message)
+                    line_bot_api.reply_message(event.reply_token,flex_message)
+                    line_bot_api.reply_message(event.reply_token,LocationSendMessage(
+                    title=str(EquipmentName), address=str(Address),
+                    latitude=str(latitude), longitude=str(longitude)))
     else:
         line_bot_api.reply_message(
         event.reply_token,
