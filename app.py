@@ -125,8 +125,8 @@ def handle_message(event):
             vincheck =  con.execute(qryVIN, VINnumber=VINnumber)
             vincheck_dict = vincheck.mappings().all()
             if len(vincheck_dict) == 0:
-                text = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
+                noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:    
                 qry = sa.text(''' SELECT CRM.[Product Type] , KIS.[EquipmentName] , RAW.[latitude] , RAW.[longitude] , KIS.[SubDistrict] , KIS.[District] , KIS.[Province] , KIS.[Country] , KIS.[LastUpdate]
                     FROM [KIS Data].[dbo].[Engine_Location_Agg] KIS 
@@ -138,8 +138,8 @@ def handle_message(event):
                 results_as_dict = resultset.mappings().all()
                 print(results_as_dict)
                 if len(results_as_dict)==0:
-                    text = 'รถของคุณไม่ถูกใช้งานในวันนี้ ทำให้ไม่สามารถระบุตำแหน่งปัจจุบันได้'
-                    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
+                    noneLocation = 'รถของคุณไม่ถูกใช้งานในวันนี้ ทำให้ไม่สามารถระบุตำแหน่งปัจจุบันได้'
+                    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneLocation))
                 else:
                     queryEngineLocationAgg = []
                     for i in results_as_dict:
