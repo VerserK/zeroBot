@@ -155,7 +155,7 @@ def handle_message(event):
                         queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
                     flex_message = Allvalue(queryEngineLocationAgg)
                     line_bot_api.reply_message(event.reply_token,flex_message)
-                    line_bot_api.reply_message(event.reply_token,LocationSendMessage(title=str(EquipmentName), address=str(Address),latitude=str(latitude), longitude=str(longitude)))
+                    # line_bot_api.reply_message(event.reply_token,LocationSendMessage(title=str(EquipmentName), address=str(Address),latitude=str(latitude), longitude=str(longitude)))
     else:
         line_bot_api.reply_message(
         event.reply_token,
