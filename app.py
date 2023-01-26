@@ -143,7 +143,6 @@ def handle_message(event):
                     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
                 else:
                     queryEngineLocationAgg = []
-                    queryLoc = []
                     for i in results_as_dict:
                         ProductType = i['Product Type']
                         EquipmentName = i['EquipmentName']
@@ -155,9 +154,8 @@ def handle_message(event):
                         Country = i['Country']
                         Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
                         queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
-                        queryLoc.append(locMap(EquipmentName,latitude,longitude,Address))
                     flex_message = Allvalue(queryEngineLocationAgg)
-                    location_message = Allvalue(queryLoc)
+                    location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,flex_message)
                     line_bot_api.reply_message(event.reply_token,location_message)
     else:
