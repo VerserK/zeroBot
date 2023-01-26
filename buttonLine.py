@@ -299,7 +299,16 @@ def CallLocVINText(ProductType,EquipmentName,Address):
     }
     }
     return Callloc
-    
+
+def locMap(EquipmentName,latitude,longitude,Address):
+    loc = LocationSendMessage(
+    title=str(EquipmentName),
+    address=str(Address),
+    latitude=str(latitude),
+    longitude=str(longitude)
+    )
+    return loc
+
 # text = 'เลือกรหัส | KBCDZ552HL3F61515'
 # cleantext = text.split("|")
 # VINnumber = ''.join(cleantext[1])
