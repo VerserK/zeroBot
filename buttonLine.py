@@ -229,7 +229,8 @@ def CallLocVINText(ProductType,EquipmentName,Address):
         {
             "type": "text",
             "text": "เฉพาะรถที่ติด KIS เท่านั้น",
-            "size": "xs"
+            "size": "xs",
+            "align": "center"
         }
         ]
     },
@@ -244,14 +245,14 @@ def CallLocVINText(ProductType,EquipmentName,Address):
             {
                 "type": "text",
                 "text": "ผลิตภัณฑ์",
-                "size": "xs",
+                "size": "sm",
                 "color": "#aaaaaa"
             },
             {
                 "type": "text",
                 "text": str(ProductType),
                 "color": "#666666",
-                "size": "xs",
+                "size": "sm",
                 "wrap": True
             }
             ]
@@ -263,13 +264,13 @@ def CallLocVINText(ProductType,EquipmentName,Address):
             {
                 "type": "text",
                 "text": "หมายเลขรถ",
-                "size": "xs",
+                "size": "sm",
                 "color": "#aaaaaa"
             },
             {
                 "type": "text",
                 "text": str(EquipmentName),
-                "size": "xs",
+                "size": "sm",
                 "color": "#666666",
                 "wrap": True
             }
@@ -282,14 +283,14 @@ def CallLocVINText(ProductType,EquipmentName,Address):
             {
                 "type": "text",
                 "text": "ตำแหน่งรถปัจจุบัน",
-                "size": "xs",
+                "size": "sm",
                 "color": "#aaaaaa"
             },
             {
                 "type": "text",
                 "text": str(Address),
                 "color": "#666666",
-                "size": "xs",
+                "size": "sm",
                 "wrap": True
             }
             ]
