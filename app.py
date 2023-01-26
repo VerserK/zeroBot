@@ -157,7 +157,7 @@ def handle_message(event):
                     locMaplist = locMap(EquipmentName,latitude,longitude,Address)
                     flex_message = Allvalue(queryEngineLocationAgg)
                     line_bot_api.reply_message(event.reply_token,flex_message)
-                    line_bot_api.reply_message(event.reply_token,locMaplist)
+                    line_bot_api.push_message(event.reply_token,locMaplist)
     else:
         line_bot_api.reply_message(
         event.reply_token,
