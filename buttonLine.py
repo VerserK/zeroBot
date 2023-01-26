@@ -354,4 +354,5 @@ def locMap(EquipmentName,latitude,longitude,Address):
 #                 Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
 #                 queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
 #             flex_message = Allvalue(queryEngineLocationAgg)
-#             print(locMap(EquipmentName,latitude,longitude,Address))
+#             location_message = locMap(EquipmentName,latitude,longitude,Address)
+#             print(location_message)

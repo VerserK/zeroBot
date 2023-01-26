@@ -154,8 +154,8 @@ def handle_message(event):
                         Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
                         queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
                     flex_message = Allvalue(queryEngineLocationAgg)
-                    line_bot_api.reply_message(event.reply_token,flex_message)
-                    # line_bot_api.reply_message(event.reply_token,LocationSendMessage(title=str(EquipmentName), address=str(Address),latitude=str(latitude), longitude=str(longitude)))
+                    location_message = locMap(EquipmentName,latitude,longitude,Address)
+                    line_bot_api.reply_message(event.reply_token,flex_message,location_message)
     else:
         line_bot_api.reply_message(
         event.reply_token,
