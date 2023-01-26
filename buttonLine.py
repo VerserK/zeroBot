@@ -338,12 +338,10 @@ def locMap(EquipmentName,latitude,longitude,Address):
 #             ORDER BY LastUpdate OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ''')
 #         resultset = conn.execute(qry, VINnumber=VINnumber)
 #         results_as_dict = resultset.mappings().all()
-#         print(results_as_dict)
 #         if len(results_as_dict)==0:
 #             print('รถของคุณไม่ถูกใช้งานในวันนี้ ทำให้ไม่สามารถระบุตำแหน่งปัจจุบันได้')
 #         else:
 #             queryEngineLocationAgg = []
-#             locMaplist = []
 #             for i in results_as_dict:
 #                 ProductType = i['Product Type']
 #                 EquipmentName = i['EquipmentName']
@@ -356,5 +354,5 @@ def locMap(EquipmentName,latitude,longitude,Address):
 #                 Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
 #                 queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
 #             flex_message = Allvalue(queryEngineLocationAgg)
-#             locMaplist.append(locMap(EquipmentName,latitude,longitude,Address))
+#             locMaplist = locMap(EquipmentName,latitude,longitude,Address)
 #             print(locMaplist)
