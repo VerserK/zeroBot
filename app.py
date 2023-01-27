@@ -160,7 +160,7 @@ def handle_message(event):
     elif text == 'ทดลอง':
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qryVIN = sa.text('''SELECT * FROM [Line Data].[dbo].[Profile Line]''')
+            qryVIN = sa.text(''' SELECT * FROM [Line Data].[dbo].[Profile Line] ''')
             resultset = conn.execute(qryVIN)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
