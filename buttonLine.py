@@ -356,3 +356,19 @@ def locMap(EquipmentName,latitude,longitude,Address):
 #             flex_message = Allvalue(queryEngineLocationAgg)
 #             location_message = locMap(EquipmentName,latitude,longitude,Address)
 #             print(location_message)
+
+# con = ConnectDB('KIS Data')
+# conn = con.connect(close_with_result=True)
+# qry = sa.text(''' SELECT [Equipment_ID]
+#                     ,[Equipment_Name]
+#                     ,[Product]
+#                     ,[Subscription_End_Date]
+#                     ,[Subscription_Status]
+#                     ,[SKL]
+#                     ,[Subscription_Type]
+#                     ,[Subscription_Date]
+#                     ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ''')
+# result = conn.execute(qry, VINnumber = 'KBCCZ494VM3F30232')
+# results_as_dict = result.mappings().all()
+# for rows in results_as_dict:
+#     print(rows['Equipment_Name'])
