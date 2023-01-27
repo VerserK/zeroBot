@@ -163,7 +163,7 @@ def handle_message(event):
             ''')
             resultset = conn.execute(qry, userid=userid)
             results_as_dict = resultset.mappings().all()
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=results_as_dict))
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=conn))
     else:
         line_bot_api.reply_message(
         event.reply_token,
