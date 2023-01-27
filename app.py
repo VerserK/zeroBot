@@ -155,20 +155,8 @@ def handle_message(event):
                     location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
     elif text == 'ทดลอง':
-        con = ConnectDB('Line Data')
-        with con.begin() as conn:
-            qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
-            INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-            WHERE UserId = (:userid)
-            ''')
-            resultset = conn.execute(qry, userid=userid)
-            results_as_dict = resultset.mappings().all()
-            if len(results_as_dict)==0:
-                testcon = 'ไม่สามารถเชื่อมต่อ Database ได้'
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=testcon))
-            else:
-                testcon = 'สามารถเชื่อมต่อ Database ได้'
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=testcon))
+        name = testSelect('ส่งค่าไปดู')
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=name))
     else:
         line_bot_api.reply_message(
         event.reply_token,
