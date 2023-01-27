@@ -155,8 +155,19 @@ def handle_message(event):
                     location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
     elif text == 'ทดลอง':
-        name = testSelect('ส่งค่าไปดู')
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=name))
+        con = ConnectDB('tableauauto_db')
+        with con.begin() as conn:
+            qryVIN = sa.text(''' SELECT * 
+            FROM [admin]
+            ''')
+            resultset = conn.execute(qry, VINnumber=VINnumber)
+            results_as_dict = resultset.mappings().all()
+            if len(results_as_dict)==0:
+                name = testSelect('ส่งค่าไม่ไป')
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=name))
+            else:    
+                name = testSelect('ส่งค่าไปดู')
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=name))
     else:
         line_bot_api.reply_message(
         event.reply_token,
