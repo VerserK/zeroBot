@@ -122,7 +122,7 @@ def handle_message(event):
                     ,[Subscription_Date]
                     ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
             ''')
-            vincheck =  con.execute(qryVIN, VINnumber=VINnumber)
+            vincheck =  conn.execute(qryVIN, VINnumber=VINnumber)
             vincheck_dict = vincheck.mappings().all()
             if len(vincheck_dict) == 0:
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
