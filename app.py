@@ -14,16 +14,16 @@ from linebot.models import (
 import datetime
 from buttonLine import *
 
-app = Flask(__name__, static_url_path='', static_folder='frontend/build')
+app = Flask(__name__)
 api = Api(app)
 line_bot_api = LineBotApi('J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('7f9e03908fca984853b2fc322c1775c6')
 
 api.add_resource(HelloApiHandler, '/flask/hello')
 
-@app.route("/", defaults={'path':''})
-def serve(path):
-    return send_from_directory(app.static_folder,'index.html')
+# @app.route("/", defaults={'path':''})
+# def serve(path):
+#     return send_from_directory(app.static_folder,'index.html')
 
 @app.route("/callback", methods=['POST'])
 def callback():
