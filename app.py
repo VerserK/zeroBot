@@ -1,8 +1,5 @@
 from flask import Flask, request, abort
 from buttonLine import *
-from test import *
-import os
-import sys
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -178,6 +175,7 @@ def handle_message(event):
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+
 def rich_menu_object_a_json():
     return {
         "size": {
