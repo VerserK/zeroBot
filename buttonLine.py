@@ -309,10 +309,6 @@ def locMap(EquipmentName,latitude,longitude,Address):
     )
     return loc
 
-def testSelect(name):
-    name = name
-    return name
-
 # text = 'เลือกรหัส | KBCDZ552HL3F61515'
 # cleantext = text.split("|")
 # VINnumber = ''.join(cleantext[1])

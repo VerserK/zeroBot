@@ -9,12 +9,14 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage
 )
+import datetime
 from buttonLine import *
 
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('7f9e03908fca984853b2fc322c1775c6')
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -34,6 +36,7 @@ def callback():
 
     return 'OK'
 
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     text = event.message.text
@@ -42,13 +45,12 @@ def handle_message(event):
         userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text('''SELECT [Name],[TaxId],[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
+            qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = (:userid)
             ''')
             resultset = conn.execute(qry, userid=userid)
             results_as_dict = resultset.mappings().all()
-            print(results_as_dict)
             bubbleJsonZ = []
             for i in results_as_dict:
                 ProductType = i['Product Type']
@@ -92,7 +94,7 @@ def handle_message(event):
         userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text('''SELECT [Name],[TaxId],[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
+            qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = (:userid)
             ''')
@@ -118,7 +120,7 @@ def handle_message(event):
                     ,[SKL]
                     ,[Subscription_Type]
                     ,[Subscription_Date]
-                    ,[UpdateTime] FROM [KIS Data].[dbo].[Engine_Detail] KIS WHERE KIS.[Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
+                    ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
             ''')
             vincheck =  con.execute(qryVIN, VINnumber=VINnumber)
             vincheck_dict = vincheck.mappings().all()
@@ -154,18 +156,6 @@ def handle_message(event):
                     flex_message = Allvalue(queryEngineLocationAgg)
                     location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
-    elif text == 'ทดลอง':
-        con = ConnectDB('Line Data')
-        with con.begin() as conn:
-            qryVIN = sa.text(''' SELECT * FROM [Line Data].[dbo].[Profile Line] ''')
-            resultset = conn.execute(qryVIN)
-            results_as_dict = resultset.mappings().all()
-            if len(results_as_dict)==0:
-                name = testSelect('ส่งค่าไม่ไป')
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=name))
-            else:    
-                name = testSelect('ส่งค่าไปดู')
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=name))
     else:
         line_bot_api.reply_message(
         event.reply_token,
