@@ -160,8 +160,8 @@ def handle_message(event):
     elif text == 'ทดลอง':
         con = ConnectDB('tableauauto_db')
         with con.begin() as conn:
-            qryVIN = sa.text('''SELECT * FROM [dbo].[admin]''')
-            resultset = conn.execute(qry, VINnumber=VINnumber)
+            qryVIN = sa.text('''SELECT * FROM [admin]''')
+            resultset = conn.execute(qryVIN)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
                 name = testSelect('ส่งค่าไม่ไป')

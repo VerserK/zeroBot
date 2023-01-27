@@ -360,18 +360,3 @@ def testSelect(name):
 #             flex_message = Allvalue(queryEngineLocationAgg)
 #             location_message = locMap(EquipmentName,latitude,longitude,Address)
 #             print(location_message)
-
-# con = ConnectDB('Line Data')
-# with con.begin() as conn:
-#     qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
-#     INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-#     WHERE UserId = (:userid)
-#     ''')
-#     resultset = conn.execute(qry, userid='U97caf21a53b92919005e158b429c8c2b')
-#     results_as_dict = resultset.mappings().all()
-#     if len(results_as_dict)==0:
-#         testcon = 'ไม่สามารถเชื่อมต่อ Database ได้'
-#         print(testcon)
-#     else:
-#         testcon = 'สามารถเชื่อมต่อ Database ได้'
-#         print(testcon)
