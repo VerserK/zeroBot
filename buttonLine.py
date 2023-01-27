@@ -14,10 +14,10 @@ import pandas as pd
 
 def ConnectDB(db):
     #configure sql server
-    server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
+    server = 'tableauauto.database.windows.net'
     database =  db
-    username = 'skcadminuser'
-    password = 'DEE@skcdwhtocloud2022prd'
+    username = 'boon'
+    password = 'DEE@DA123'
     driver = '{ODBC Driver 17 for SQL Server}'
     dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
     params = urllib.parse.quote_plus(dsn)
