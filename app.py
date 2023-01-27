@@ -48,6 +48,7 @@ def handle_message(event):
             ''')
             resultset = conn.execute(qry, userid=userid)
             results_as_dict = resultset.mappings().all()
+            print(results_as_dict)
             bubbleJsonZ = []
             for i in results_as_dict:
                 ProductType = i['Product Type']
@@ -117,7 +118,7 @@ def handle_message(event):
                     ,[SKL]
                     ,[Subscription_Type]
                     ,[Subscription_Date]
-                    ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
+                    ,[UpdateTime] FROM [KIS Data].[dbo].[Engine_Detail] KIS WHERE KIS.[Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
             ''')
             vincheck =  con.execute(qryVIN, VINnumber=VINnumber)
             vincheck_dict = vincheck.mappings().all()
