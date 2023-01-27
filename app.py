@@ -158,9 +158,9 @@ def handle_message(event):
                     location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
     elif text == 'ทดลอง':
-        con = ConnectDB('tableauauto_db')
+        con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qryVIN = sa.text('''SELECT * FROM [admin]''')
+            qryVIN = sa.text('''SELECT * FROM [Line Data].[dbo].[Profile Line]''')
             resultset = conn.execute(qryVIN)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
