@@ -4,3 +4,4 @@ sqlalchemy
 urllib3
 pandas
 pyodbc
+flask_restful
