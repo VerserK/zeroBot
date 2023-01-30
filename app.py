@@ -49,7 +49,7 @@ def handle_message(event):
         with con.begin() as conn:
             qry = sa.text("SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
-            "WHERE UserId = "+ Userid
+            "WHERE PL.[UserId] = "+ Userid + ""
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
