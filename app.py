@@ -299,7 +299,7 @@ def main():
         areas=areas
     )
 
-    rich_menu_a_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_object_a)
+    rich_menu_a_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_a_create)
 
     # 3. Upload image to rich menu A
     with open('./public/1.png', 'rb') as f:
