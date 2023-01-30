@@ -309,30 +309,30 @@ def locMap(EquipmentName,latitude,longitude,Address):
     )
     return loc
 
-userid = 'U97caf21a53b92919005e158b429c8c2b'
-con = ConnectDB('Line Data')
-conn = con.connect(close_with_result=True)
-qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
-INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-WHERE UserId = (:userid)
-''')
-resultset = conn.execute(qry, userid=userid)
-results_as_dict = resultset.mappings().all()
-bubbleJsonZ = []
-for i in results_as_dict:
-    ProductType = i['Product Type']
-    if ProductType == 'TRACTOR':
-        url = 'https://sv1.img.in.th/eQ7GO.png'
-    elif ProductType == 'MINI EXCAVATOR':
-        url = 'https://sv1.img.in.th/eQhBY.png'
-    elif ProductType == 'RICE TRANSPLANTER':
-        url = 'https://sv1.img.in.th/eQrpf.png'
-    elif ProductType == 'COMBINE HARVESTER':
-        url = 'https://sv1.img.in.th/e0pbC.png'
-    Model = i['Model']
-    VIN = i['VIN']
-    UsageHour = i['Usage Hours']
-    SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-    bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
-flex_message = Allvalue(bubbleJsonZ)
-print(len(flex_message))
+# userid = 'U97caf21a53b92919005e158b429c8c2b'
+# con = ConnectDB('Line Data')
+# conn = con.connect(close_with_result=True)
+# qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
+# INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+# WHERE UserId = (:userid)
+# ''')
+# resultset = conn.execute(qry, userid=userid)
+# results_as_dict = resultset.mappings().all()
+# bubbleJsonZ = []
+# for i in results_as_dict:
+#     ProductType = i['Product Type']
+#     if ProductType == 'TRACTOR':
+#         url = 'https://sv1.img.in.th/eQ7GO.png'
+#     elif ProductType == 'MINI EXCAVATOR':
+#         url = 'https://sv1.img.in.th/eQhBY.png'
+#     elif ProductType == 'RICE TRANSPLANTER':
+#         url = 'https://sv1.img.in.th/eQrpf.png'
+#     elif ProductType == 'COMBINE HARVESTER':
+#         url = 'https://sv1.img.in.th/e0pbC.png'
+#     Model = i['Model']
+#     VIN = i['VIN']
+#     UsageHour = i['Usage Hours']
+#     SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+#     bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
+# flex_message = Allvalue(bubbleJsonZ)
+# print(len(flex_message))
