@@ -69,12 +69,8 @@ def handle_message(event):
                 UsageHour = i['Usage Hours']
                 SaleDate = i['Sale Date'].strftime("%d %B, %Y")
                 bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
-            # flex_message = Allvalue(bubbleJsonZ)
-            # line_bot_api.reply_message(event.reply_token,flex_message)
-            if len(bubbleJsonZ) == 0:
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ต่อ database ไม่ได้'))
-            else:
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=Userid))
+            flex_message = Allvalue(bubbleJsonZ)
+            line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
