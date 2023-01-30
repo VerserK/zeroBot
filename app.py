@@ -49,30 +49,37 @@ def handle_message(event):
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = (:userid)
             ''')
-            resultset = conn.execute(qry, userid=userid)
-            results_as_dict = resultset.mappings().all()
-            bubbleJsonZ = []
-            for i in results_as_dict:
-                ProductType = i['Product Type']
-                if ProductType == 'TRACTOR':
-                    url = 'https://sv1.img.in.th/eQ7GO.png'
-                elif ProductType == 'MINI EXCAVATOR':
-                    url = 'https://sv1.img.in.th/eQhBY.png'
-                elif ProductType == 'RICE TRANSPLANTER':
-                    url = 'https://sv1.img.in.th/eQrpf.png'
-                elif ProductType == 'COMBINE HARVESTER':
-                    url = 'https://sv1.img.in.th/e0pbC.png'
-                Model = i['Model']
-                VIN = i['VIN']
-                UsageHour = i['Usage Hours']
-                SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-                bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
+            try:
+                resultset = conn.execute(qry, userid=userid)
+                results = resultset.fetchone()
+                ver = results[0]
+                if (ver is None):
+                    line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ต่อ database ไม่ได้'))
+                    return False
+                else:
+                    line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ต่อ database ได้'))
+                    return True      
+                # results_as_dict = resultset.mappings().all()
+                # bubbleJsonZ = []
+                # for i in results_as_dict:
+                #     ProductType = i['Product Type']
+                #     if ProductType == 'TRACTOR':
+                #         url = 'https://sv1.img.in.th/eQ7GO.png'
+                #     elif ProductType == 'MINI EXCAVATOR':
+                #         url = 'https://sv1.img.in.th/eQhBY.png'
+                #     elif ProductType == 'RICE TRANSPLANTER':
+                #         url = 'https://sv1.img.in.th/eQrpf.png'
+                #     elif ProductType == 'COMBINE HARVESTER':
+                #         url = 'https://sv1.img.in.th/e0pbC.png'
+                #     Model = i['Model']
+                #     VIN = i['VIN']
+                #     UsageHour = i['Usage Hours']
+                #     SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+                #     bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
+            except:
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ต่อ database ไม่ได้'))
             # flex_message = Allvalue(bubbleJsonZ)
             # line_bot_api.reply_message(event.reply_token,flex_message)
-            if len(bubbleJsonZ) == 0:
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ต่อ database ไม่ได้'))
-            else:
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=userid))
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
