@@ -50,9 +50,7 @@ def handle_message(event):
         WHERE UserId = (:userid)
         ''')
         resultset = conn.execute(qry, userid=userid)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=resultset))
         results_as_dict = resultset.mappings().all()
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=results_as_dict))
         bubbleJsonZ = []
         for i in results_as_dict:
             ProductType = i['Product Type']
