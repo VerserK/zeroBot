@@ -14,7 +14,7 @@ import pandas as pd
 
 def ConnectDB(db):
     #configure sql server
-    server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
+    server = 'skcdwhprdmi.bf8966ba22c0.database.windows.net,1433'
     database =  db
     username = 'skcadminuser'
     password = 'DEE@skcdwhtocloud2022prd'
