@@ -14,12 +14,12 @@ import pandas as pd
 
 def ConnectDB(db):
     #configure sql server
-    server = 'skcdwhprdmi.bf8966ba22c0.database.windows.net,1433'
+    server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net'
     database =  db
-    username = 'skcadminuser'
+    username = 'skcadminuser@skcdwhprdmi'
     password = 'DEE@skcdwhtocloud2022prd'
-    driver = '{ODBC Driver 17 for SQL Server}'
-    dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
+    driver = '{ODBC Driver 18 for SQL Server}'
+    dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=3342;DATABASE='+database+';UID='+username+';PWD='+ password
     params = urllib.parse.quote_plus(dsn)
     engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
     return engine
