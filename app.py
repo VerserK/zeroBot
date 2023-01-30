@@ -74,7 +74,7 @@ def handle_message(event):
             if len(bubbleJsonZ) == 0:
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ต่อ database ไม่ได้'))
             else:
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=userid))
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=UserID))
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
