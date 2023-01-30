@@ -168,57 +168,34 @@ def rich_menu_object_a_json():
             "width": 2500,
             "height": 1686
         },
-        "selected": True,
+        "selected": False,
         "name": "richmenu-a",
         "chatBarText": "Tap to open",
         "areas": [
             {
-            "bounds": {
-                "x": 0,
-                "y": 840,
-                "width": 812,
-                "height": 844
-            },
-            "action": {
-                "type": "message",
-                "text": "ดูข้อมูลรถทั้งหมด"
-            }
-            },
-            {
-            "bounds": {
-                "x": 847,
-                "y": 842,
-                "width": 812,
-                "height": 844
-            },
-            "action": {
-                "type": "message",
-                "text": "ค้นหารถ"
-            }
+                "bounds": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 1250,
+                    "height": 1686
+                },
+                "action": {
+                    "type": "uri",
+                    "uri": "https://www.line-community.me/"
+                }
             },
             {
-            "bounds": {
-                "x": 1688,
-                "y": 842,
-                "width": 812,
-                "height": 844
-            },
-            "action": {
-                "type": "message",
-                "text": "ประวัติบริการ"
-            }
-            },
-            {
-            "bounds": {
-                "x": 0,
-                "y": 0,
-                "width": 2498,
-                "height": 837
-            },
-            "action": {
-                "type": "uri",
-                "uri": "https://zerosearch.azurewebsites.net/auth/register.php"
-            }
+                "bounds": {
+                    "x": 1251,
+                    "y": 0,
+                    "width": 1250,
+                    "height": 1686
+                },
+                "action": {
+                    "type": "richmenuswitch",
+                    "richMenuAliasId": "richmenu-alias-b",
+                    "data": "richmenu-changed-to-b"
+                }
             }
         ]
     }
