@@ -19,7 +19,7 @@ def ConnectDB(db):
     username = 'skcadminuser@skcdwhprdmi'
     password = 'DEE@skcdwhtocloud2022prd'
     driver = '{ODBC Driver 18 for SQL Server}'
-    dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=3342;DATABASE='+database+';UID='+username+';PWD='+ password
+    dsn = 'DRIVER='+driver+';SERVER=tcp:'+server+',3342;DATABASE='+database+';UID='+username+';PWD='+ password
     params = urllib.parse.quote_plus(dsn)
     engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
     return engine
