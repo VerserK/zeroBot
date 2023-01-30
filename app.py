@@ -6,9 +6,7 @@ from linebot import (
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage
-)
+from linebot.models import *
 import datetime
 from buttonLine import *
 import sqlalchemy as sa
@@ -19,6 +17,72 @@ app = Flask(__name__)
 line_bot_api = LineBotApi('J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('7f9e03908fca984853b2fc322c1775c6')
 
+def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,textList):
+    rich_menu = RichMenu()
+    height = 1686
+    width = 2500
+    rich_menu.size = {'width':width,'height':height}
+    rich_menu.selected = False
+    rich_menu.name = mname
+    rich_menu.chatBarText = mchatbar
+    xstep = width/ncol
+    ystep = height/nrow
+    nitem = nrow*ncol
+    areaList = []
+    for i in range(nrow):
+        y = ystep*i
+        for j in range(ncol):
+            x = xstep*j
+            rbound = RichMenuBounds(x,y,xstep,ystep)
+            rAction = Action()
+            actionComp = textList[ncol*i+j]
+            if actionComp.find('://')!=-1:
+                rAction.type = 'uri'
+                rAction.uri = actionComp
+            else:
+                rAction.type = 'message'
+                rAction.text = actionComp
+            ar = RichMenuArea()
+            ar.action = rAction
+            ar.bounds = rbound
+            areaList.append(ar)
+    rich_menu.areas = areaList
+    menuId = line_bot_api.create_rich_menu(rich_menu)
+    contentType = 'image/jpeg'
+    img = open(mimage,'rb').read()
+    line_bot_api.set_rich_menu_image(menuId,contentType,img)
+    return menuId
+
+
+def create_teacher_menu():
+    mname = 'สอนหนังสือ'
+    mchatbar = 'สอนหนังสือ'
+    mimage='botnoimenu.jpg'
+    nrow=2
+    ncol=3
+    textList = ['เมนูหลัก','สอนภาษาอังกฤษ','สอนคณิตศาสตร์','สอนวิทยาศาสตร์','สอนสังคม','สอนภาษาไทย']
+    return create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,textList)
+
+def create_personal_menu():
+    mname = 'บอทส่วนตัว'
+    mchatbar = 'บอทส่วนตัว'
+    mimage='static\images\1.png'
+    nrow=2
+    ncol=2
+    textList = ['เมนูหลัก','บอทน้อยส่วนตัว','ผองเพื่อนบอทน้อย','http://line://msg/text/?']
+    return create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,textList)
+
+
+menuList = {}
+menuList['test'] = 'richmenu-xxx'
+menuList['translation'] = 'richmenu-xxx'
+menuList['Botnoi Teacher'] = 'richmenu-xxx'
+menuList['Personal Bot'] = 'richmenu-U97caf21a53b92919005e158b429c8c2b'
+
+def postmenu(menuName,userId='U97caf21a53b92919005e158b429c8c2b'):
+    menuId = menuList[menuName]
+    line_bot_api.link_rich_menu_to_user(userId,menuId)
+    return 'done'
 
 @app.route("/callback", methods=['POST'])
 def callback():
