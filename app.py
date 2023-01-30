@@ -169,8 +169,7 @@ def handle_message(event):
         dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
         params = urllib.parse.quote_plus(dsn)
         engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
-        con = engine.connect()
-        with con.begin() as conn:
+        with engine.begin() as conn:
             query = ''' SELECT * FROM [admin]'''
             resultset = conn.execute(query)
             results_as_dict = resultset.mappings().all()
