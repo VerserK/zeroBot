@@ -166,7 +166,7 @@ def handle_message(event):
         username = 'boon'
         password = 'DEE@DA123'
         driver = '{ODBC Driver 17 for SQL Server}'
-        dsn = 'DRIVER='+driver+';SERVER='+server+',3342;DATABASE='+database+';UID='+username+';PWD='+ password
+        dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
         params = urllib.parse.quote_plus(dsn)
         engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
         with engine.begin() as conn:
