@@ -52,7 +52,7 @@ def handle_message(event):
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = :userid
             ''')
-            resultset = conn.execute(qry, userid=UserID)
+            resultset = conn.execute(txt(qry, userid=UserID))
             results_as_dict = resultset.mappings().all()
             bubbleJsonZ = []
             for i in results_as_dict:
