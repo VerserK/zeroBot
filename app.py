@@ -11,6 +11,8 @@ from linebot.models import (
 )
 import datetime
 from buttonLine import *
+import sqlalchemy as sa
+import urllib
 
 app = Flask(__name__)
 
