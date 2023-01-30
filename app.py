@@ -12,7 +12,7 @@ from linebot.models import (
 import datetime
 from buttonLine import *
 import sqlalchemy as sa
-from sqlalchemy import text
+from sqlalchemy import text as txt
 import urllib
 
 app = Flask(__name__)
@@ -174,7 +174,7 @@ def handle_message(event):
         engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
         with engine.begin() as conn:
             query = ''' SELECT * FROM [tableauauto_db].[dbo].[admin]'''
-            resultset = conn.execute(text(query))
+            resultset = conn.execute(txt(query))
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
                 conDBtest = 'ไม่สามารถเชื่อมต่อ DATABASE'
