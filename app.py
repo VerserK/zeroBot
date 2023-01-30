@@ -160,6 +160,25 @@ def handle_message(event):
                     flex_message = Allvalue(queryEngineLocationAgg)
                     location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
+    elif text == 'test':
+        server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net'
+        database =  'Line Data'
+        username = 'skcadminuser'
+        password = 'DEE@skcdwhtocloud2022prd'
+        driver = '{ODBC Driver 17 for SQL Server}'
+        dsn = 'DRIVER='+driver+';SERVER='+server+',3342;DATABASE='+database+';UID='+username+';PWD='+ password
+        params = urllib.parse.quote_plus(dsn)
+        engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
+        with engine.begin() as conn:
+            query = ''' SELECT * FROM [Profile Line] WHERE UserId = 'U97caf21a53b92919005e158b429c8c2b' '''
+            resultset = conn.execute(query)
+            results_as_dict = resultset.mappings().all()
+            if len(results_as_dict)==0:
+                conDBtest = 'ไม่สามารถเชื่อมต่อ DATABASE'
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=conDBtest))
+            else:
+                conDBtest = 'สามารถเชื่อมต่อ DATABASE ได้'
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=conDBtest))
     else:
         line_bot_api.reply_message(
         event.reply_token,
