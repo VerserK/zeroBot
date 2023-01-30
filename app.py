@@ -169,7 +169,7 @@ def rich_menu_object_a_json():
             "height": 1686
         },
         "selected": False,
-        "name": "richmenu-zerosearch-a",
+        "name": "richmenu-a",
         "chatBarText": "Tap to open",
         "areas": [
             {
