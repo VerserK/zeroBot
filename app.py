@@ -52,7 +52,7 @@ def handle_message(event):
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = :userid
             ''')
-            resultset = conn.execute(txt(qry, userid=UserID))
+            resultset = conn.execute(qry, userid=str(UserID))
             results_as_dict = resultset.mappings().all()
             bubbleJsonZ = []
             for i in results_as_dict:
@@ -173,8 +173,8 @@ def handle_message(event):
         params = urllib.parse.quote_plus(dsn)
         engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
         with engine.begin() as conn:
-            query = ''' SELECT * FROM [tableauauto_db].[dbo].[admin]'''
-            resultset = conn.execute(txt(query))
+            query = sa.text(''' SELECT * FROM [tableauauto_db].[dbo].[admin]''')
+            resultset = conn.execute(query)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
                 conDBtest = 'ไม่สามารถเชื่อมต่อ DATABASE'
