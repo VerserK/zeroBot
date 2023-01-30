@@ -335,4 +335,4 @@ def locMap(EquipmentName,latitude,longitude,Address):
 #     SaleDate = i['Sale Date'].strftime("%d %B, %Y")
 #     bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
 # flex_message = Allvalue(bubbleJsonZ)
-# print(flex_message)
+# print(len(flex_message))
