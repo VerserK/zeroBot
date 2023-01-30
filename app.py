@@ -263,41 +263,41 @@ def rich_menu_object_b_json():
     }
 
 
-# def create_action(action):
-#     if action['type'] == 'uri':
-#         return URIAction(type=action['type'], uri=action.get('uri'))
-#     elif action['type'] == 'message':
-#         return TextSendMessage(text=noneLocation)
-#     else:
-#         return RichMenuSwitchAction(
-#             type=action['type'],
-#             rich_menu_alias_id=action.get('richMenuAliasId'),
-#             data=action.get('data')
-#         )
+def create_action(action):
+    if action['type'] == 'uri':
+        return URIAction(type=action['type'], uri=action.get('uri'))
+    elif action['type'] == 'message':
+        return TextSendMessage(type=action['type'],text=action.get('text'))
+    else:
+        return RichMenuSwitchAction(
+            type=action['type'],
+            rich_menu_alias_id=action.get('richMenuAliasId'),
+            data=action.get('data')
+        )
 
 
 def main():
     # 2. Create rich menu A (richmenu-a)
     rich_menu_object_a = rich_menu_object_a_json()
-    # areas = [
-    #     RichMenuArea(
-    #         bounds=RichMenuBounds(
-    #             x=info['bounds']['x'],
-    #             y=info['bounds']['y'],
-    #             width=info['bounds']['width'],
-    #             height=info['bounds']['height']
-    #         ),
-    #         action=create_action(info['action'])
-    #     ) for info in rich_menu_object_a['areas']
-    # ]
+    areas = [
+        RichMenuArea(
+            bounds=RichMenuBounds(
+                x=info['bounds']['x'],
+                y=info['bounds']['y'],
+                width=info['bounds']['width'],
+                height=info['bounds']['height']
+            ),
+            action=create_action(info['action'])
+        ) for info in rich_menu_object_a['areas']
+    ]
 
-    # rich_menu_to_a_create = RichMenu(
-    #     size=RichMenuSize(width=rich_menu_object_a['size']['width'], height=rich_menu_object_a['size']['height']),
-    #     selected=rich_menu_object_a['selected'],
-    #     name=rich_menu_object_a['name'],
-    #     chat_bar_text=rich_menu_object_a['name'],
-    #     areas=areas
-    # )
+    rich_menu_to_a_create = RichMenu(
+        size=RichMenuSize(width=rich_menu_object_a['size']['width'], height=rich_menu_object_a['size']['height']),
+        selected=rich_menu_object_a['selected'],
+        name=rich_menu_object_a['name'],
+        chat_bar_text=rich_menu_object_a['name'],
+        areas=areas
+    )
 
     rich_menu_a_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_object_a)
 
