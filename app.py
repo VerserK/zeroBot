@@ -44,14 +44,14 @@ def handle_message(event):
     text = event.message.text
     if text == 'ดูข้อมูลรถทั้งหมด':
         profile = line_bot_api.get_profile(event.source.user_id)
-        userid = profile.user_id
+        UserID = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = (:userid)
             ''')
-            resultset = conn.execute(qry, userid=userid)
+            resultset = conn.execute(qry, userid=UserID)
             results_as_dict = resultset.mappings().all()
             bubbleJsonZ = []
             for i in results_as_dict:
@@ -97,14 +97,14 @@ def handle_message(event):
                 TextMessage(text="Bot can't use profile API without user ID"))
     elif text == 'ค้นหารถ':
         profile = line_bot_api.get_profile(event.source.user_id)
-        userid = profile.user_id
+        UserID = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
             WHERE UserId = (:userid)
             ''')
-            resultset = conn.execute(qry, userid=userid)
+            resultset = conn.execute(qry, userid=UserID)
             results_as_dict = resultset.mappings().all()
             CallButtonJson = []
             for i in results_as_dict:
@@ -115,7 +115,7 @@ def handle_message(event):
     elif 'เลือกรหัส' in text:
         cleantext = text.split("|")
         VINnumber = ''.join(cleantext[1])
-        VINnumber = VINnumber.lstrip()
+        VINnumberZ = VINnumber.lstrip()
         con = ConnectDB('KIS Data')
         with con.begin() as conn:
             qryVIN = sa.text(''' SELECT [Equipment_ID]
@@ -128,7 +128,7 @@ def handle_message(event):
                     ,[Subscription_Date]
                     ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
             ''')
-            vincheck =  conn.execute(qryVIN, VINnumber=VINnumber)
+            vincheck =  conn.execute(qryVIN, VINnumber=VINnumberZ)
             vincheck_dict = vincheck.mappings().all()
             if len(vincheck_dict) == 0:
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
@@ -140,7 +140,7 @@ def handle_message(event):
                     INNER JOIN [Raw Data].[dbo].[Engine_Location_Record] RAW ON KIS.[EquipmentName] = RAW.[equipmentName]
                     WHERE KIS.[EquipmentName] = (:VINnumber) AND KIS.[LastUpdate] = CAST( GETDATE() AS Date )
                     ORDER BY LastUpdate OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ''')
-                resultset = conn.execute(qry, VINnumber=VINnumber)
+                resultset = conn.execute(qry, VINnumber=VINnumberZ)
                 results_as_dict = resultset.mappings().all()
                 print(results_as_dict)
                 if len(results_as_dict)==0:
@@ -187,4 +187,4 @@ def handle_message(event):
         TextSendMessage(text=event.message.text))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
