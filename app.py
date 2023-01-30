@@ -96,11 +96,11 @@ def handle_message(event):
         userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
-            INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-            WHERE UserId = :userid
-            ''')
-            resultset = conn.execute(qry, userid=userid)
+            qry = sa.text("SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL "
+            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
+            "WHERE UserId = '"+ userid + "'"
+            )
+            resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
             CallButtonJson = []
             for i in results_as_dict:
@@ -111,32 +111,28 @@ def handle_message(event):
     elif 'เลือกรหัส' in text:
         cleantext = text.split("|")
         VINnumber = ''.join(cleantext[1])
-        VINnumberZ = VINnumber.lstrip()
+        VINnumber = VINnumber.lstrip()
         con = ConnectDB('KIS Data')
         with con.begin() as conn:
-            qryVIN = sa.text(''' SELECT [Equipment_ID]
-                    ,[Equipment_Name]
-                    ,[Product]
-                    ,[Subscription_End_Date]
-                    ,[Subscription_Status]
-                    ,[SKL]
-                    ,[Subscription_Type]
-                    ,[Subscription_Date]
-                    ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = :VINnumber ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
-            ''')
-            vincheck =  conn.execute(qryVIN, VINnumber=VINnumberZ)
+            qryVIN = sa.text("SELECT [Equipment_ID],[Equipment_Name],[Product],[Subscription_End_Date],[Subscription_Status],[SKL]"
+                    ",[Subscription_Type],[Subscription_Date],[UpdateTime] "
+                    "FROM Engine_Detail WHERE [Equipment_Name] = '" + VINnumber + "'"
+                    "ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+            )
+            vincheck =  conn.execute(qryVIN)
             vincheck_dict = vincheck.mappings().all()
             if len(vincheck_dict) == 0:
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:    
-                qry = sa.text(''' SELECT CRM.[Product Type] , KIS.[EquipmentName] , RAW.[latitude] , RAW.[longitude] , KIS.[SubDistrict] , KIS.[District] , KIS.[Province] , KIS.[Country] , KIS.[LastUpdate]
-                    FROM [KIS Data].[dbo].[Engine_Location_Agg] KIS 
-                    INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] CRM ON KIS.[EquipmentName] = CRM.[VIN] 
-                    INNER JOIN [Raw Data].[dbo].[Engine_Location_Record] RAW ON KIS.[EquipmentName] = RAW.[equipmentName]
-                    WHERE KIS.[EquipmentName] = :VINnumber AND KIS.[LastUpdate] = CAST( GETDATE() AS Date )
-                    ORDER BY LastUpdate OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ''')
-                resultset = conn.execute(qry, VINnumber=VINnumberZ)
+                qry = sa.text("SELECT CRM.[Product Type] , KIS.[EquipmentName] , RAW.[latitude] , RAW.[longitude] , KIS.[SubDistrict] , KIS.[District] , KIS.[Province] , KIS.[Country] , KIS.[LastUpdate]"
+                    "FROM [KIS Data].[dbo].[Engine_Location_Agg] KIS "
+                    "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] CRM ON KIS.[EquipmentName] = CRM.[VIN] "
+                    "INNER JOIN [Raw Data].[dbo].[Engine_Location_Record] RAW ON KIS.[EquipmentName] = RAW.[equipmentName]"
+                    "WHERE KIS.[EquipmentName] = '" + VINnumber + "' AND KIS.[LastUpdate] = CAST( GETDATE() AS Date )"
+                    "ORDER BY LastUpdate OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+                    )
+                resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
                 print(results_as_dict)
                 if len(results_as_dict)==0:
@@ -158,25 +154,6 @@ def handle_message(event):
                     flex_message = Allvalue(queryEngineLocationAgg)
                     location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
-    elif text == 'test':
-        server = 'tableauauto.database.windows.net'
-        database =  'tableauauto_db'
-        username = 'boon'
-        password = 'DEE@DA123'
-        driver = '{ODBC Driver 17 for SQL Server}'
-        dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
-        params = urllib.parse.quote_plus(dsn)
-        engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
-        with engine.begin() as conn:
-            query = sa.text(''' SELECT * FROM [tableauauto_db].[dbo].[admin]''')
-            resultset = conn.execute(query)
-            results_as_dict = resultset.mappings().all()
-            if len(results_as_dict)==0:
-                conDBtest = 'ไม่สามารถเชื่อมต่อ DATABASE'
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=conDBtest))
-            else:
-                conDBtestz = 'สามารถเชื่อมต่อ DATABASE ได้'
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=conDBtestz))
     else:
         line_bot_api.reply_message(
         event.reply_token,
