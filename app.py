@@ -50,9 +50,9 @@ def handle_message(event):
         with con.begin() as conn:
             qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-            WHERE UserId = :useriD
+            WHERE UserId = :userID
             ''')
-            resultset = conn.execute(qry, useriD = Userid)
+            resultset = conn.execute(qry, {"userID": request.form.get("Userid")})
             results_as_dict = resultset.mappings().all()
             bubbleJsonZ = []
             for i in results_as_dict:
@@ -75,7 +75,7 @@ def handle_message(event):
             if len(bubbleJsonZ) == 0:
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ต่อ database ไม่ได้'))
             else:
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=Userid))
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=userid))
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
