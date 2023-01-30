@@ -12,17 +12,17 @@ import sqlalchemy as sa
 import urllib
 import pandas as pd
 
-# def ConnectDB(db):
-#     #configure sql server
-#     server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
-#     database =  db
-#     username = 'skcadminuser'
-#     password = 'DEE@skcdwhtocloud2022prd'
-#     driver = '{ODBC Driver 17 for SQL Server}'
-#     dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
-#     params = urllib.parse.quote_plus(dsn)
-#     engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
-#     return engine
+def ConnectDB(db):
+    #configure sql server
+    server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
+    database =  db
+    username = 'skcadminuser'
+    password = 'DEE@skcdwhtocloud2022prd'
+    driver = '{ODBC Driver 17 for SQL Server}'
+    dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
+    params = urllib.parse.quote_plus(dsn)
+    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
+    return engine
 
 def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
@@ -309,66 +309,30 @@ def locMap(EquipmentName,latitude,longitude,Address):
     )
     return loc
 
-# text = 'เลือกรหัส | KBCDZ552HL3F61515'
-# cleantext = text.split("|")
-# VINnumber = ''.join(cleantext[1])
-# VINnumber = VINnumber.lstrip()
-# con = ConnectDB('KIS Data')
-# with con.begin() as conn:
-#     qryVIN = sa.text(''' SELECT [Equipment_ID]
-#             ,[Equipment_Name]
-#             ,[Product]
-#             ,[Subscription_End_Date]
-#             ,[Subscription_Status]
-#             ,[SKL]
-#             ,[Subscription_Type]
-#             ,[Subscription_Date]
-#             ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
-#     ''')
-#     vincheck =  con.execute(qryVIN, VINnumber=VINnumber)
-#     vincheck_dict = vincheck.mappings().all()
-#     if len(vincheck_dict) == 0:
-#         print('ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS')
-#     else:    
-#         qry = sa.text(''' SELECT CRM.[Product Type] , KIS.[EquipmentName] , RAW.[latitude] , RAW.[longitude] , KIS.[SubDistrict] , KIS.[District] , KIS.[Province] , KIS.[Country] , KIS.[LastUpdate]
-#             FROM [KIS Data].[dbo].[Engine_Location_Agg] KIS 
-#             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] CRM ON KIS.[EquipmentName] = CRM.[VIN] 
-#             INNER JOIN [Raw Data].[dbo].[Engine_Location_Record] RAW ON KIS.[EquipmentName] = RAW.[equipmentName]
-#             WHERE KIS.[EquipmentName] = (:VINnumber) AND KIS.[LastUpdate] = CAST( GETDATE() AS Date )
-#             ORDER BY LastUpdate OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ''')
-#         resultset = conn.execute(qry, VINnumber=VINnumber)
-#         results_as_dict = resultset.mappings().all()
-#         if len(results_as_dict)==0:
-#             print('รถของคุณไม่ถูกใช้งานในวันนี้ ทำให้ไม่สามารถระบุตำแหน่งปัจจุบันได้')
-#         else:
-#             queryEngineLocationAgg = []
-#             for i in results_as_dict:
-#                 ProductType = i['Product Type']
-#                 EquipmentName = i['EquipmentName']
-#                 latitude = i['latitude']
-#                 longitude = i['longitude']
-#                 SubDistrict = i['SubDistrict']
-#                 District = i['District']
-#                 Province = i['Province']
-#                 Country = i['Country']
-#                 Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
-#                 queryEngineLocationAgg.append(CallLocVINText(ProductType,EquipmentName,Address))
-#             flex_message = Allvalue(queryEngineLocationAgg)
-#             location_message = locMap(EquipmentName,latitude,longitude,Address)
-#             print(location_message)
-
-# con = ConnectDB('KIS Data')
+# userid = 'U97caf21a53b92919005e158b429c8c2b'
+# con = ConnectDB('Line Data')
 # conn = con.connect(close_with_result=True)
-# qry = sa.text(''' SELECT [Equipment_ID]
-#                     ,[Equipment_Name]
-#                     ,[Product]
-#                     ,[Subscription_End_Date]
-#                     ,[Subscription_Status]
-#                     ,[SKL]
-#                     ,[Subscription_Type]
-#                     ,[Subscription_Date]
-#                     ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ''')
-# result = conn.execute(qry, VINnumber = 'KBCCZ494VM3F30232')
-# results_as_dict = result.mappings().all()
-# for rows in results_as_dict:
-#     print(rows['Equipment_Name'])
+# qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
+# INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
+# WHERE UserId = (:userid)
+# ''')
+# resultset = conn.execute(qry, userid=userid)
+# results_as_dict = resultset.mappings().all()
+# bubbleJsonZ = []
+# for i in results_as_dict:
+#     ProductType = i['Product Type']
+#     if ProductType == 'TRACTOR':
+#         url = 'https://sv1.img.in.th/eQ7GO.png'
+#     elif ProductType == 'MINI EXCAVATOR':
+#         url = 'https://sv1.img.in.th/eQhBY.png'
+#     elif ProductType == 'RICE TRANSPLANTER':
+#         url = 'https://sv1.img.in.th/eQrpf.png'
+#     elif ProductType == 'COMBINE HARVESTER':
+#         url = 'https://sv1.img.in.th/e0pbC.png'
+#     Model = i['Model']
+#     VIN = i['VIN']
+#     UsageHour = i['Usage Hours']
+#     SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+#     bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
+# flex_message = Allvalue(bubbleJsonZ)
+# print(flex_message)
