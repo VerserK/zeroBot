@@ -49,7 +49,7 @@ def handle_message(event):
         with con.begin() as conn:
             qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-            WHERE UserId = (:userid)
+            WHERE UserId = :userid
             ''')
             resultset = conn.execute(qry, userid=UserID)
             results_as_dict = resultset.mappings().all()
@@ -102,7 +102,7 @@ def handle_message(event):
         with con.begin() as conn:
             qry = sa.text('''SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]
-            WHERE UserId = (:userid)
+            WHERE UserId = :userid
             ''')
             resultset = conn.execute(qry, userid=UserID)
             results_as_dict = resultset.mappings().all()
@@ -126,7 +126,7 @@ def handle_message(event):
                     ,[SKL]
                     ,[Subscription_Type]
                     ,[Subscription_Date]
-                    ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = (:VINnumber) ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
+                    ,[UpdateTime] FROM Engine_Detail WHERE [Equipment_Name] = :VINnumber ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
             ''')
             vincheck =  conn.execute(qryVIN, VINnumber=VINnumberZ)
             vincheck_dict = vincheck.mappings().all()
@@ -138,7 +138,7 @@ def handle_message(event):
                     FROM [KIS Data].[dbo].[Engine_Location_Agg] KIS 
                     INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] CRM ON KIS.[EquipmentName] = CRM.[VIN] 
                     INNER JOIN [Raw Data].[dbo].[Engine_Location_Record] RAW ON KIS.[EquipmentName] = RAW.[equipmentName]
-                    WHERE KIS.[EquipmentName] = (:VINnumber) AND KIS.[LastUpdate] = CAST( GETDATE() AS Date )
+                    WHERE KIS.[EquipmentName] = :VINnumber AND KIS.[LastUpdate] = CAST( GETDATE() AS Date )
                     ORDER BY LastUpdate OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ''')
                 resultset = conn.execute(qry, VINnumber=VINnumberZ)
                 results_as_dict = resultset.mappings().all()
@@ -172,7 +172,7 @@ def handle_message(event):
         params = urllib.parse.quote_plus(dsn)
         engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
         with engine.begin() as conn:
-            query = ''' SELECT * FROM [admin]'''
+            query = ''' SELECT * FROM [tableauauto_db].[dbo].[admin]'''
             resultset = conn.execute(query)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
