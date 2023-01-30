@@ -12,17 +12,17 @@ import sqlalchemy as sa
 import urllib
 import pandas as pd
 
-def ConnectDB(db):
-    #configure sql server
-    server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
-    database =  db
-    username = 'skcadminuser'
-    password = 'DEE@skcdwhtocloud2022prd'
-    driver = '{ODBC Driver 17 for SQL Server}'
-    dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
-    params = urllib.parse.quote_plus(dsn)
-    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
-    return engine
+# def ConnectDB(db):
+#     #configure sql server
+#     server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
+#     database =  db
+#     username = 'skcadminuser'
+#     password = 'DEE@skcdwhtocloud2022prd'
+#     driver = '{ODBC Driver 17 for SQL Server}'
+#     dsn = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password
+#     params = urllib.parse.quote_plus(dsn)
+#     engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
+#     return engine
 
 def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
