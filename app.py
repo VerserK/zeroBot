@@ -335,8 +335,8 @@ def main():
     name="Nice richmenu",
     chat_bar_text="Tap here",
     areas=[RichMenuArea(
-        bounds=RichMenuBounds(x=0, y=0, width=2500, height=1686),
-        action=URIAction(label='Go to line.me', uri='https://line.me'))]
+        bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
+        action=URIAction(label='Go to line.me', uri='https://zerosearch.azurewebsites.net/auth/register.php'))]
     )
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
