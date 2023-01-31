@@ -340,6 +340,9 @@ def main():
     )
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
+    #6. Set rich menu A as the default rich menu
+    line_bot_api.set_default_rich_menu(rich_menu_id)
+
 main()
 
 if __name__ == "__main__":
