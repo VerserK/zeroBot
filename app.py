@@ -338,8 +338,14 @@ def main():
         bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
         action=URIAction(label='Go to line.me', uri='https://zerosearch.azurewebsites.net/auth/register.php')),
         RichMenuArea(
-        bounds=RichMenuBounds(x=0, y=840, width=812, height=844),
-        action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด'))
+        bounds=RichMenuBounds(x=0, y=842, width=812, height=844),
+        action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด')),
+        RichMenuArea(
+        bounds=RichMenuBounds(x=847, y=842, width=812, height=844),
+        action=MessageAction(type='message' ,label='Go to line.me', text='ค้นหารถ')),
+        RichMenuArea(
+        bounds=RichMenuBounds(x=1688, y=842, width=812, height=844),
+        action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
         ]
     )
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
