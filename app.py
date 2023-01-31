@@ -8,7 +8,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage, RichMenu, RichMenuArea, RichMenuSize,
-    RichMenuBounds, URIAction
+    RichMenuBounds, URIAction, MessageAction
 )
 from linebot.models.actions import RichMenuSwitchAction
 from linebot.models.rich_menu import RichMenuAlias
@@ -331,12 +331,16 @@ def handle_message(event):
 def main():
     rich_menu_to_create = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
-    selected=False,
+    selected=True,
     name="Nice richmenu",
-    chat_bar_text="Tap here",
+    chat_bar_text="เปิดตรงนี้",
     areas=[RichMenuArea(
         bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
-        action=URIAction(label='Go to line.me', uri='https://zerosearch.azurewebsites.net/auth/register.php'))]
+        action=URIAction(label='Go to line.me', uri='https://zerosearch.azurewebsites.net/auth/register.php')),
+        RichMenuArea(
+        bounds=RichMenuBounds(x=0, y=840, width=812, height=844),
+        action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด'))
+        ]
     )
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
