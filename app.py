@@ -207,7 +207,7 @@ def mainA():
     with open('./public/1.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
-    rich_menu_to_create_B = RichMenu(
+    rich_menu_to_b_create = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
     name="richmenu B",
@@ -226,14 +226,14 @@ def mainA():
         action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
         ]
     )
-    rich_menu_id_B = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create_B)
+    rich_menu_b_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_b_create)
 
-    # 5. Upload image to rich menu A
+    # 5. Upload image to rich menu B
     with open('./public/2.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id_B, 'image/png', f)
+        line_bot_api.set_rich_menu_image( rich_menu_b_id, 'image/png', f)
 
     # #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id_B)
+    line_bot_api.set_default_rich_menu( rich_menu_b_id)
 
     print('success AB')
 
