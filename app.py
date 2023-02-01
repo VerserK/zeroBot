@@ -164,12 +164,23 @@ def handle_message(event):
 
 @handler.add(FollowEvent)
 def handle_follow(event):
-    def callback():
-        profile = line_bot_api.get_profile(event.source.user_id)
-        Userid = profile.user_id
-        return Userid
-    line_bot_api.reply_message(
-        event.reply_token, TextSendMessage(text='Got follow event'))
+    profile = line_bot_api.get_profile(event.source.user_id)
+    Userid = profile.user_id
+    con = ConnectDB('Line Data')
+    with con.begin() as conn:
+        qryLineData = sa.text("SELECT [UserId]"
+                "FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = '" + Userid + "'"
+                "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+        )
+    resultset = conn.execute(qryLineData)
+    results_as_dict = resultset.mappings().all()
+    print(results_as_dict)
+    if len(results_as_dict)==0:
+        Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+        mainA()
+    else:
+        mainB()
 
 def mainA():
     rich_menu_to_create = RichMenu(
@@ -200,7 +211,7 @@ def mainA():
     #6. Set rich menu A as the default rich menu
     line_bot_api.set_default_rich_menu(rich_menu_id)
 
-    print('success')
+    print('success A')
 
 def mainB():
     rich_menu_to_create_B = RichMenu(
@@ -228,8 +239,10 @@ def mainB():
     with open('./public/2.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id_B, 'image/png', f)
 
-mainA()
-print(callback())
+    #6. Set rich menu A as the default rich menu
+    line_bot_api.set_default_rich_menu(rich_menu_id_B)
+
+    print('success B')
 
 if __name__ == "__main__":
     app.run()
