@@ -166,6 +166,7 @@ def handle_message(event):
 def handle_follow(event):
     profile = line_bot_api.get_profile(event.source.user_id)
     userid = profile.user_id
+    print(userid)
     con = ConnectDB('Line Data')
     with con.begin() as conn:
         qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
