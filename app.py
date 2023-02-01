@@ -208,7 +208,7 @@ def mainA():
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id)
+    # line_bot_api.set_default_rich_menu(rich_menu_id)
 
     print('success A')
 
