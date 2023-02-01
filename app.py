@@ -229,7 +229,7 @@ def mainA():
     rich_menu_b_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_b_create)
 
     # 5. Upload image to rich menu B
-    with open('./public/2.png', 'rb') as f:
+    with open(r'.\static\images\2.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_b_id, 'image/png', f)
 
     # #6. Set rich menu A as the default rich menu
