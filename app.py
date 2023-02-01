@@ -173,8 +173,8 @@ def handle_follow(event):
         "WHERE UserId = '" + userid + "'"
         "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
         )
-    resultset = conn.execute(qry)
-    results_as_dict = resultset.mappings().all()
+        resultset = conn.execute(qry)
+        results_as_dict = resultset.mappings().all()
     if len(results_as_dict)==0:
         Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))

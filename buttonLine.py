@@ -318,4 +318,4 @@ def locMap(EquipmentName,latitude,longitude,Address):
 #     )
 #     resultset = conn.execute(qry)
 #     results_as_dict = resultset.mappings().all()
-#     print(len(results_as_dict))
+    # print(len(results_as_dict))
