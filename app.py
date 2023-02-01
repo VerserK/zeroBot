@@ -168,13 +168,12 @@ def handle_follow(event):
     userid = profile.user_id
     con = ConnectDB('Line Data')
     with con.begin() as conn:
-        qryLineData = sa.text("SELECT Name,TaxId,UserId "
-                "FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = '" + userid + "'"
-                "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+        qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
+        "WHERE UserId = '" + userid + "'"
+        "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
         )
-    resultset = conn.execute(qryLineData)
+    resultset = conn.execute(qry)
     results_as_dict = resultset.mappings().all()
-    print(results_as_dict)
     if len(results_as_dict)==0:
         Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))

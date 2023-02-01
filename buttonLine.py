@@ -316,6 +316,6 @@ def locMap(EquipmentName,latitude,longitude,Address):
 #     "WHERE UserId = '" + userid + "'"
 #     "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
 #     )
-#     resultset = conn.execute(qry, userid=userid)
+#     resultset = conn.execute(qry)
 #     results_as_dict = resultset.mappings().all()
-# print(len(results_as_dict))
+#     print(len(results_as_dict))
