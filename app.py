@@ -165,11 +165,11 @@ def handle_message(event):
 @handler.add(FollowEvent)
 def handle_follow(event):
     profile = line_bot_api.get_profile(event.source.user_id)
-    Userid = profile.user_id
+    userid = profile.user_id
     con = ConnectDB('Line Data')
     with con.begin() as conn:
-        qryLineData = sa.text("SELECT [UserId]"
-                "FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = '" + Userid + "'"
+        qryLineData = sa.text("SELECT Name,TaxId,UserId "
+                "FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = '" + userid + "'"
                 "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
         )
     resultset = conn.execute(qryLineData)
