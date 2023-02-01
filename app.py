@@ -168,7 +168,7 @@ def handle_follow(event):
     Userid = profile.user_id
     return Userid
 
-def main():
+def mainA():
     rich_menu_to_create = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
@@ -195,8 +195,11 @@ def main():
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id)
+    line_bot_api.set_default_rich_menu(rich_menu_id)
 
+    print('success')
+
+def mainB():
     rich_menu_to_create_B = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
@@ -222,18 +225,8 @@ def main():
     with open('./public/2.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id_B, 'image/png', f)
 
-    userid = handle_follow()
-    print(userid)
-    # con = ConnectDB('Line Data')
-    # with con.begin() as conn:
-    #     qry = sa.text("SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL "
-    #     "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
-    #     "WHERE PL.[UserId] = '"+ Userid + "'"
-    #     )
-
-    print('success')
-
-main()
+mainA()
+print(handle_follow())
 
 if __name__ == "__main__":
     app.run()
