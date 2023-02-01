@@ -164,11 +164,12 @@ def handle_message(event):
 
 @handler.add(FollowEvent)
 def handle_follow(event):
-    profile = line_bot_api.get_profile(event.source.user_id)
-    Userid = profile.user_id
+    def callback():
+        profile = line_bot_api.get_profile(event.source.user_id)
+        Userid = profile.user_id
+        return Userid
     line_bot_api.reply_message(
         event.reply_token, TextSendMessage(text='Got follow event'))
-    return Userid
 
 def mainA():
     rich_menu_to_create = RichMenu(
@@ -228,6 +229,7 @@ def mainB():
         line_bot_api.set_rich_menu_image(rich_menu_id_B, 'image/png', f)
 
 mainA()
+print(callback())
 
 if __name__ == "__main__":
     app.run()
