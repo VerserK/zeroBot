@@ -178,8 +178,8 @@ def handle_follow(event):
     if len(results_as_dict)==0:
         Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-    else:
-        mainB()
+    # else:
+    #     mainB()
 
 def mainA():
     rich_menu_to_create = RichMenu(
@@ -207,12 +207,6 @@ def mainA():
     with open('./public/1.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
-    #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id)
-
-    print('success A')
-
-def mainB():
     rich_menu_to_create_B = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
@@ -239,9 +233,9 @@ def mainB():
         line_bot_api.set_rich_menu_image(rich_menu_id_B, 'image/png', f)
 
     # #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id_B)
+    line_bot_api.set_default_rich_menu(rich_menu_id_B)
 
-    print('success BB')
+    print('success AB')
 
 mainA()
 
