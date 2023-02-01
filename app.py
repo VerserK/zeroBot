@@ -226,7 +226,6 @@ def mainB():
         line_bot_api.set_rich_menu_image(rich_menu_id_B, 'image/png', f)
 
 mainA()
-print(handle_follow(handler.add(FollowEvent)))
 
 if __name__ == "__main__":
     app.run()
