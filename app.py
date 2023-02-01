@@ -220,7 +220,7 @@ def main():
 
     # 5. Upload image to rich menu A
     with open('./public/2.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
+        line_bot_api.set_rich_menu_image(rich_menu_id_B, 'image/png', f)
 
     userid = handle_follow()
     print(userid)
