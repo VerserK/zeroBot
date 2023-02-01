@@ -4,11 +4,11 @@ from linebot import (
     LineBotApi, WebhookHandler
 )
 from linebot.exceptions import (
-    InvalidSignatureError
+    InvalidSignatureError,LineBotApiError
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage, RichMenu, RichMenuArea, RichMenuSize,
-    RichMenuBounds, URIAction, MessageAction
+    RichMenuBounds, URIAction, MessageAction, FollowEvent
 )
 from linebot.models.actions import RichMenuSwitchAction
 from linebot.models.rich_menu import RichMenuAlias
@@ -162,8 +162,13 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
-def main(event):
-    text = event.message.text
+@handler.add(FollowEvent)
+def handle_follow(event):
+    profile = line_bot_api.get_profile(event.source.user_id)
+    Userid = profile.user_id
+    return Userid
+
+def main():
     rich_menu_to_create = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
@@ -217,9 +222,8 @@ def main(event):
     with open('./public/2.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
-    profile = line_bot_api.get_profile(event.source.user_id)
-    Userid = profile.user_id
-    print(Userid)
+    userid = handle_follow()
+    print(userid)
     # con = ConnectDB('Line Data')
     # with con.begin() as conn:
     #     qry = sa.text("SELECT Name,TaxId,[Firstname],[VIN],[Product Type],[Model],[Usage Hours],[Sale Date] FROM [Line Data].[dbo].[Profile Line] PL "
