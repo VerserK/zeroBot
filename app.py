@@ -183,25 +183,25 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
-@handler.add(FollowEvent)
-def handle_follow(event):
-    profile = line_bot_api.get_profile(event.source.user_id)
-    userid = profile.user_id
-    print(userid)
-    con = ConnectDB('Line Data')
-    with con.begin() as conn:
-        qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
-        "WHERE UserId = '" + userid + "'"
-        "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
-        )
-        resultset = conn.execute(qry)
-        results_as_dict = resultset.mappings().all()
-    if len(results_as_dict)==0:
-        Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-        mainA()
-    else:
-        mainB()
+# @handler.add(FollowEvent)
+# def handle_follow(event):
+#     profile = line_bot_api.get_profile(event.source.user_id)
+#     userid = profile.user_id
+#     print(userid)
+#     con = ConnectDB('Line Data')
+#     with con.begin() as conn:
+#         qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
+#         "WHERE UserId = '" + userid + "'"
+#         "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+#         )
+#         resultset = conn.execute(qry)
+#         results_as_dict = resultset.mappings().all()
+#     if len(results_as_dict)==0:
+#         Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+#         mainA()
+#     else:
+#         mainB()
 
 def mainA():
     rich_menu_to_create = RichMenu(
