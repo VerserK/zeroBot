@@ -285,15 +285,9 @@ def mainC():
     with open('./public/richmenu-a.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id_c, 'image/png', f)
 
+    line_bot_api.cancel_default_rich_menu()
     #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id_c)
-    richdf = pd.DataFrame()
-    rich_menu_list = line_bot_api.get_rich_menu_list()
-    for rich_menu in rich_menu_list:
-        richdf.append(rich_menu.rich_menu_id)
-    print(richdf)
-    # for i in richdf:
-    #     line_bot_api.delete_rich_menu(i['rich'])
+    # line_bot_api.set_default_rich_menu(rich_menu_id_c)
 
     print('success C')
 
