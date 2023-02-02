@@ -176,9 +176,9 @@ def handle_message(event):
         if len(results_as_dict)==0:
             Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-            mainA(userid)
+            line_bot_api.link_rich_menu_to_users(userid, 'richmenu-496450271b3ddde20b1088dabf6b93ee')
         else:
-            mainB(userid)
+            line_bot_api.link_rich_menu_to_users(userid, 'richmenu-a7aebafbb2615ba2b2ab8b6932429e11')
     else:
         line_bot_api.reply_message(
         event.reply_token,
@@ -204,94 +204,94 @@ def handle_message(event):
 #     else:
 #         mainB()
 
-def mainA(user_id):
-    rich_menu_to_create = RichMenu(
-    size=RichMenuSize(width=2500, height=1686),
-    selected=True,
-    name="richmenu A",
-    chat_bar_text="เปิดเมนู",
-    areas=[RichMenuArea(
-        bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
-        action=URIAction(label='Go to line.me', uri='https://zerosearch.azurewebsites.net/auth/register.php')),
-        RichMenuArea(
-        bounds=RichMenuBounds(x=0, y=842, width=812, height=844),
-        action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด')),
-        RichMenuArea(
-        bounds=RichMenuBounds(x=847, y=842, width=812, height=844),
-        action=MessageAction(type='message' ,label='Go to line.me', text='ค้นหารถ')),
-        RichMenuArea(
-        bounds=RichMenuBounds(x=1688, y=842, width=812, height=844),
-        action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
-        ]
-    )
-    rich_menu_id_a = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+# def mainA(user_id):
+#     rich_menu_to_create = RichMenu(
+#     size=RichMenuSize(width=2500, height=1686),
+#     selected=True,
+#     name="richmenu A",
+#     chat_bar_text="เปิดเมนู",
+#     areas=[RichMenuArea(
+#         bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
+#         action=URIAction(label='Go to line.me', uri='https://zerosearch.azurewebsites.net/auth/register.php')),
+#         RichMenuArea(
+#         bounds=RichMenuBounds(x=0, y=842, width=812, height=844),
+#         action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด')),
+#         RichMenuArea(
+#         bounds=RichMenuBounds(x=847, y=842, width=812, height=844),
+#         action=MessageAction(type='message' ,label='Go to line.me', text='ค้นหารถ')),
+#         RichMenuArea(
+#         bounds=RichMenuBounds(x=1688, y=842, width=812, height=844),
+#         action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
+#         ]
+#     )
+#     rich_menu_id_a = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
-    # 5. Upload image to rich menu A
-    with open('./public/1.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id_a, 'image/png', f)
+#     # 5. Upload image to rich menu A
+#     with open('./public/1.png', 'rb') as f:
+#         line_bot_api.set_rich_menu_image(rich_menu_id_a, 'image/png', f)
 
-    #6. Set rich menu A as the default rich menu
-    line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_a)
+#     #6. Set rich menu A as the default rich menu
+#     line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_a)
 
-    print('success A')
+#     print('success A')
 
-def mainB(user_id):
-    rich_menu_to_create = RichMenu(
-    size=RichMenuSize(width=2500, height=1686),
-    selected=True,
-    name="richmenu B",
-    chat_bar_text="เปิดเมนู",
-    areas=[RichMenuArea(
-        bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
-        action=URIAction(label='Go to line.me', uri='https://korp.siamkubota.co.th/Customer/index_login.php')),
-        RichMenuArea(
-        bounds=RichMenuBounds(x=0, y=842, width=812, height=844),
-        action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด')),
-        RichMenuArea(
-        bounds=RichMenuBounds(x=847, y=842, width=812, height=844),
-        action=MessageAction(type='message' ,label='Go to line.me', text='ค้นหารถ')),
-        RichMenuArea(
-        bounds=RichMenuBounds(x=1688, y=842, width=812, height=844),
-        action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
-        ]
-    )
-    rich_menu_id_b = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
-    print(rich_menu_id_b)
+# def mainB(user_id):
+#     rich_menu_to_create = RichMenu(
+#     size=RichMenuSize(width=2500, height=1686),
+#     selected=True,
+#     name="richmenu B",
+#     chat_bar_text="เปิดเมนู",
+#     areas=[RichMenuArea(
+#         bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
+#         action=URIAction(label='Go to line.me', uri='https://korp.siamkubota.co.th/Customer/index_login.php')),
+#         RichMenuArea(
+#         bounds=RichMenuBounds(x=0, y=842, width=812, height=844),
+#         action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด')),
+#         RichMenuArea(
+#         bounds=RichMenuBounds(x=847, y=842, width=812, height=844),
+#         action=MessageAction(type='message' ,label='Go to line.me', text='ค้นหารถ')),
+#         RichMenuArea(
+#         bounds=RichMenuBounds(x=1688, y=842, width=812, height=844),
+#         action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
+#         ]
+#     )
+#     rich_menu_id_b = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+#     print(rich_menu_id_b)
 
-    # 5. Upload image to rich menu B
-    with open('./public/2a.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id_b, 'image/png', f)
+#     # 5. Upload image to rich menu B
+#     with open('./public/2a.png', 'rb') as f:
+#         line_bot_api.set_rich_menu_image(rich_menu_id_b, 'image/png', f)
 
-    #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id_b)
-    line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_b)
+#     #6. Set rich menu A as the default rich menu
+#     # line_bot_api.set_default_rich_menu(rich_menu_id_b)
+#     line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_b)
 
-    print('success B')
+#     print('success B')
 
-def mainC():
-    rich_menu_to_create = RichMenu(
-    size=RichMenuSize(width=2500, height=1686),
-    selected=True,
-    name="richmenu B",
-    chat_bar_text="เปิดเมนู",
-    areas=[RichMenuArea(
-        bounds=RichMenuBounds(x=0, y=0, width=2500, height=1686),
-        action=MessageAction(type='message' ,label='Go to line.me', text='เข้าสู่ระบบ'))
-        ]
-    )
-    rich_menu_id_c = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+# def mainC():
+#     rich_menu_to_create = RichMenu(
+#     size=RichMenuSize(width=2500, height=1686),
+#     selected=True,
+#     name="richmenu B",
+#     chat_bar_text="เปิดเมนู",
+#     areas=[RichMenuArea(
+#         bounds=RichMenuBounds(x=0, y=0, width=2500, height=1686),
+#         action=MessageAction(type='message' ,label='Go to line.me', text='เข้าสู่ระบบ'))
+#         ]
+#     )
+#     rich_menu_id_c = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
-    # 5. Upload image to rich menu B
-    with open('./public/richmenu-a.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id_c, 'image/png', f)
+#     # 5. Upload image to rich menu B
+#     with open('./public/richmenu-a.png', 'rb') as f:
+#         line_bot_api.set_rich_menu_image(rich_menu_id_c, 'image/png', f)
 
-    line_bot_api.cancel_default_rich_menu()
-    #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id_c)
+#     line_bot_api.cancel_default_rich_menu()
+#     #6. Set rich menu A as the default rich menu
+#     # line_bot_api.set_default_rich_menu(rich_menu_id_c)
 
-    print('success C')
+#     print('success C')
 
-mainC()
+# mainC()
 
 if __name__ == "__main__":
     app.run()
