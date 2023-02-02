@@ -224,6 +224,7 @@ def mainA(user_id):
         ]
     )
     rich_menu_id_a = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+    print(rich_menu_id_a)
 
     # 5. Upload image to rich menu A
     with open('./public/1.png', 'rb') as f:
@@ -255,6 +256,7 @@ def mainB(user_id):
         ]
     )
     rich_menu_id_b = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+    print(rich_menu_id_b)
 
     # 5. Upload image to rich menu B
     with open('./public/2a.png', 'rb') as f:
