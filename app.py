@@ -178,6 +178,7 @@ def handle_follow(event):
     if len(results_as_dict)==0:
         Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+        mainA()
     else:
         mainB()
 
@@ -232,7 +233,7 @@ def mainB():
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
     # 5. Upload image to rich menu B
-    with open('./static/images/2.png', 'rb') as f:
+    with open('./public/2a.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
     # #6. Set rich menu A as the default rich menu
