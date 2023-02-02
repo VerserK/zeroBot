@@ -161,6 +161,23 @@ def handle_message(event):
                     flex_message = Allvalue(queryEngineLocationAgg)
                     location_message = locMap(EquipmentName,latitude,longitude,Address)
                     line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
+    elif text == 'เข้าสู่ระบบ':
+        profile = line_bot_api.get_profile(event.source.user_id)
+        userid = profile.user_id
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
+            "WHERE UserId = '" + userid + "'"
+            "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+            )
+            resultset = conn.execute(qry)
+            results_as_dict = resultset.mappings().all()
+        if len(results_as_dict)==0:
+            Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+            mainA()
+        else:
+            mainB()
     else:
         line_bot_api.reply_message(
         event.reply_token,
@@ -248,7 +265,29 @@ def mainB():
 
     print('success B')
 
-mainA()
+def mainC():
+    rich_menu_to_create = RichMenu(
+    size=RichMenuSize(width=2500, height=1686),
+    selected=True,
+    name="richmenu B",
+    chat_bar_text="เปิดเมนู",
+    areas=[RichMenuArea(
+        bounds=RichMenuBounds(x=0, y=0, width=2500, height=1686),
+        action=MessageAction(type='message' ,label='Go to line.me', text='เข้าสู่ระบบ'))
+        ]
+    )
+    rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+
+    # 5. Upload image to rich menu B
+    with open('./public/richmenu-a.png', 'rb') as f:
+        line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
+
+    #6. Set rich menu A as the default rich menu
+    # line_bot_api.set_default_rich_menu(rich_menu_id)
+
+    print('success C')
+
+mainC()
 
 if __name__ == "__main__":
     app.run()
