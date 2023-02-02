@@ -16,7 +16,7 @@ import datetime
 from buttonLine import *
 import sqlalchemy as sa
 import urllib
-import pandas as pd
+import requests
 
 app = Flask(__name__)
 
@@ -176,122 +176,17 @@ def handle_message(event):
         if len(results_as_dict)==0:
             Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-            line_bot_api.link_rich_menu_to_users(userid, 'richmenu-496450271b3ddde20b1088dabf6b93ee')
+            url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-496450271b3ddde20b1088dabf6b93ee'
+            headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
+            r = requests.post(url, headers=headers)
         else:
-            line_bot_api.link_rich_menu_to_users(userid, 'richmenu-a7aebafbb2615ba2b2ab8b6932429e11')
+            url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-a7aebafbb2615ba2b2ab8b6932429e11'
+            headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
+            r = requests.post(url, headers=headers)
     else:
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
-
-# @handler.add(FollowEvent)
-# def handle_follow(event):
-#     profile = line_bot_api.get_profile(event.source.user_id)
-#     userid = profile.user_id
-#     print(userid)
-#     con = ConnectDB('Line Data')
-#     with con.begin() as conn:
-#         qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
-#         "WHERE UserId = '" + userid + "'"
-#         "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
-#         )
-#         resultset = conn.execute(qry)
-#         results_as_dict = resultset.mappings().all()
-#     if len(results_as_dict)==0:
-#         Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
-#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-#         mainA()
-#     else:
-#         mainB()
-
-# def mainA(user_id):
-#     rich_menu_to_create = RichMenu(
-#     size=RichMenuSize(width=2500, height=1686),
-#     selected=True,
-#     name="richmenu A",
-#     chat_bar_text="เปิดเมนู",
-#     areas=[RichMenuArea(
-#         bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
-#         action=URIAction(label='Go to line.me', uri='https://zerosearch.azurewebsites.net/auth/register.php')),
-#         RichMenuArea(
-#         bounds=RichMenuBounds(x=0, y=842, width=812, height=844),
-#         action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด')),
-#         RichMenuArea(
-#         bounds=RichMenuBounds(x=847, y=842, width=812, height=844),
-#         action=MessageAction(type='message' ,label='Go to line.me', text='ค้นหารถ')),
-#         RichMenuArea(
-#         bounds=RichMenuBounds(x=1688, y=842, width=812, height=844),
-#         action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
-#         ]
-#     )
-#     rich_menu_id_a = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
-
-#     # 5. Upload image to rich menu A
-#     with open('./public/1.png', 'rb') as f:
-#         line_bot_api.set_rich_menu_image(rich_menu_id_a, 'image/png', f)
-
-#     #6. Set rich menu A as the default rich menu
-#     line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_a)
-
-#     print('success A')
-
-# def mainB(user_id):
-#     rich_menu_to_create = RichMenu(
-#     size=RichMenuSize(width=2500, height=1686),
-#     selected=True,
-#     name="richmenu B",
-#     chat_bar_text="เปิดเมนู",
-#     areas=[RichMenuArea(
-#         bounds=RichMenuBounds(x=0, y=0, width=2500, height=837),
-#         action=URIAction(label='Go to line.me', uri='https://korp.siamkubota.co.th/Customer/index_login.php')),
-#         RichMenuArea(
-#         bounds=RichMenuBounds(x=0, y=842, width=812, height=844),
-#         action=MessageAction(type='message' ,label='Go to line.me', text='ดูข้อมูลรถทั้งหมด')),
-#         RichMenuArea(
-#         bounds=RichMenuBounds(x=847, y=842, width=812, height=844),
-#         action=MessageAction(type='message' ,label='Go to line.me', text='ค้นหารถ')),
-#         RichMenuArea(
-#         bounds=RichMenuBounds(x=1688, y=842, width=812, height=844),
-#         action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
-#         ]
-#     )
-#     rich_menu_id_b = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
-#     print(rich_menu_id_b)
-
-#     # 5. Upload image to rich menu B
-#     with open('./public/2a.png', 'rb') as f:
-#         line_bot_api.set_rich_menu_image(rich_menu_id_b, 'image/png', f)
-
-#     #6. Set rich menu A as the default rich menu
-#     # line_bot_api.set_default_rich_menu(rich_menu_id_b)
-#     line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_b)
-
-#     print('success B')
-
-# def mainC():
-#     rich_menu_to_create = RichMenu(
-#     size=RichMenuSize(width=2500, height=1686),
-#     selected=True,
-#     name="richmenu B",
-#     chat_bar_text="เปิดเมนู",
-#     areas=[RichMenuArea(
-#         bounds=RichMenuBounds(x=0, y=0, width=2500, height=1686),
-#         action=MessageAction(type='message' ,label='Go to line.me', text='เข้าสู่ระบบ'))
-#         ]
-#     )
-#     rich_menu_id_c = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
-
-#     # 5. Upload image to rich menu B
-#     with open('./public/richmenu-a.png', 'rb') as f:
-#         line_bot_api.set_rich_menu_image(rich_menu_id_c, 'image/png', f)
-
-#     line_bot_api.cancel_default_rich_menu()
-#     #6. Set rich menu A as the default rich menu
-#     # line_bot_api.set_default_rich_menu(rich_menu_id_c)
-
-#     print('success C')
-
-# mainC()
 
 if __name__ == "__main__":
     app.run()
