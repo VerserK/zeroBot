@@ -286,10 +286,14 @@ def mainC():
 
     #6. Set rich menu A as the default rich menu
     line_bot_api.set_default_rich_menu(rich_menu_id_c)
-
+    richdf = pd.DataFrame()
+    richdf.columns = ['rich']
     rich_menu_list = line_bot_api.get_rich_menu_list()
     for rich_menu in rich_menu_list:
-        print(rich_menu.rich_menu_id)
+        richdf.append(rich_menu.rich_menu_id)
+
+    for i in richdf:
+        line_bot_api.delete_rich_menu(i['rich'])
 
     print('success C')
 
