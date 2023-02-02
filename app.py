@@ -208,6 +208,9 @@ def mainA():
     with open('./public/1.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
+    #6. Set rich menu A as the default rich menu
+    line_bot_api.set_default_rich_menu(rich_menu_id)
+
     print('success A')
 
 def mainB():
@@ -236,8 +239,8 @@ def mainB():
     with open('./public/2a.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
-    # #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id)
+    #6. Set rich menu A as the default rich menu
+    line_bot_api.set_default_rich_menu(rich_menu_id)
 
     print('success B')
 
