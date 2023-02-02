@@ -289,8 +289,8 @@ def mainC():
 
     rich_menu_list = line_bot_api.get_rich_menu_list()
     for rich_menu in rich_menu_list:
-        line_bot_api.delete_rich_menu(rich_menu.rich_menu_id)
-        print(rich_menu.rich_menu_id)
+        line_bot_api.delete_rich_menu(rich_menu.rich_menu_id_c)
+        print(rich_menu.rich_menu_id_c)
 
     print('success C')
 
