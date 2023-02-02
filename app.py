@@ -223,14 +223,14 @@ def mainA():
         action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
         ]
     )
-    rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+    rich_menu_id_a = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
     # 5. Upload image to rich menu A
     with open('./public/1.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
+        line_bot_api.set_rich_menu_image(rich_menu_id_a, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id)
+    line_bot_api.set_default_rich_menu(rich_menu_id_a)
 
     print('success A')
 
@@ -254,14 +254,14 @@ def mainB():
         action=MessageAction(type='message' ,label='Go to line.me', text='ประวัติบริการ'))
         ]
     )
-    rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+    rich_menu_id_b = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
     # 5. Upload image to rich menu B
     with open('./public/2a.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
+        line_bot_api.set_rich_menu_image(rich_menu_id_b, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id)
+    line_bot_api.set_default_rich_menu(rich_menu_id_b)
 
     print('success B')
 
@@ -276,14 +276,14 @@ def mainC():
         action=MessageAction(type='message' ,label='Go to line.me', text='เข้าสู่ระบบ'))
         ]
     )
-    rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+    rich_menu_id_c = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
     # 5. Upload image to rich menu B
     with open('./public/richmenu-a.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
+        line_bot_api.set_rich_menu_image(rich_menu_id_c, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    # line_bot_api.set_default_rich_menu(rich_menu_id)
+    line_bot_api.set_default_rich_menu(rich_menu_id_c)
 
     print('success C')
 
