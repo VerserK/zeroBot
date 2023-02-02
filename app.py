@@ -224,7 +224,6 @@ def mainA(user_id):
         ]
     )
     rich_menu_id_a = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
-    print(rich_menu_id_a)
 
     # 5. Upload image to rich menu A
     with open('./public/1.png', 'rb') as f:
@@ -288,11 +287,11 @@ def mainC():
     #6. Set rich menu A as the default rich menu
     line_bot_api.set_default_rich_menu(rich_menu_id_c)
 
-    print('success C')
-
     rich_menu_list = line_bot_api.get_rich_menu_list()
     for rich_menu in rich_menu_list:
         print(rich_menu.rich_menu_id)
+
+    print('success C')
 
 mainC()
 
