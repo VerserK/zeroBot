@@ -56,24 +56,28 @@ def handle_message(event):
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
-            bubbleJsonZ = []
-            for i in results_as_dict:
-                ProductType = i['Product Type']
-                if ProductType == 'TRACTOR':
-                    url = 'https://sv1.img.in.th/eQ7GO.png'
-                elif ProductType == 'MINI EXCAVATOR':
-                    url = 'https://sv1.img.in.th/eQhBY.png'
-                elif ProductType == 'RICE TRANSPLANTER':
-                    url = 'https://sv1.img.in.th/eQrpf.png'
-                elif ProductType == 'COMBINE HARVESTER':
-                    url = 'https://sv1.img.in.th/e0pbC.png'
-                Model = i['Model']
-                VIN = i['VIN']
-                UsageHour = i['Usage Hours']
-                SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-                bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
-            flex_message = Allvalue(bubbleJsonZ)
-            line_bot_api.reply_message(event.reply_token,flex_message)
+            if len(results_as_dict)==0:
+                Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+            else:
+                bubbleJsonZ = []
+                for i in results_as_dict:
+                    ProductType = i['Product Type']
+                    if ProductType == 'TRACTOR':
+                        url = 'https://sv1.img.in.th/eQ7GO.png'
+                    elif ProductType == 'MINI EXCAVATOR':
+                        url = 'https://sv1.img.in.th/eQhBY.png'
+                    elif ProductType == 'RICE TRANSPLANTER':
+                        url = 'https://sv1.img.in.th/eQrpf.png'
+                    elif ProductType == 'COMBINE HARVESTER':
+                        url = 'https://sv1.img.in.th/e0pbC.png'
+                    Model = i['Model']
+                    VIN = i['VIN']
+                    UsageHour = i['Usage Hours']
+                    SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+                    bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
+                flex_message = Allvalue(bubbleJsonZ)
+                line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
@@ -209,7 +213,7 @@ def mainA():
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id)
+    # line_bot_api.set_default_rich_menu(rich_menu_id)
 
     print('success A')
 
@@ -240,9 +244,11 @@ def mainB():
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id)
+    # line_bot_api.set_default_rich_menu(rich_menu_id)
 
     print('success B')
+
+mainA()
 
 if __name__ == "__main__":
     app.run()
