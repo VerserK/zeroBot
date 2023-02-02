@@ -175,9 +175,9 @@ def handle_message(event):
         if len(results_as_dict)==0:
             Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-            mainA()
+            mainA(userid)
         else:
-            mainB()
+            mainB(userid)
     else:
         line_bot_api.reply_message(
         event.reply_token,
@@ -203,7 +203,7 @@ def handle_message(event):
 #     else:
 #         mainB()
 
-def mainA():
+def mainA(user_id):
     rich_menu_to_create = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
@@ -230,11 +230,11 @@ def mainA():
         line_bot_api.set_rich_menu_image(rich_menu_id_a, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id_a)
+    line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_a)
 
     print('success A')
 
-def mainB():
+def mainB(user_id):
     rich_menu_to_create = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
@@ -261,7 +261,8 @@ def mainB():
         line_bot_api.set_rich_menu_image(rich_menu_id_b, 'image/png', f)
 
     #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id_b)
+    # line_bot_api.set_default_rich_menu(rich_menu_id_b)
+    line_bot_api.link_rich_menu_to_users(user_id, rich_menu_id_b)
 
     print('success B')
 
