@@ -207,6 +207,7 @@ def mainA():
     with open('./public/1.png', 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
+def mainB():
     rich_menu_to_b_create = RichMenu(
     size=RichMenuSize(width=2500, height=1686),
     selected=True,
@@ -233,11 +234,9 @@ def mainA():
         line_bot_api.set_rich_menu_image(rich_menu_b_id, 'image/png', f)
 
     # #6. Set rich menu A as the default rich menu
-    line_bot_api.set_default_rich_menu(rich_menu_id)
+    # line_bot_api.set_default_rich_menu(rich_menu_id)
 
     print('success AB')
-
-mainA()
 
 if __name__ == "__main__":
     app.run()
