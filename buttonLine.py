@@ -213,6 +213,20 @@ def CallButtonSelectByVIN(VIN):
             }
     return CallButton
 
+def CallButtonSelectByVINHistory(VIN):
+    CallButton = {
+                "type": "button",
+                "action": {
+                "type": "postback",
+                "label": str(VIN),
+                "data": str(VIN)
+                },
+                "style": "primary",
+                "color": "#343A3A",
+                "margin": "sm"
+            }
+    return CallButton
+
 def CallLocVINText(ProductType,EquipmentName,Address):
     Callloc = {
     "type": "bubble",

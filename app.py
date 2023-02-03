@@ -110,12 +110,16 @@ def handle_message(event):
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
-            CallButtonJson = []
-            for i in results_as_dict:
-                VIN = i['VIN']
-                CallButtonJson.append(CallButtonSelectByVIN(VIN))
-            flex_message = callButtonBody(CallButtonJson)
-            line_bot_api.reply_message(event.reply_token,flex_message)
+            if len(results_as_dict)==0:
+                Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+            else:
+                CallButtonJson = []
+                for i in results_as_dict:
+                    VIN = i['VIN']
+                    CallButtonJson.append(CallButtonSelectByVIN(VIN))
+                flex_message = callButtonBody(CallButtonJson)
+                line_bot_api.reply_message(event.reply_token,flex_message)
     elif 'เลือกรหัส' in text:
         cleantext = text.split("|")
         VINnumber = ''.join(cleantext[1])
@@ -183,6 +187,23 @@ def handle_message(event):
             url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-a7aebafbb2615ba2b2ab8b6932429e11'
             headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
+    elif text == 'ประวัติบริการ':
+        profile = line_bot_api.get_profile(event.source.user_id)
+        userid = profile.user_id
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text("SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL "
+            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
+            "WHERE UserId = '"+ userid + "'"
+            )
+            resultset = conn.execute(qry)
+            results_as_dict = resultset.mappings().all()
+            CallButtonJson = []
+            for i in results_as_dict:
+                VIN = i['VIN']
+                CallButtonJson.append(CallButtonSelectByVINHistory(VIN))
+            flex_message = callButtonBody(CallButtonJson)
+            line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
         event.reply_token,
