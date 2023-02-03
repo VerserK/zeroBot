@@ -217,7 +217,7 @@ def CallButtonSelectByVINHistory(VIN):
     CallButton = {
                 "type": "button",
                 "action": {
-                "type": "postback",
+                "type": "uri",
                 "label": str(VIN),
                 "data": "https://zerosearch.azurewebsites.net//auth/history.php?key=511969f8d94619d6b45edb4f60345515&code="+str(VIN)
                 },
