@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, render_template, send_from_directory, flash
+from flask import Flask, request, abort, render_template, send_from_directory, flash, redirect
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -237,6 +237,7 @@ def insert_register():
         results_as_dict = resultset.mappings().all()
         if results_as_dict != taxId:
             flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
+            return redirect(request.url)
     # print('Request for index page received')
     # return render_template('register.html')
 
