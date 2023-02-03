@@ -129,6 +129,14 @@
                         <div class="ee fontZ">*</div>
                     </div>
                     <div class="container">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for messages in messages %}
+                                    {{message}}
+                                {% endfor %}
+
+                            {% endif %}
+                        {% endwith %}
                         <div class="row">
                             <div class="col">
                                 <input type="text" class="form-control iuputRegister" name="taxId" maxlength="70" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
