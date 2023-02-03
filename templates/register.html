@@ -18,6 +18,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@300&display=swap" rel="stylesheet">
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    // Initializes a LIFF app
+    liff.init(function (data) {});
+    </script>
+
 </head>
     <style> 
         body {font-family: Pridi;}
@@ -126,6 +131,10 @@
                         <div class="row">
                             <div class="col">
                                 <input type="text" class="form-control iuputRegister" name="taxId" maxlength="70" required>
+                                <input type="text" class="form-control iuputRegister" name="userId" maxlength="70" required>
+                                <input type="text" class="form-control iuputRegister" name="displayName" maxlength="70" required>
+                                <input type="text" class="form-control iuputRegister" name="statusMessage" maxlength="70" required>
+                                <input type="text" class="form-control iuputRegister" name="pictureUrl" maxlength="70" required>
                             </div>
                         </di>
                     </div>
@@ -140,24 +149,17 @@
         var displayName = '';
         var statusMessage = '';
         var pictureUrl = '';
-        liff.init({ liffId: "1657565283-mjR6RKe9" }, () => {
+        liff.init({ liffId: "1657866737-M0N4RwZL" }, () => {
             if (liff.isLoggedIn()) {
                 liff.getProfile().then(profile => {
                     userProfile = profile.userId;
+                    userProfile = document.getElementById("userId").value;
                     displayName = profile.displayName;
+                    userProfidisplayNamele = document.getElementById("displayName").value;
                     statusMessage = profile.statusMessage;
+                    statusMessage = document.getElementById("statusMessage").value;
                     pictureUrl = profile.pictureUrl;
-                    $.ajax({
-                        type: "post",
-                        url: 'callAjax.php?key='+userProfile,
-                        data: {"type":"getDataLine"},
-                        success: function(response){
-                            var html = '';
-                            var dataLine = response;
-                            html += dataLine;
-                            document.getElementById('line').innerHTML = html;
-                        }
-                        });
+                    pictureUrl = pictureUrl.getElementById("statusMessage").value;
                     console.log(closeCheck);
                     if (closeCheck == 'close') {
                         liff.closeWindow();
