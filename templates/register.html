@@ -152,14 +152,10 @@
         liff.init({ liffId: "1657866737-M0N4RwZL" }, () => {
             if (liff.isLoggedIn()) {
                 liff.getProfile().then(profile => {
-                    userProfile = profile.userId;
-                    document.getElementById("userId").innerHTML = userProfile;
-                    displayName = profile.displayName;
-                    document.getElementById("displayName").innerHTML = displayName;
-                    statusMessage = profile.statusMessage;
-                    document.getElementById("statusMessage").innerHTML = statusMessage;
-                    pictureUrl = profile.pictureUrl;
-                    pictureUrl.getElementById("pictureUrl").innerHTML = pictureUrl;
+                    document.getElementById("userId").value = profile.userId;
+                    document.getElementById("displayName").value = profile.displayName;
+                    document.getElementById("statusMessage").value = profile.statusMessage;
+                    pictureUrl.getElementById("pictureUrl").value = profile.pictureUrl;
                     console.log(closeCheck);
                     if (closeCheck == 'close') {
                         liff.closeWindow();
