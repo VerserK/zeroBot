@@ -1,4 +1,4 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -208,6 +208,11 @@ def handle_message(event):
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+
+@app.route('/register')
+def register():
+   print('Request for index page received')
+   return render_template('register.html')
 
 if __name__ == "__main__":
     app.run()
