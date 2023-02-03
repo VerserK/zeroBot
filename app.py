@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, render_template, send_from_directory
+from flask import Flask, request, abort, render_template, send_from_directory, flash
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -12,7 +12,7 @@ from linebot.models import (
 )
 from linebot.models.actions import RichMenuSwitchAction
 from linebot.models.rich_menu import RichMenuAlias
-import datetime
+from datetime import datetime, date
 from buttonLine import *
 import sqlalchemy as sa
 import urllib
@@ -222,8 +222,23 @@ def register():
 
 @app.route('/insert_register', methods=['POST'])
 def insert_register():
-   print('Request for index page received')
-   return render_template('register.html')
+    taxId = request.form.get('taxId')
+    userId = request.form.get('userId')
+    displayName = request.form.get('displayName')
+    pictureUrl = request.form.get('pictureUrl')
+    createTime = datetime.today()
+    status = '200'
+    id = os.urandom(16).hex()
+    con = ConnectDB('CRM Data')
+    with con.begin() as conn:
+        qry = sa.text("SELECT [Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
+        )
+        resultset = conn.execute(qry)
+        results_as_dict = resultset.mappings().all()
+        if results_as_dict != taxId:
+            flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
+    print('Request for index page received')
+    return render_template('register.html')
 
 if __name__ == "__main__":
     app.run()
