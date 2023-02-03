@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, render_template
+from flask import Flask, request, abort, render_template, send_from_directory
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -209,8 +209,18 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 @app.route('/register')
 def register():
+   print('Request for index page received')
+   return render_template('register.html')
+
+@app.route('/insert_register', methods=['POST'])
+def insert_register():
    print('Request for index page received')
    return render_template('register.html')
 
