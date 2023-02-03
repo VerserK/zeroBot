@@ -153,13 +153,13 @@
             if (liff.isLoggedIn()) {
                 liff.getProfile().then(profile => {
                     userProfile = profile.userId;
-                    document.getElementById("userId").value = userProfile;
+                    document.getElementById("userId").innerHTML = userProfile;
                     displayName = profile.displayName;
-                    document.getElementById("displayName").value = displayName;
+                    document.getElementById("displayName").innerHTML = displayName;
                     statusMessage = profile.statusMessage;
-                    document.getElementById("statusMessage").value = statusMessage;
+                    document.getElementById("statusMessage").innerHTML = statusMessage;
                     pictureUrl = profile.pictureUrl;
-                    pictureUrl.getElementById("pictureUrl").value = pictureUrl;
+                    pictureUrl.getElementById("pictureUrl").innerHTML = pictureUrl;
                     console.log(closeCheck);
                     if (closeCheck == 'close') {
                         liff.closeWindow();
