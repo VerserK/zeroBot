@@ -115,7 +115,7 @@
         <div id="line"></div>
         <br><br>
                     <div class="d-flex justify-content-center">
-                        <img class="logo" src="../image/zero33.png" alt="lineLogin">
+                        <img class="logo" src="../public/zero33.png" alt="lineLogin">
                     </div>
                     <br>
                     <div class="d-flex justify-content-center">
@@ -145,17 +145,13 @@
     </body>
     <script>
         var closeCheck = 'open';
-        var userProfile = '';
-        var displayName = '';
-        var statusMessage = '';
-        var pictureUrl = '';
         liff.init({ liffId: "1657866737-M0N4RwZL" }, () => {
             if (liff.isLoggedIn()) {
                 liff.getProfile().then(profile => {
                     document.getElementById("userId").value = profile.userId;
                     document.getElementById("displayName").value = profile.displayName;
                     document.getElementById("statusMessage").value = profile.statusMessage;
-                    pictureUrl.getElementById("pictureUrl").value = profile.pictureUrl;
+                    document.getElementById("pictureUrl").value = profile.pictureUrl;
                     console.log(closeCheck);
                     if (closeCheck == 'close') {
                         liff.closeWindow();
