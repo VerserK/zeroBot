@@ -243,7 +243,7 @@ def insert_register():
     df = pd.DataFrame.from_dict(results_as_dict)
     if len(df)==0:
         textError = 'ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล'
-        return render_template('insert_register.html',textError=textError)
+        return render_template('register.html',textError=textError)
     else:
         return render_template('insert_register.html',taxId=taxId)
 
