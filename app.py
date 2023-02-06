@@ -242,11 +242,8 @@ def insert_register():
         results_as_dict = resultset.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)
     if len(df)==0:
-        # flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
-        if request.method == 'POST':
-            flash('test')
-            return redirect(url_for('register'))
-        return render_template('register.html')
+        flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
+        return render_template('insert_register.html')
     else:
         return render_template('insert_register.html',taxId=taxId)
 
