@@ -129,11 +129,15 @@
                         <div class="ee fontZ">*</div>
                     </div>
                     <div class="container">
-                        {% for message in get_flashed_messages() %}
-                            {{ message }}
-                        {% endfor %}
                         <div class="row">
                             <div class="col">
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {{ message }}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
                                 <input type="text" class="form-control iuputRegister" name="taxId" maxlength="70" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
                                 <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="displayName" name="displayName" maxlength="70" hidden required>
