@@ -248,8 +248,7 @@ def insert_register():
         if results_as_dict != taxId:
             flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
             return redirect(request.url)
-    # print('Request for index page received')
-    # return render_template('register.html')
+    return render_template('insert_register.html')
 
 if __name__ == "__main__":
     app.run()
