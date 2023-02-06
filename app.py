@@ -218,20 +218,10 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-class NameForm(FlaskForm):
-    name = StringField("What")
-    submit = SubmitField("Submit")
-
 @app.route('/register', methods=['GET','POST'])
 def register():
     print('Request for index page received')
-    name = None
-    form = NameError
-    if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
-        flash("Successful")
-    return render_template('register.html', name = name , form = form)
+    return render_template('register.html')
 
 # @app.route('/insert_register', methods=['POST'])
 # def insert_register():
