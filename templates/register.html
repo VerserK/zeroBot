@@ -178,7 +178,7 @@
             alertPlaceholder.append(wrapper)
         }
 
-        const alertTrigger = document.getElementById('liveAlertBtn')
+        const alertTrigger = document.getElementById('{{liveAlertBtn}}')
         if (alertTrigger){
             alertTrigger.addEventListener('load', () => {
                 alert('Nice, you triggered this alert message!', 'success')
