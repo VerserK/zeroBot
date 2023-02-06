@@ -131,13 +131,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                {% with messages = get_flashed_messages() %}
-                                    {% if messages %}
-                                        {% for message in messages %}
-                                            {{ message }}
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endwith %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>Holy guacamole!</strong> {{textError}}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 <input type="text" class="form-control iuputRegister" name="taxId" maxlength="70" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
                                 <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="displayName" name="displayName" maxlength="70" hidden required>
