@@ -1,5 +1,5 @@
-from flask import Flask, request, abort, render_template, send_from_directory, flash, redirect, url_for
-
+from flask import Flask, request, abort, render_template, send_from_directory, flash, redirect
+from flask import url_for
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -243,7 +243,7 @@ def insert_register():
     df = pd.DataFrame.from_dict(results_as_dict)
     if len(df)==0:
         flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
-        return redirect(url_for('/register'))
+        return redirect(url_for('register'))
     else:
         return render_template('insert_register.html',taxId=taxId)
 
