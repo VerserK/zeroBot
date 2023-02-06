@@ -244,7 +244,8 @@ def insert_register():
     if len(df)==0:
         # flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
         flash('test')
-        return redirect(url_for('register'))
+        # return redirect(url_for('register'))
+        return render_template('register.html')
     else:
         return render_template('insert_register.html',taxId=taxId)
 
