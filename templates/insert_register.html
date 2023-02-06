@@ -3,9 +3,13 @@
     <title>Hello Azure - Python Quickstart</title>
 </head>
 <body>
-    {% for message in get_flashed_messages() %}
-        {{ message }}
-    {% endfor %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div class="px-4 py-3 my-2 text-center">
         <h1>{{taxId}}</h1>
     </div>
