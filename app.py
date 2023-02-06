@@ -251,7 +251,8 @@ def insert_register():
     if df is None:
         flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
         return redirect(request.url)
-    return render_template('insert_register.html',userId=userId)
+    else:
+        return render_template('insert_register.html',userId=userId)
 
 if __name__ == "__main__":
     app.run()
