@@ -218,16 +218,9 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-# class RegistrationForm(FlaskForm):
-#     taxId = StringField('taxId',validators=[DataRequired(), Length(min=13, max=13)])
-
 @app.route('/register', methods=['GET','POST'])
 def register():
     print('Request for index page received')
-    # form = RegistrationForm()
-    # if form.validate_on_submit():
-    #     text = 'gogogo'
-    #     return text
     return render_template('register.html')
 
 @app.route('/insert_register', methods=['POST'])
@@ -252,7 +245,7 @@ def insert_register():
         flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
         return redirect(url_for('register'))
     else:
-        return render_template('insert_register.html',userId=userId)
+        return render_template('insert_register.html',taxId=taxId)
 
 if __name__ == "__main__":
     app.run()
