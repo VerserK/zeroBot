@@ -248,7 +248,7 @@ def insert_register():
     df = pd.DataFrame.from_dict(results_as_dict)
     df.columns=['taxid']
     df = df.query('taxid ==  "'+taxId+'"')
-    if df is None:
+    if len(df)==0:
         flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
         return redirect(request.url)
     else:
