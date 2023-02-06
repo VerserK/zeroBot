@@ -239,15 +239,18 @@ def insert_register():
     createTime = datetime.today()
     status = '200'
     id = os.urandom(16).hex()
-    # con = ConnectDB('CRM Data')
-    # with con.begin() as conn:
-    #     qry = sa.text("SELECT [Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
-    #     )
-    #     resultset = conn.execute(qry)
-    #     results_as_dict = resultset.mappings().all()
-    #     if results_as_dict != taxId:
-    #         flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
-    #         return redirect(request.url)
+    con = ConnectDB('CRM Data')
+    with con.begin() as conn:
+        qry = sa.text("SELECT [Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
+        )
+        resultset = conn.execute(qry)
+        results_as_dict = resultset.mappings().all()
+    df = pd.DataFrame.from_dict(results_as_dict)
+    df.columns=['taxid']
+    df = df.query('taxid ==  "'+taxId+'"')
+    if df is None:
+        flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
+        return redirect(request.url)
     return render_template('insert_register.html',userId=userId)
 
 if __name__ == "__main__":
