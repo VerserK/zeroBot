@@ -235,12 +235,12 @@ def insert_register():
     con = ConnectDB('CRM Data')
     with con.begin() as conn:
         qry = sa.text("SELECT [Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
+        "WHERE [Tax ID] = '"+ taxId +"'"
+        "ORDER BY [Tax ID] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
         )
         resultset = conn.execute(qry)
         results_as_dict = resultset.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)
-    df.columns=['taxid']
-    df = df.query('taxid ==  "'+taxId+'"')
     if len(df)==0:
         flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
         return redirect(url_for('register'))
