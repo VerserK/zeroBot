@@ -18,6 +18,9 @@ import sqlalchemy as sa
 import urllib
 import requests
 import os
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 
@@ -215,29 +218,39 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/register')
-def register():
-   print('Request for index page received')
-   return render_template('register.html')
+class NameForm(FlaskForm):
+    name = StringField("What")
+    submit = SubmitField("Submit")
 
-@app.route('/insert_register', methods=['POST'])
-def insert_register():
-    taxId = request.form.get('taxId')
-    userId = request.form.get('userId')
-    displayName = request.form.get('displayName')
-    pictureUrl = request.form.get('pictureUrl')
-    createTime = datetime.today()
-    status = '200'
-    id = os.urandom(16).hex()
-    con = ConnectDB('CRM Data')
-    with con.begin() as conn:
-        qry = sa.text("SELECT [Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
-        )
-        resultset = conn.execute(qry)
-        results_as_dict = resultset.mappings().all()
-        if results_as_dict != taxId:
-            flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
-            return redirect(request.url)
+@app.route('/register', methods=['GET','POST'])
+def register():
+    print('Request for index page received')
+    name = None
+    form = NameError
+    if form.validate_on_submit():
+        name = form.name.data
+        form.name.data = ''
+        flash("Successful")
+    return render_template('register.html', name = name , form = form)
+
+# @app.route('/insert_register', methods=['POST'])
+# def insert_register():
+#     taxId = request.form.get('taxId')
+#     userId = request.form.get('userId')
+#     displayName = request.form.get('displayName')
+#     pictureUrl = request.form.get('pictureUrl')
+#     createTime = datetime.today()
+#     status = '200'
+#     id = os.urandom(16).hex()
+#     con = ConnectDB('CRM Data')
+#     with con.begin() as conn:
+#         qry = sa.text("SELECT [Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
+#         )
+#         resultset = conn.execute(qry)
+#         results_as_dict = resultset.mappings().all()
+#         if results_as_dict != taxId:
+#             flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
+#             return redirect(request.url)
     # print('Request for index page received')
     # return render_template('register.html')
 
