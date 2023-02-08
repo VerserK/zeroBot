@@ -130,7 +130,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <div id="liveAlertPlaceholder"></div>
+                                <div id="{{liveAlertPlaceholder}}"></div>
                                 <input type="text" class="form-control iuputRegister" name="taxId" maxlength="70" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
                                 <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="displayName" name="displayName" maxlength="70" hidden required>
@@ -178,11 +178,11 @@
             alertPlaceholder.append(wrapper)
         }
 
-        const alertTrigger = document.getElementById('{{liveAlertBtn}}')
-        if (alertTrigger){
-            alertTrigger.addEventListener('load', () => {
-                alert('Nice, you triggered this alert message!', 'success')
-            })
-        }
+        // const alertTrigger = document.getElementById('{{liveAlertBtn}}')
+        // if (alertTrigger){
+        //     alertTrigger.addEventListener('load', () => {
+        //         alert('Nice, you triggered this alert message!', 'success')
+        //     })
+        // }
     </script>
 </html>

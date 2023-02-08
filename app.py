@@ -243,8 +243,8 @@ def insert_register():
     df = pd.DataFrame.from_dict(results_as_dict)
     if len(df)==0:
         textError = 'ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล'
-        liveAlertBtn = 'liveAlertBtn'
-        return render_template('register.html',textError=textError, liveAlertBtn=liveAlertBtn)
+        liveAlertPlaceholder = 'liveAlertPlaceholder'
+        return render_template('register.html',textError=textError, liveAlertPlaceholder=liveAlertPlaceholder)
     else:
         return render_template('insert_register.html',taxId=taxId)
 
