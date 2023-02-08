@@ -262,6 +262,7 @@ def insert_register():
             flash("คุณได้ทำการลงทะเบียนแล้ว")
             return redirect(url_for('register'))
         else:
+            con = ConnectDB('Line Data')
             with con.begin() as conn:
                 insertData = sa.text("INSERT INTO [Line Data].[dbo].[Profile Line] "
                 "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime])"
