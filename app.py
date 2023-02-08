@@ -263,10 +263,16 @@ def insert_register():
         else:
             with con.begin() as conn:
                 insertData = sa.text("INSERT INTO [Line Data].[dbo].[Profile Line] "
-                "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime], [UpdateTime])"
+                "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime])"
+                "VALUES"
+                "("+ id +","+ status +","+ displayName +","+ pictureUrl +","+ userId +","+ taxId +","+ createTime +")"
                 )
-                resultsetLine = conn.execute(qryLine)
-            return render_template('insert_register.html',taxId=taxId)
+                resultsetInsertData = conn.execute(insertData)
+            flash("ลงทะเบียนแล้วเรียบร้อย")
+            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-a7aebafbb2615ba2b2ab8b6932429e11'
+            headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
+            r = requests.post(url, headers=headers)
+            return render_template('insert_register.html')
 
 if __name__ == "__main__":
     app.run()
