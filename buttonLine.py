@@ -14,7 +14,7 @@ import pandas as pd
 
 def ConnectDB(db):
     #configure sql server
-    server = 'skcdwhprdmi.southeastasia.cloudapp.azure.com'
+    server = 'skcdwhprdmi.siamkubota.co.th'
     database =  db
     username = 'skcadminuser'
     password = 'DEE@skcdwhtocloud2022prd'
