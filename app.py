@@ -233,6 +233,7 @@ def insert_register():
     createTime = datetime.today()
     status = '200'
     id = os.urandom(16).hex()
+    #check taxid
     con = ConnectDB('CRM Data')
     with con.begin() as conn:
         qry = sa.text("SELECT [Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
@@ -242,10 +243,22 @@ def insert_register():
         resultset = conn.execute(qry)
         results_as_dict = resultset.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)
+    #check userid
+    with con.begin() as conn:
+        qryLine = sa.text("SELECT [UserId] FROM [Line Data].[dbo].[Profile Line] "
+        "WHERE [UserId] = '"+ userId +"'"
+        "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+        )
+        resultsetLine = conn.execute(qryLine)
+        results_as_dict_line = resultsetLine.mappings().all()
+        dfLine = pd.DataFrame.from_dict(results_as_dict_line)
     if request.method == 'POST':
         if len(df)==0:
             flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
             # return render_template('register.html', flash_message="True")
+            return redirect(url_for('register'))
+        elif dfLine is not None:
+            flash("คุณได้ทำการลงทะเบียนแล้ว")
             return redirect(url_for('register'))
         else:
             return render_template('insert_register.html',taxId=taxId)
