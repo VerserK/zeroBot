@@ -231,7 +231,7 @@ def insert_register():
     displayName = request.form.get('displayName')
     pictureUrl = request.form.get('pictureUrl')
     createTime = datetime.today()
-    createTime = createTime.strftime("%Y-%m-%d %H:%M:%S.%f")
+    createTime = createTime.strftime("%Y-%m-%d %H:%M:%S")
     status = '200'
     id = os.urandom(16).hex()
     #check taxid
