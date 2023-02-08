@@ -244,13 +244,9 @@ def insert_register():
     df = pd.DataFrame.from_dict(results_as_dict)
     if request.method == 'POST':
         if len(df)==0:
-            textError = 'ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล'
-            liveAlertPlaceholder = '''function showAlert() {
-                            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-                        $("#success-alert").slideUp(500);
-                            }'''
             flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
-            return render_template('register.html',textError=textError, liveAlertPlaceholder=liveAlertPlaceholder, flash_message="True")
+            # return render_template('register.html', flash_message="True")
+            return redirect(url_for('register'))
         else:
             return render_template('insert_register.html',taxId=taxId)
 
