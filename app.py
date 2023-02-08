@@ -257,7 +257,7 @@ def insert_register():
             flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
             # return render_template('register.html', flash_message="True")
             return redirect(url_for('register'))
-        elif dfLine is not None:
+        elif len(dfLine)!=0:
             flash("คุณได้ทำการลงทะเบียนแล้ว")
             return redirect(url_for('register'))
         else:
