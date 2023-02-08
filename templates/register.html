@@ -134,6 +134,13 @@
                                     {{textError}}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {{ message }}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
                                 <input type="text" class="form-control iuputRegister" name="taxId" maxlength="70" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
                                 <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="displayName" name="displayName" maxlength="70" hidden required>
@@ -169,23 +176,6 @@
         }, err => console.error(err.code, error.message));
     </script>
     <script>
-        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-        const alert = (message, type) => {
-            const wrapper = document.createElement('div')
-            wrapper.innerHTML=[
-                '<div class="alert alert-danger alert-dismissible fade show" role="alert">',
-                    '{{textError}}',
-                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-            ].join('')
-            alertPlaceholder.append(wrapper)
-        }
-
-        // const alertTrigger = document.getElementById('{{liveAlertBtn}}')
-        // if (alertTrigger){
-        //     alertTrigger.addEventListener('load', () => {
-        //         alert('Nice, you triggered this alert message!', 'success')
-        //     })
-        // }
+        $("#error-alert").hide();
     </script>
 </html>
