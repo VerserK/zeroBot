@@ -223,7 +223,7 @@ def register():
     print('Request for index page received')
     return render_template('register.html')
 
-@app.route('/insert_register', methods=['POST'])
+@app.route('/insert_register', methods=['GET','POST'])
 def insert_register():
     taxId = request.form.get('taxId')
     userId = request.form.get('userId')
@@ -248,7 +248,8 @@ def insert_register():
                     $("#success-alert").slideUp(500);
                         }'''
         flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
-        return render_template('register.html',textError=textError, liveAlertPlaceholder=liveAlertPlaceholder, flash_message="True")
+        # return render_template('register.html',textError=textError, liveAlertPlaceholder=liveAlertPlaceholder, flash_message="True")
+        return redirect(url_for('register'))
     else:
         return render_template('insert_register.html',taxId=taxId)
 
