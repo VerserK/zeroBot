@@ -23,6 +23,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 
 app = Flask(__name__)
+app.secret_key = "flash message"
 
 line_bot_api = LineBotApi('J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('7f9e03908fca984853b2fc322c1775c6')
@@ -249,8 +250,7 @@ def insert_register():
                         $("#success-alert").slideUp(500);
                             }'''
             flash("ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล")
-            # return render_template('register.html',textError=textError, liveAlertPlaceholder=liveAlertPlaceholder, flash_message="True")
-            return redirect(url_for('register'))
+            return render_template('register.html',textError=textError, liveAlertPlaceholder=liveAlertPlaceholder, flash_message="True")
         else:
             return render_template('insert_register.html',taxId=taxId)
 
