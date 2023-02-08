@@ -266,7 +266,7 @@ def insert_register():
                 insertData = sa.text("INSERT INTO [Line Data].[dbo].[Profile Line] "
                 "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime])"
                 "VALUES"
-                "("+ id +","+ status +","+ displayName +","+ pictureUrl +","+ userId +","+ taxId +","+ createTime +")"
+                "('"+ id +"','"+ status +"','"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"')"
                 )
                 resultsetInsertData = conn.execute(insertData)
             flash("ลงทะเบียนแล้วเรียบร้อย")
