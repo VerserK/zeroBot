@@ -140,7 +140,7 @@
                                         {% endfor %}
                                     {% endif %}
                                 {% endwith %}
-                                <input type="number" class="form-control iuputRegister" name="taxId" maxlength="13" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
+                                <input type="text" inputmode="numeric" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control iuputRegister" name="taxId" maxlength="13" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
                                 <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="displayName" name="displayName" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="statusMessage" name="statusMessage" maxlength="70" hidden required>
