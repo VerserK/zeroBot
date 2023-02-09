@@ -23,7 +23,7 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div id="error-alert" class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -36,7 +36,7 @@
     setTimeout(function () {
     // Closing the alert
     $('#error-alert').alert('close');
+    window.close();
     }, 5000);
-    setTimeout("window.close();", 5000);
 </script>
 </html>
