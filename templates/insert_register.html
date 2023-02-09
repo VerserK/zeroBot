@@ -37,6 +37,7 @@
     // Closing the alert
     $('#error-alert').alert('close');
     }, 5000);
-    open(location, '_self').close();
+    var win = window.open("about:blank", "_self");
+    win.close();
 </script>
 </html>
