@@ -36,8 +36,7 @@
     setTimeout(function () {
     // Closing the alert
     $('#error-alert').alert('close');
-    window.open('', '_self', '');
-    window.close();
+    open(location, '_self').close();
     }, 5000);
 </script>
 </html>
