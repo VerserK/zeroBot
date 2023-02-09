@@ -36,12 +36,7 @@
     setTimeout(function () {
     // Closing the alert
     $('#error-alert').alert('close');
+    liff.closeWindow();
     }, 5000);
-    // var win = window.open("about:blank", "_self");
-    // win.close();
-    const winHandle = window.open('https://www.google.com', '_self');
-    setTimeout(() => {
-    winHandle.close();  // work
-    }, 2000);
 </script>
 </html>
