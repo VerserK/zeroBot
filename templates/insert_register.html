@@ -32,16 +32,12 @@
         {% endwith %}
     </div>
 </body>
-<script>
-    setTimeout(function() {
-        window.close()
-    }, 5000);
-</script>
 <script type="text/javascript">
     setTimeout(function () {
     // Closing the alert
     $('#error-alert').alert('close');
-    close();
+    window.open('', '_self', '');
+    window.close();
     }, 5000);
 </script>
 </html>
