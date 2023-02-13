@@ -56,7 +56,6 @@
     </style>
     <body>
         <div class="container">
-            {{VIN}}
             <div class="row">
                 <div class="example historyName"><center><b>ประวัติงานบริการ</b></center></div>
             </div>
@@ -108,7 +107,7 @@
                     'serverSide': true,
                     'serverMethod': 'post',
                     "ajax": {
-                        "url": "/index_get_data",
+                        "url": "/index_get_data?VIN={{VIN}}",
                         "dataType": "json",
                         "dataSrc": "data",
                         "contentType":"application/json"
