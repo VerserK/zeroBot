@@ -106,7 +106,11 @@
                     'processing': true,
                     'serverSide': true,
                     'serverMethod': 'post',
-                    "ajax": {url: "/history", 
+                    "ajax": {
+                        "url": "/index_get_data",
+                        "dataType": "json",
+                        "dataSrc": "data",
+                        "contentType":"application/json"
                     },
                     'columns': [
                         { data: 'VIN' },
