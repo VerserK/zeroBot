@@ -282,7 +282,7 @@ def insert_register():
 
 @app.route('/history', methods=['GET','POST'])
 def history():
-    return render_template('register.html')
+    return render_template('history.html')
 
 if __name__ == "__main__":
     app.run()
