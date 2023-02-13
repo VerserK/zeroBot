@@ -287,7 +287,7 @@ def history():
 
 @app.route('/ajaxfile', methods=['GET','POST'])
 def ajaxfile():
-    VIN = request.form['VIN']
+    VIN = request.args.get('VIN')
     con = ConnectDB('Service Data')
     with con.begin() as conn:
         qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
