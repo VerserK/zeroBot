@@ -46,6 +46,10 @@
         .historyName {
         color: white;
         }
+        table.dataTable thead th.ui-state-default {
+        background-color: #5E6668;
+        color: white;
+        }
     </style>
     <body>
         <div class="container">
@@ -61,13 +65,13 @@
                         <table id="myTable2" class="display" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>หมายเลขรถ</th>
-                                    <th>ประเภท</th>
-                                    <th>รุ่น</th>
-                                    <th>วันที่รับบริการ</th>
-                                    <th>วันที่บริการเสร็จ</th>
-                                    <th>ประเภท/ปัญหา</th>
-                                    <th>ค่าใช้จ่ายสุทธิ</th>
+                                    <th class='not sort column'>หมายเลขรถ</th>
+                                    <th class='not sort column'>ประเภท</th>
+                                    <th class='not sort column'>รุ่น</th>
+                                    <th class='not sort column'>วันที่รับบริการ</th>
+                                    <th class='not sort column'>วันที่บริการเสร็จ</th>
+                                    <th class='not sort column'>ประเภท/ปัญหา</th>
+                                    <th class='not sort column'>ค่าใช้จ่ายสุทธิ</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,28 +92,26 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#myTable2").DataTable({
-                    // "paging": true,
-                    // "lengthChange": false,
-                    // "searching": false,
-                    // "ordering": true,
-                    // "info": true,
-                    // "autoWidth": false,
-                    // "responsive": true,
-                    // 'language': {
-                    //     'emptyTable': 'ไม่มีข้อมูลให้แสดง',
-                    //     'lengthMenu': 'แสดง _MENU_ จำนวน',
-                    //     'info': 'กำลังแสดงลำดับที่ _START_ ถึง _END_ จากทั้งหมด _TOTAL_ จำนวน',
-                    //     'infoEmpty': 'ไม่มีข้อมูลให้แสดง',
-                    //     'search': 'ค้นหา : ',
-                    //     'paginate': {
-                    //         'first': 'หน้าแรกสุด',
-                    //         'last': 'หน้าสุดท้าย',
-                    //         'next': 'ถัดไป',
-                    //         'previous': 'ย้อนกลับ',
-                    //     },
-                    // },
-                    // 'processing': true,
-                    // 'serverSide': true,
+                    'columnDefs': [ {
+                        'targets'  : 'not sort column',
+                        'orderable': false,
+                     }],
+                    'language': {
+                        'emptyTable': 'ไม่มีข้อมูลให้แสดง',
+                        'lengthMenu': 'แสดง _MENU_ จำนวน',
+                        'info': 'กำลังแสดงลำดับที่ _START_ ถึง _END_ จากทั้งหมด _TOTAL_ จำนวน',
+                        'infoEmpty': 'ไม่มีข้อมูลให้แสดง',
+                        'search': 'ค้นหา : ',
+                        'paginate': {
+                            'first': 'หน้าแรกสุด',
+                            'last': 'หน้าสุดท้าย',
+                            'next': 'ถัดไป',
+                            'previous': 'ย้อนกลับ',
+                        },
+                    },
+                    'processing': true,
+                    'serverSide': true,
+                    scrollX: true,
                 });
             });
         </script>

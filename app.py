@@ -288,6 +288,7 @@ def history():
         qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
         "FROM [Service Data].[dbo].[Service_Header]"
         "WHERE [VIN] = '"+ VIN +"'"
+        "ORDER BY [Billing Date] DESC"
         )
         resultset = conn.execute(qry)
         data = resultset.mappings().all()
