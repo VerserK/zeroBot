@@ -283,6 +283,11 @@ def insert_register():
 @app.route('/history', methods=['GET','POST'])
 def history():
     VIN = request.args.get('VIN')
+    return render_template('history.html', VIN=VIN)
+
+@app.route('/ajaxfile', methods=['GET','POST'])
+def ajaxfile():
+    VIN = request.form['VIN']
     con = ConnectDB('Service Data')
     with con.begin() as conn:
         qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
@@ -290,8 +295,26 @@ def history():
         "WHERE [VIN] = '"+ VIN +"'"
         )
         resultset = conn.execute(qry)
-        data = resultset.mappings().all()
-    return render_template('history.html', data=data)
+        vinlist = resultset.fetchall()
+    data=[]
+    for row in vinlist:
+        data.append({
+            'VIN': row['VIN'],
+            'Vehicle Type Text': row['Vehicle Type Text'] ,
+            'LV Main Type': row['LV Main Type'],
+            'Billing Date': row['Billing Date'],
+            'Billing Created On': row['Billing Created On'],
+            'Symptom': row['Symptom'],
+            'Net Value': row['Net Value']
+        })
+    
+    response = {
+        'VIN': VIN,
+        'iTota;Record': 17,
+        'iTotalDisplayRecord': 17,
+        'aaData': data
+    }
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.run()

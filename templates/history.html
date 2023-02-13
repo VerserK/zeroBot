@@ -93,7 +93,6 @@
         </div>
         <br>
         <script type="text/javascript">
-            var chart_data = '{{ data }}'
             $(document).ready(function () {
                 $("#myTable2").DataTable({
                     'columnDefs': [ {
@@ -115,8 +114,20 @@
                     },
                     'processing': true,
                     'serverSide': true,
+                    'serverMethod': 'post',
+                    'ajax':{
+                        'url': '/ajaxfile?VIN={{VIN}}'
+                    },
                 scrollX: true,
-                data: chart_data
+                'columns': [
+                        { data: 'VIN' },
+                        { data: 'Vehicle Type Text' },
+                        { data: 'LV Main Type' },
+                        { data: 'Billing Date' },
+                        { data: 'Billing Created On' },
+                        { data: 'Symptom' },
+                        { data: 'Net Value' },
+                    ]
                 });
             });
         </script>
