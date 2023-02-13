@@ -287,7 +287,7 @@ def history():
 
 @app.route('/index_get_data', methods=['POST'])
 def stuff():
-    VIN = request.form.get('VIN')
+    VIN = request.args.get('VIN')
     # Assume data comes from somewhere else
     con = ConnectDB('Service Data')
     with con.begin() as conn:
