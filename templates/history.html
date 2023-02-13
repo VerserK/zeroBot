@@ -114,9 +114,11 @@
                     },
                     'processing': true,
                     'serverSide': true,
-                    'serverMethod': 'post',
                     'ajax':{
-                        'url': '/ajaxfile'
+                        'url': '/ajaxfile',
+                        "dataSrc": "data",
+                        "type": 'POST',
+                        "contentType":"application/json"
                     },
                 scrollX: true,
                 'columns': [
