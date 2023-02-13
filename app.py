@@ -280,7 +280,7 @@ def insert_register():
             r = requests.post(url, headers=headers)
             return render_template('insert_register.html')
 
-@app.route('/history', methods=['GET'])
+@app.route('/history', methods=['GET','POST'])
 def history():
     VIN = request.args.get('VIN')
     con = ConnectDB('Service Data')
