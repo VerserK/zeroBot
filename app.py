@@ -284,7 +284,7 @@ def insert_register():
 def history():
     VIN = request.form.get('VIN')
     if request.method == 'POST':
-        con = ConnectDB('CRM Data')
+        con = ConnectDB('Service Data')
         with con.begin() as conn:
             qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
             "FROM [Service Data].[dbo].[Service_Header]"
