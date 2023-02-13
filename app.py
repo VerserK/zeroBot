@@ -282,6 +282,16 @@ def insert_register():
 
 @app.route('/history', methods=['GET','POST'])
 def history():
+    VIN = request.form.get('VIN')
+    if request.method == 'POST':
+        con = ConnectDB('CRM Data')
+        with con.begin() as conn:
+            qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
+            "FROM [Service Data].[dbo].[Service_Header]"
+            "WHERE [VIN] = '"+ VIN +"'"
+            )
+            resultset = conn.execute(qry)
+            results_as_dict = resultset.mappings().all()
     return render_template('history.html')
 
 if __name__ == "__main__":

@@ -104,23 +104,30 @@
                         },
                     },
                     'processing': true,
-                    'serverSide': true,
-                    'serverMethod': 'post',
-                    'ajax': {
-                        'url':'../ajax/temp.php?key=<?php echo $profileId.'&format=getServiceHeader&code='.$vin; ?>'
-                    },
-                    'columns': [
-                        { data: 'VIN' },
-                        { data: 'Vehicle Type Text' },
-                        { data: 'LV Main Type' },
-                        { data: 'Billing Date' },
-                        { data: 'Billing Created On' },
-                        { data: 'Symptom' },
-                        { data: 'Net Value' },
-                    ],
-                scrollX: true,
+                    'serverSide': true
                 });
             });
+        </script>
+        <script>
+            var closeCheck = 'open';
+            liff.init({ liffId: "1657866737-M0N4RwZL" }, () => {
+                if (liff.isLoggedIn()) {
+                    liff.getProfile().then(profile => {
+                        document.getElementById("userId").value = profile.userId;
+                        document.getElementById("displayName").value = profile.displayName;
+                        document.getElementById("statusMessage").value = profile.statusMessage;
+                        document.getElementById("pictureUrl").value = profile.pictureUrl;
+                        console.log(closeCheck);
+                        if (closeCheck == 'close') {
+                            liff.closeWindow();
+                        }
+                    }).catch(
+                        err => console.error(err)
+                    );
+                } else {
+                    liff.login();
+                }
+            }, err => console.error(err.code, error.message));
         </script>
     </body>
 </html>
