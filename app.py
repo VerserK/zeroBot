@@ -189,7 +189,7 @@ def handle_message(event):
             headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
         else:
-            url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-a7aebafbb2615ba2b2ab8b6932429e11'
+            url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-3b63586f09b1876987b88a21007dda55'
             headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
     elif text == 'ประวัติบริการ':
@@ -203,12 +203,16 @@ def handle_message(event):
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
-            CallButtonJson = []
-            for i in results_as_dict:
-                VIN = i['VIN']
-                CallButtonJson.append(CallButtonSelectByVINHistory(VIN))
-            flex_message = callButtonBody(CallButtonJson)
-            line_bot_api.reply_message(event.reply_token,flex_message)
+            if len(vincheck_dict) == 0:
+                noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
+            else:
+                CallButtonJson = []
+                for i in results_as_dict:
+                    VIN = i['VIN']
+                    CallButtonJson.append(CallButtonSelectByVINHistory(VIN))
+                flex_message = callButtonBody(CallButtonJson)
+                line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         line_bot_api.reply_message(
         event.reply_token,
@@ -275,6 +279,10 @@ def insert_register():
             headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
             return render_template('insert_register.html')
+
+@app.route('/history', methods=['GET','POST'])
+def history():
+    return render_template('register.html')
 
 if __name__ == "__main__":
     app.run()
