@@ -77,6 +77,15 @@
                                     <th class='not sort column'>ค่าใช้จ่ายสุทธิ</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                {% for row in data %}
+                                    <tr>
+                                    {% for cell in row %}
+                                        <td>{{ cell }}</td>
+                                    {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                              </tbody>
                         </table>
                     </div>
                 </div>
@@ -105,22 +114,6 @@
                     },
                     'processing': true,
                     'serverSide': true,
-                    'serverMethod': 'post',
-                    "ajax": {
-                        "url": "/index_get_data?VIN={{VIN}}",
-                        "dataType": "json",
-                        "dataSrc": "data",
-                        "contentType":"application/json"
-                    },
-                    'columns': [
-                        { data: 'VIN' },
-                        { data: 'Vehicle Type Text' },
-                        { data: 'LV Main Type' },
-                        { data: 'Billing Date' },
-                        { data: 'Billing Created On' },
-                        { data: 'Symptom' },
-                        { data: 'Net Value' },
-                    ],
                 scrollX: true,
                 });
             });

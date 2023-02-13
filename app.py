@@ -283,12 +283,6 @@ def insert_register():
 @app.route('/history', methods=['GET','POST'])
 def history():
     VIN = request.args.get('VIN')
-    return render_template('history.html', VIN=VIN)
-
-@app.route('/index_get_data', methods=['GET','POST'])
-def stuff():
-    VIN = request.args.get('VIN')
-    # Assume data comes from somewhere else
     con = ConnectDB('Service Data')
     with con.begin() as conn:
         qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
@@ -297,7 +291,7 @@ def stuff():
         )
         resultset = conn.execute(qry)
         data = resultset.mappings().all()
-    return jsonify(data)
+    return render_template('history.html', data=data)
 
 if __name__ == "__main__":
     app.run()
