@@ -92,6 +92,10 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#myTable2").DataTable({
+                    'columnDefs': [ {
+                        'targets'  : 'not sort column',
+                        'orderable': false,
+                     }],
                     'language': {
                         'emptyTable': 'ไม่มีข้อมูลให้แสดง',
                         'lengthMenu': 'แสดง _MENU_ จำนวน',
@@ -105,7 +109,7 @@
                             'previous': 'ย้อนกลับ',
                         },
                     },
-                    scrollX: true
+                    scrollX: true,
                 });
             });
         </script>
