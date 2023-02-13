@@ -203,7 +203,7 @@ def handle_message(event):
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
-            if len(vincheck_dict) == 0:
+            if len(results_as_dict) == 0:
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:
