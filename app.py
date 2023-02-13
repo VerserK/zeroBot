@@ -282,7 +282,7 @@ def insert_register():
 
 @app.route('/history', methods=['GET'])
 def history():
-    VIN = request.form.get('VIN')
+    VIN = request.args.get('VIN')
     con = ConnectDB('Service Data')
     with con.begin() as conn:
         qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
