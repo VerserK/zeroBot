@@ -167,7 +167,7 @@ def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate):
 
 def callButtonBody(bodyVIN):
     flex_message = FlexSendMessage(
-    alt_text='hello',
+    alt_text='zerosearch',
     contents={
         "type": "carousel",
         "contents": [

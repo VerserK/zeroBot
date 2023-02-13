@@ -285,7 +285,7 @@ def history():
     VIN = request.args.get('VIN')
     return render_template('history.html', VIN=VIN)
 
-@app.route('/index_get_data', methods=['POST'])
+@app.route('/index_get_data', methods=['GET','POST'])
 def stuff():
     VIN = request.args.get('VIN')
     # Assume data comes from somewhere else
