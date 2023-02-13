@@ -291,7 +291,7 @@ def history():
         )
         resultset = conn.execute(qry)
         results_as_dict = resultset.mappings().all()
-    return render_template('history.html', VIN=VIN)
+    return render_template('history.html')
 
 if __name__ == "__main__":
     app.run()
