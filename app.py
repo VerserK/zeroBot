@@ -292,7 +292,7 @@ def history():
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
-    return render_template('history.html', results_as_dict=results_as_dict)
+    return render_template('history.html', **results_as_dict)
 
 if __name__ == "__main__":
     app.run()
