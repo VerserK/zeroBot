@@ -93,7 +93,7 @@
         </div>
         <br>
         <script type="text/javascript">
-            var data = {{ data }}
+            const chart_data = {{ data|tojson }}
             $(document).ready(function () {
                 $("#myTable2").DataTable({
                     'columnDefs': [ {
@@ -116,7 +116,7 @@
                     'processing': true,
                     'serverSide': true,
                 scrollX: true,
-                data: data
+                data: chart_data
                 });
             });
         </script>
