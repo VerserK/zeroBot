@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, render_template, send_from_directory, flash, redirect
+from flask import Flask, request, abort, render_template, send_from_directory, flash, redirect, jsonify
 from flask import url_for
 from linebot import (
     LineBotApi, WebhookHandler
@@ -297,7 +297,7 @@ def data():
         results_as_dict = resultset.mappings().all()
 
     # response
-    return results_as_dict
+    return jsonify(results_as_dict)
 
 if __name__ == "__main__":
     app.run()
