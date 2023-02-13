@@ -77,7 +77,7 @@
                                     <th class='not sort column'>ค่าใช้จ่ายสุทธิ</th>
                                 </tr>
                             </thead>
-                            <!-- <tbody>
+                            <tbody>
                                 {% for row in data %}
                                     <tr>
                                     {% for cell in row.values() %}
@@ -85,7 +85,7 @@
                                     {% endfor %}
                                     </tr>
                                 {% endfor %}
-                            </tbody> -->
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -95,10 +95,13 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#myTable2").DataTable({
-                    // 'columnDefs': [ {
-                    //     'targets'  : 'not sort column',
-                    //     'orderable': false,
-                    //  }],
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
                     // 'language': {
                     //     'emptyTable': 'ไม่มีข้อมูลให้แสดง',
                     //     'lengthMenu': 'แสดง _MENU_ จำนวน',
@@ -114,20 +117,6 @@
                     // },
                     // 'processing': true,
                     // 'serverSide': true,
-                    'ajax':{
-                        'url': '/ajaxfile',
-                        "dataSrc": "data"
-                    },
-                // scrollX: true,
-                // 'columns': [
-                //         { data: 'VIN' },
-                //         { data: 'Vehicle Type Text' },
-                //         { data: 'LV Main Type' },
-                //         { data: 'Billing Date' },
-                //         { data: 'Billing Created On' },
-                //         { data: 'Symptom' },
-                //         { data: 'Net Value' }
-                //     ]
                 });
             });
         </script>
