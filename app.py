@@ -197,7 +197,7 @@ def handle_message(event):
         userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT Name,TaxId,[Firstname],[VIN] FROM [Line Data].[dbo].[Profile Line] PL "
+            qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN] FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "WHERE UserId = '"+ userid + "'"
             )
