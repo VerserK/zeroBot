@@ -105,16 +105,21 @@
                     },
                     'processing': true,
                     'serverSide': true,
-                    data : results_as_dict,
-                    columns: [
+                    'serverMethod': 'post',
+                    // 'ajax': {
+                    //     'url':'../ajax/temp.php?key=<?php echo $profileId.'&format=getServiceHeader&code='.$vin; ?>'
+                    // },
+                    'data': reresults_as_dict,
+                    'columns': [
                         { data: 'VIN' },
                         { data: 'Vehicle Type Text' },
                         { data: 'LV Main Type' },
                         { data: 'Billing Date' },
                         { data: 'Billing Created On' },
                         { data: 'Symptom' },
-                        { data: 'Net Value' }
-                    ]
+                        { data: 'Net Value' },
+                    ],
+                scrollX: true,
                 });
             });
         </script>
