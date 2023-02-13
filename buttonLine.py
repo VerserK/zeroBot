@@ -219,7 +219,7 @@ def CallButtonSelectByVINHistory(VIN):
                 "action": {
                 "type": "uri",
                 "label": str(VIN),
-                "uri": "https://zerobotz.azurewebsites.net/history?code="+str(VIN)
+                "uri": "https://zerobotz.azurewebsites.net/history?vin="+str(VIN)
                 },
                 "style": "primary",
                 "color": "#343A3A",
