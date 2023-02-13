@@ -282,6 +282,10 @@ def insert_register():
 
 @app.route('/history', methods=['GET','POST'])
 def history():
+    return render_template('history.html')
+
+@app.route('/api/data', methods=['GET'])
+def data():
     VIN = request.args.get('VIN')
     con = ConnectDB('Service Data')
     with con.begin() as conn:
@@ -291,7 +295,9 @@ def history():
         )
         resultset = conn.execute(qry)
         results_as_dict = resultset.mappings().all()
-    return render_template('history.html', results_as_dict=results_as_dict)
+
+    # response
+    return results_as_dict
 
 if __name__ == "__main__":
     app.run()

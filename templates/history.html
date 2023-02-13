@@ -106,7 +106,9 @@
                     'processing': true,
                     'serverSide': true,
                     'serverMethod': 'post',
-                    'data': results_as_dict,
+                    "ajax": {url: "/api/data", 
+                        data: "results_as_dict"
+                    },
                     'columns': [
                         { data: 'VIN' },
                         { data: 'Vehicle Type Text' },
