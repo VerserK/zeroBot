@@ -287,6 +287,7 @@ def history():
 
 @app.route('/ajaxfile', methods=['GET','POST'])
 def ajaxfile():
+    draw = request.form['draw']
     VIN = 'KBCCZ494VM3F30232'
     con = ConnectDB('Service Data')
     with con.begin() as conn:
@@ -309,7 +310,7 @@ def ajaxfile():
         })
     
     response = {
-        'VIN': VIN,
+        'draw': draw,
         'iTota;Record': 17,
         'iTotalDisplayRecord': 17,
         'aaData': data
