@@ -284,7 +284,7 @@ def insert_register():
 def history():
     return render_template('history.html')
 
-@app.route('/api/data', methods=['GET'])
+@app.route('/api/data', methods=['GET','POST'])
 def data():
     VIN = request.args.get('VIN')
     con = ConnectDB('Service Data')
