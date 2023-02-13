@@ -93,7 +93,7 @@
         </div>
         <br>
         <script type="text/javascript">
-            const chart_data = {{ data|tojson }}
+            var chart_data = JSON.parse('{{ data|tojson }}')
             $(document).ready(function () {
                 $("#myTable2").DataTable({
                     'columnDefs': [ {
