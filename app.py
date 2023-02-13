@@ -283,6 +283,12 @@ def insert_register():
 @app.route('/history', methods=['GET','POST'])
 def history():
     VIN = request.args.get('VIN')
+    return render_template('history.html', VIN=VIN)
+
+@app.route('/index_get_data', methods=['POST'])
+def stuff():
+    VIN = request.form.get('VIN')
+    # Assume data comes from somewhere else
     con = ConnectDB('Service Data')
     with con.begin() as conn:
         qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
@@ -290,8 +296,8 @@ def history():
         "WHERE [VIN] = '"+ VIN +"'"
         )
         resultset = conn.execute(qry)
-        results_as_dict = resultset.mappings().all()
-    return render_template('history.html')
+        data = resultset.mappings().all()
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run()
