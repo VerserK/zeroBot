@@ -106,10 +106,10 @@
                     'processing': true,
                     'serverSide': true,
                     'serverMethod': 'post',
-                    // 'ajax': {
-                    //     'url':'../ajax/temp.php?key=<?php echo $profileId.'&format=getServiceHeader&code='.$vin; ?>'
-                    // },
-                    'data': reresults_as_dict,
+                    'ajax': {
+                        'url':'../ajax/temp.php?key=<?php echo $profileId.'&format=getServiceHeader&code='.$vin; ?>'
+                    },
+                    // 'data': reresults_as_dict,
                     'columns': [
                         { data: 'VIN' },
                         { data: 'Vehicle Type Text' },
