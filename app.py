@@ -77,6 +77,14 @@ def handle_message(event):
                         url = 'https://sv1.img.in.th/eQrpf.png'
                     elif ProductType == 'COMBINE HARVESTER':
                         url = 'https://sv1.img.in.th/e0pbC.png'
+                    if ProductType == 'TRACTOR':
+                        ProductType = 'รถแทรกเตอร์'
+                    elif ProductType == 'MINI EXCAVATOR':
+                        ProductType = 'รถขุด'
+                    elif ProductType == 'RICE TRANSPLANTER':
+                        ProductType = 'รถดำนา'
+                    elif ProductType == 'COMBINE HARVESTER':
+                        ProductType = 'รถเกี่ยวนวดข้าว'
                     Model = i['Model']
                     VIN = i['VIN']
                     UsageHour = i['Usage Hours']
