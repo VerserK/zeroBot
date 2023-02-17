@@ -63,7 +63,7 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
-                Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+                Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
             else:
                 bubbleJsonZ = []
@@ -116,7 +116,7 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
-                Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+                Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
             else:
                 CallButtonJson = []
@@ -183,7 +183,7 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
         if len(results_as_dict)==0:
-            Unregis = 'ไม่สามารใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+            Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
             url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-e2c275c4796b9f510fc33c384ab39f28'
             headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
