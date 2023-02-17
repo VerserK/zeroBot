@@ -7,3 +7,4 @@ pyodbc
 flask_restful
 Flask-WTF
 WTForms
+pythainlp

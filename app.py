@@ -21,6 +21,7 @@ import os
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
+from pythainlp.util import thai_strftime
 
 app = Flask(__name__)
 app.secret_key = "flash message"
@@ -88,7 +89,8 @@ def handle_message(event):
                     Model = i['Model']
                     VIN = i['VIN']
                     UsageHour = i['Usage Hours']
-                    SaleDate = i['Sale Date'].strftime("%d %B, %Y")
+                    SaleDate = thai_strftime(i['Sale Date'], "%d %B %Y")
+                    # SaleDate = i['Sale Date'].strftime("%d %B, %Y")
                     bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate))
                 flex_message = Allvalue(bubbleJsonZ)
                 line_bot_api.reply_message(event.reply_token,flex_message)
