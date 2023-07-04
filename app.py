@@ -9,7 +9,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage, RichMenu, RichMenuArea, RichMenuSize,
     RichMenuBounds, URIAction, MessageAction, FollowEvent, VideoSendMessage, QuickReply, QuickReplyButton,ButtonsTemplate,PostbackAction,
-    TemplateSendMessage,CarouselTemplate,CarouselColumn
+    TemplateSendMessage
 )
 from linebot.models.actions import RichMenuSwitchAction
 from linebot.models.rich_menu import RichMenuAlias
@@ -249,20 +249,14 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
         if len(results_as_dict)==0:
-            carousel_template = CarouselTemplate(columns=[
-                CarouselColumn(text='hoge1', title='fuga1', actions=[
-                    URIAction(label='Go to line.me', uri='https://line.me'),
-                    PostbackAction(label='ping', data='ping')
-                ]),
-                CarouselColumn(text='hoge2', title='fuga2', actions=[
-                    PostbackAction(label='ping with text', data='ping', text='ping'),
-                    MessageAction(label='Translate Rice', text='米')
-                ]),
-            ])
+            buttons_template = ButtonsTemplate(
+                title='ลงทะเบียน', text='ลงทะเบียน', actions=[
+                    URIAction(label='ลงทะเบียน', uri='https://zerobotz.azurewebsites.net/register'),
+                ])
             template_message = TemplateSendMessage(
-                alt_text='Carousel alt text', template=carousel_template)
+                alt_text='Buttons alt text', template=buttons_template)
             line_bot_api.reply_message(event.reply_token, template_message)
-                # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+            # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
             # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
             # headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
