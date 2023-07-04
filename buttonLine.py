@@ -424,6 +424,7 @@ def CallURL():
     label = "Menu",
     uri = "https://zerobotz.azurewebsites.net/register"
     )
+    return url
 # userid = 'U97caf21a53b92919005e158b429c8c2b'
 # con = ConnectDB('Line Data')
 # with con.begin() as conn:
