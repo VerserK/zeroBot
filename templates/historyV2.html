@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ประวัติงานบริการ</title>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.jqueryui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@300&display=swap" rel="stylesheet"> -->
+</head>
+    <style> 
+        body {
+            font-family: Kit65p; 
+            background-color: black;
+        }
+        @font-face {
+            font-family: 'Kit65p';
+            src: url('https://zerobotz.azurewebsites.net/font?name=kit65p');
+        }
+        .set-card {
+            border-radius: 15px;
+        }
+        .header-info {
+            color: #24a0ed;
+        }
+        .set-top {
+            margin-top: 5px;
+        }
+        .set-w {
+            padding: 5px;
+            width: 100%;
+            height: 35px;
+            border: 1px solid black;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+        .set-r {
+            padding: 2px;
+            width: 100%;
+            height: 30px;
+            text-align: center;
+            color: black;
+            font-size: medium;
+        }
+        .option-s {
+            box-sizing: content-box;
+        }
+        .option-s2 {
+            width: 50px;
+            height: 30px;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            background: url("https://zerobotz.azurewebsites.net/image?name=down") no-repeat right white;
+            background-size: 15px;
+            color: black;
+            border: 1px solid black;
+        }
+        .set-line {
+            border: 0.5px solid #bbb9b9;
+            top: -5px;
+        }
+        .set-back-data {
+            background-color: #F2F2F2;
+        }
+        .btn-image {
+            background-color: #5CD85A;
+            color: black;
+            width: 100%;
+            font-size: large;
+        }
+        .btn-satisfaction {
+            background-color: #81B622;
+            color: white;
+            width: 100%;
+            font-size: large;
+        }
+
+        .att-data {
+            font-size: 3em;
+            color: black;
+        }
+        .set-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        @media screen and (max-width: 480px) {
+            .att-data {
+                font-size: 15px;
+                color: black;
+            }
+            .set-image {
+                width: 100%;
+                height: 85%;
+                object-fit: cover;
+                object-position: center;
+            }
+            .btn-image {
+                background-color: #5CD85A;
+                color: black;
+                width: 100%;
+                font-size: small;
+            }
+            .btn-satisfaction {
+                background-color: #81B622;
+                color: white;
+                width: 100%;
+                font-size: small;
+            }
+        }
+        @media screen and (min-width: 768px) {
+            .att-data {
+                font-size: 1.5em;
+                color: black;
+            }
+            .set-image {
+                width: 100%;
+                height: 85%;
+                object-fit: cover;
+                object-position: center;
+            }
+            .btn-image {
+                background-color: #5CD85A;
+                color: black;
+                width: 100%;
+                font-size: medium;
+            }
+            .btn-satisfaction {
+                background-color: #81B622;
+                color: white;
+                width: 100%;
+                font-size: medium;
+            }
+        }
+        
+    </style>
+    <body>
+        <div class="card set-card set-top">
+            <div class="card-body">
+                <div class="row set-top">
+                    <div class="col-6">
+                        <div class="set-w">ประวัติบริการ</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="set-r d-flex option-s justify-content-end">
+                            <h6 class="p-2">แสดง</h6>
+                            <select class="option-s2" id="showItem" onchange="showItem();">
+                                {% for option in options %}
+                                    {% if limit == option %}
+                                        <option value="{{option}}" selected>{{option}}</option>
+                                    {% endif %}
+                                    {% if limit != option %}
+                                        <option value="{{option}}">{{option}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <h6 class="p-2">จำนวน</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="set-line"></div>
+                    </div>
+                </div>
+                {% for row in data %}
+                    <div class="set-back-data mt-2">
+                        <div class="row">
+                            <div class="col-6 mt-2">
+                                <img src="{{row.image}}" class="set-image" alt="image">
+                                <button type="button" class="btn btn-image mb-2">สถานะ งานบริการเสร็จสิ้น</button>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <h6 class="att-data">
+                                    <b>ประเภทรถ</b> {{row.vehicleType}}
+                                </h6>
+                                <h6 class="att-data">
+                                    <b>รุ่นรถ</b> {{row.lvMainType}}
+                                </h6>
+                                <h6 class="att-data">
+                                    <b>หมายเลขรถ</b> {{row.vin}}
+                                </h6>
+                                <h6 class="att-data">
+                                    <b>ประเภทงาน</b> {{row.symptom}}
+                                </h6>
+                                <h6 class="att-data">
+                                    <b>สถานะ</b> งานบริการเสร็จสิ้น
+                                </h6>
+                                <h6 class="att-data">
+                                    <b>วันที่รับบริการ</b> {{row.billingDate}}
+                                </h6>
+                                <h6 class="att-data">
+                                    <b>วันที่บริการเสร็จ</b> {{row.billingCreatedOn}}
+                                </h6>
+                                <h6 class="att-data">
+                                    <b>ค่าใช้จ่าย</b> {{row.netValue}} บาท
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    <script>
+
+        function showItem() {
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var vin = urlParams.get('VIN');
+            var e = document.getElementById("showItem");
+            var value = e.value;
+            var text = e.options[e.selectedIndex].text;
+            window.location.href="https://zerobotz.azurewebsites.net/history?VIN="+vin+"&num="+text;
+        }
+    </script>
+    </body>
+</html>

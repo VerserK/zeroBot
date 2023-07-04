@@ -186,3 +186,218 @@ def main():
     )
     line_bot_api.create_rich_menu_alias(alias_b)
     print('success')
+
+
+    {
+        "type": "bubble",
+        "hero": {
+                "type": "image",
+                "url": str(url),
+                "size": "full",
+                "aspectRatio": "20:13",
+                "aspectMode": "cover",
+                "action": {
+                "type": "uri",
+                "uri": str(url)
+            }
+        },
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": str(ProductType),
+                "weight": "bold",
+                "size": "lg"
+            },
+            {
+                "type": "separator",
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ชื่อรถ :",
+                        "color": "#818181",
+                        "wrap": true
+                    },
+                    {
+                        "type": "text",
+                        "text": str(McName),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "รุ่น :",
+                        "color": "#818181",
+                        "wrap": true
+                    },
+                    {
+                        "type": "text",
+                        "text": str(Model),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "หมายเลขรถ :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(VIN),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ชั่วโมงสะสม :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(UsageHour),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "(รถติด KIS เท่านั้น)",
+                        "wrap": true,
+                        "color": "#818181",
+                        "size": "xs"
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "วันที่ซื้อรถ :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(SaleDate),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ร้านที่ซื้อ :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(SorgName),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
+            }
+            ]
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+            {
+                "type": "button",
+                "style": "primary",
+                "height": "sm",
+                "action": {
+                "type": "uri",
+                "label": "ตั้งชื่อรถของคุณที่นี่ !!",
+                "uri": str(urlMcName+"?profileId="+ProfileId+"&vin="+VIN)
+                },
+                "color": "#F15922"
+            }
+            ],
+            "flex": 0
+        }
+    }

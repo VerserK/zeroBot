@@ -12,6 +12,8 @@ import sqlalchemy as sa
 import urllib
 import pandas as pd
 
+BASE_URL = 'https://zerobotz.azurewebsites.net'
+
 def ConnectDB(db):
     #configure sql server
     server = 'skcdwhprdmi.siamkubota.co.th'
@@ -19,6 +21,7 @@ def ConnectDB(db):
     username = 'skcadminuser'
     password = 'DEE@skcdwhtocloud2022prd'
     driver = '{ODBC Driver 17 for SQL Server}'
+
     dsn = 'DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password
     params = urllib.parse.quote_plus(dsn)
     engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
@@ -34,15 +37,20 @@ def Allvalue(bubbleJS):
     )
     return flex_message
 
-def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate):
+def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId,urlMcName="https://liff.line.me/1657866737-OvL2VnJ9"):
+    true = True
     bubbleJson =  {
         "type": "bubble",
         "hero": {
-            "type": "image",
-            "url": str(url),
-            "size": "full",
-            "aspectMode": "cover",
-            "aspectRatio": "20:13"
+                "type": "image",
+                "url": str(url),
+                "size": "full",
+                "aspectRatio": "20:13",
+                "aspectMode": "cover",
+                "action": {
+                "type": "uri",
+                "uri": str(url)
+            }
         },
         "body": {
             "type": "box",
@@ -50,128 +58,206 @@ def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate):
             "contents": [
             {
                 "type": "text",
-                "text": "ข้อมูลรถของคุณ",
-                "size": "xl",
-                "weight": "bold"
+                "text": str(ProductType),
+                "weight": "bold",
+                "size": "lg"
+            },
+            {
+                "type": "separator",
+                "margin": "sm"
             },
             {
                 "type": "box",
-                "layout": "baseline",
+                "layout": "vertical",
                 "contents": [
                 {
-                    "type": "text",
-                    "text": "ผลิตภัณฑ์",
-                    "size": "sm",
-                    "flex": 1,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": str(ProductType),
-                    "size": "sm",
-                    "flex": 1,
-                    "wrap": True,
-                    "color": "#666666"
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ชื่อรถ :",
+                        "color": "#818181",
+                        "wrap": true
+                    },
+                    {
+                        "type": "text",
+                        "text": str(McName),
+                        "wrap": true
+                    }
+                    ]
                 }
-                ]
+                ],
+                "margin": "lg"
             },
             {
                 "type": "box",
-                "layout": "baseline",
+                "layout": "vertical",
                 "contents": [
                 {
-                    "type": "text",
-                    "text": "รุ่น",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": str(Model),
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "รุ่น :",
+                        "color": "#818181",
+                        "wrap": true
+                    },
+                    {
+                        "type": "text",
+                        "text": str(Model),
+                        "wrap": true
+                    }
+                    ]
                 }
-                ]
+                ],
+                "margin": "sm"
             },
             {
                 "type": "box",
-                "layout": "baseline",
+                "layout": "vertical",
                 "contents": [
                 {
-                    "type": "text",
-                    "text": "หมายเลขรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": str(VIN),
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#666666",
-                    "wrap": True
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "หมายเลขรถ :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(VIN),
+                        "wrap": true
+                    }
+                    ]
                 }
-                ]
+                ],
+                "margin": "sm"
             },
             {
                 "type": "box",
-                "layout": "baseline",
+                "layout": "vertical",
                 "contents": [
                 {
-                    "type": "text",
-                    "text": "ชั่วโมงสะสม (เฉพาะรุ่น KIS)",
-                    "flex": 1,
-                    "wrap": True,
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": str(UsageHour),
-                    "flex": 1,
-                    "size": "sm",
-                    "wrap": True,
-                    "color": "#666666"
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ชั่วโมงสะสม :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(UsageHour),
+                        "wrap": true
+                    }
+                    ]
                 }
-                ]
+                ],
+                "margin": "sm"
             },
             {
                 "type": "box",
-                "layout": "baseline",
+                "layout": "vertical",
                 "contents": [
                 {
-                    "type": "text",
-                    "text": "วันที่ซื้อรถ",
-                    "flex": 1,
-                    "size": "sm",
-                    "color": "#aaaaaa"
-                },
-                {
-                    "type": "text",
-                    "text": str(SaleDate),
-                    "color": "#666666",
-                    "size": "sm",
-                    "wrap": True,
-                    "flex": 1
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "(รถติด KIS เท่านั้น)",
+                        "wrap": true,
+                        "color": "#818181",
+                        "size": "xs"
+                    }
+                    ]
                 }
-                ]
+                ],
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "วันที่ซื้อรถ :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(SaleDate),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ร้านที่ซื้อ :",
+                        "wrap": true,
+                        "color": "#818181"
+                    },
+                    {
+                        "type": "text",
+                        "text": str(SorgName),
+                        "wrap": true
+                    }
+                    ]
+                }
+                ],
+                "margin": "sm"
             }
             ]
         },
-        "size": "kilo"
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+            {
+                "type": "button",
+                "style": "primary",
+                "height": "sm",
+                "action": {
+                "type": "uri",
+                "label": "ตั้งชื่อรถของคุณที่นี่ !!",
+                "uri": str(urlMcName+"?profileId="+ProfileId+"&vin="+VIN)
+                },
+                "color": "#F15922"
+            }
+            ],
+            "flex": 0
         }
+    }
     return bubbleJson
 
 def callButtonBody(bodyVIN):
     flex_message = FlexSendMessage(
     alt_text='zerosearch',
     contents={
-        "type": "carousel",
-        "contents": [
-            {
         "type": "bubble",
         "size": "giga",
         "header": {
@@ -186,7 +272,18 @@ def callButtonBody(bodyVIN):
                 "align": "center"
             }
             ],
-            "backgroundColor": "#00A8A9"
+            "paddingAll": "20px",
+            "backgroundColor": "#F25822",
+            "spacing": "md",
+            "height": "80px",
+            "paddingTop": "22px",
+            "background": {
+                "type": "linearGradient",
+                "angle": "12deg",
+                "startColor": "#F25822",
+                "endColor": "#FDB777",
+                "centerColor": "#FD7F2C"
+            }
         },
         "body": {
             "type": "box",
@@ -194,35 +291,33 @@ def callButtonBody(bodyVIN):
             "contents": bodyVIN
         }
         }
-        ]
-        }
     )
     return flex_message
 
-def CallButtonSelectByVIN(VIN):
+def CallButtonSelectByVIN(label, setDataName):
     CallButton = {
                 "type": "button",
                 "action": {
                 "type": "message",
-                "label": str(VIN),
-                "text": "เลือกรหัส | "+str(VIN)
+                "label": str(label),
+                "text": str(setDataName)
                 },
-                "style": "primary",
-                "color": "#343A3A",
+                "style": "secondary",
+                "color": "#c0bfbf",
                 "margin": "sm"
             }
     return CallButton
 
-def CallButtonSelectByVINHistory(VIN):
+def CallButtonSelectByVINHistory(VIN, setDataName):
     CallButton = {
                 "type": "button",
                 "action": {
                 "type": "uri",
-                "label": str(VIN),
-                "uri": "https://zerobotz.azurewebsites.net/history?VIN="+str(VIN)
+                "label": str(setDataName),
+                "uri": BASE_URL+"/history?VIN="+str(VIN)
                 },
-                "style": "primary",
-                "color": "#343A3A",
+                "style": "secondary",
+                "color": "#c0bfbf",
                 "margin": "sm"
             }
     return CallButton

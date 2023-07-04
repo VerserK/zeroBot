@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ตั้งชื่อรถของคุณ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.jqueryui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@300&display=swap" rel="stylesheet"> -->
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+    <style>
+        body {
+            font-family: Kit65p; 
+            background-color: black;
+            color: white;
+        }
+        @font-face {
+            font-family: 'Kit65p';
+            src: url('https://zerobotz.azurewebsites.net/font?name=kit65p');
+        }
+        .btn-mc-name {
+            color: white;
+            background-color: #F15922;
+            width: 100%;
+        }
+    </style>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="d-flex justify-content-center">ตั้งชื่อรถของคุณ</h3>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 mt-2">
+                                <div id="responseAlert"></div>
+                            </div>
+                            <div class="col-4 mt-2">
+                                <h4 class="d-flex justify-content-end">
+                                    ผลิตภัณฑ์ :
+                                </h4>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" value="" id="productType" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-4 mt-2">
+                                <h4 class="d-flex justify-content-end">
+                                    รุ่น :
+                                </h4>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" value="" id="model" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-4 mt-2">
+                                <h4 class="d-flex justify-content-end">
+                                    หมายเลขรถ :
+                                </h4>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" value="" id="vin" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-4 mt-2">
+                                <h4 class="d-flex justify-content-end">
+                                    ตั้งชื่อใหม่ :
+                                </h4>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="McName" name="McName" value="">
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <input type="submit" class="btn btn-mc-name" value="บันทึก" name="submit" onclick="insert()">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#alertMc').hide();
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var vin = urlParams.get('vin');
+        var profileId = urlParams.get('profileId');
+
+        liff.init({ liffId: "2000031997-mGrDYE4v" }, () => {
+            if (liff.isLoggedIn()) {
+                liff.getProfile().then(profile => {
+                    $.ajax({
+                        type: "get",
+                        url: 'https://zerobotz.azurewebsites.net/insert_mc_name?profileId='+profileId+'&vin='+vin,
+                        data: {},
+                        success: function(response){
+                            console.log(response.productType);
+                            if (response != 'not data') {
+                                document.getElementById("productType").value = response.productType;
+                                document.getElementById("model").value = response.model;
+                                document.getElementById("vin").value = response.vin;
+
+                            }
+                            else {
+                                document.getElementById("responseAlert").innerHTML = '<div id="alertMc" class="alert alert-danger alert-dismissible fade show" role="alert">ไม่พข้อมูล!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                            }
+
+                            setTimeout(function () {
+                                document.getElementById("responseAlert").innerHTML = '';
+                            }, 3000);
+                        }
+                    });
+                }).catch(
+                    err => console.error(err)
+                );
+            } else {
+                liff.login();
+            }
+        }, err => console.error(err.code, error.message));
+
+        function insert() {
+            document.getElementById("responseAlert").innerHTML = '';
+            var close = false;
+            var s = 4000;
+            var mcName = document.getElementById("McName").value;
+            console.log(mcName);
+            if (mcName == '') {
+                document.getElementById("responseAlert").innerHTML = '<div id="alertMc" class="alert alert-danger alert-dismissible fade show" role="alert">กรุณากรอกข้อมูลให้ครบถ้วน!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: 'https://zerobotz.azurewebsites.net/insert_mc_name?profileId='+profileId+'&vin='+vin,
+                    data: {
+                        "McName":mcName
+                    },
+                    success: function(response){
+                        if (response == 'not mcName') {
+                            document.getElementById("responseAlert").innerHTML = '<div id="alertMc" class="alert alert-danger alert-dismissible fade show" role="alert">ไม่พบข้อมูลที่กรอก!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                        }
+                        else if (response == 'not user line') {
+                            document.getElementById("responseAlert").innerHTML = '<div id="alertMc" class="alert alert-danger alert-dismissible fade show" role="alert">ไม่พบข้อมูลผู้ใช้!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                        }
+                        else if (response == 'success') {
+                            document.getElementById("responseAlert").innerHTML = '<div id="alertMc" class="alert alert-success alert-dismissible fade show" role="alert">ตั้งชื่อรถของคุณเรียบร้อยแล้ว<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                            s = 4000;
+                            close = true;
+                        }
+                        else {
+                            document.getElementById("responseAlert").innerHTML = '<div id="alertMc" class="alert alert-danger alert-dismissible fade show" role="alert">ระบบเกิดข้อผิดพลาด!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                            s = 2000;
+                        }
+                    }
+                });
+            }
+
+            setTimeout(function () {
+                $('#alertMc').hide();
+                document.getElementById("responseAlert").textContent = '';
+                if (close) {
+                    liff.init({ liffId: "2000031997-mGrDYE4v" }, () => {
+                        if (liff.isLoggedIn()) {
+                            liff.closeWindow();
+                        } else {
+                            liff.login();
+                        }
+                    }, err => console.error(err.code, error.message));
+                }
+            }, s);
+        }
+    </script>
+</body>
+</html>

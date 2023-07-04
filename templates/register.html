@@ -25,7 +25,13 @@
 
 </head>
     <style> 
-        body {font-family: Pridi;}
+        body {
+            font-family: Kit65p;
+        }
+        @font-face {
+            font-family: 'Kit65p';
+            src: url('https://zerobotz.azurewebsites.ne/font?name=kit65p');
+        }
         @media screen and (min-width: 200px) {
         h4 {
         font-size: 20px;
@@ -92,16 +98,19 @@
         width: 100%;
         text-align: center;
         }
+        .fooBom2 {
+        text-align: center;
+        }
         .register {
         color: white;
-        background-color: #FF9900;
+        background-color: #F15922;
         width: 70%;
         height: 70%;
         }
         @media screen and (max-width: 768px) {
         .register {
         color: white;
-        background-color: #FF9900;
+        background-color: #F15922;
         width: 60%;
         height: 60%;
         }
@@ -110,37 +119,29 @@
         border-radius: 10px;
         border-color: gray;
         }
+        input[type="text"]{ 
+            line-height: 40px; 
+            font-size: 20px;
+        }
     </style>
     <body>
         <div id="line"></div>
         <br><br>
                     <div class="d-flex justify-content-center">
-                        <img class="logo" src="../static/images/zero33.png" alt="lineLogin">
+                        <img class="logo" src="../static/images/ZEROV2.png" alt="lineLogin">
                     </div>
-                    <br>
                     <div class="d-flex justify-content-center">
-                        <h4><b>ลงทะเบียน</b></h4>
+                        <h2><b>ลงทะเบียน</b></h2>
                     </div>
-                    <br>
-                    <form action="{{url_for('insert_register')}}" method="post" enctype="multipart/form-data"><br>
                     <div class="d-flex flex-row justify-content-center">
-                        <h6>เลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล</h6>
+                        <h4>เลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล</h4>
                         <div class="ee fontZ">*</div>
                     </div>
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                {% with messages = get_flashed_messages() %}
-                                    {% if messages %}
-                                        {% for message in messages %}
-                                        <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            {{ message }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endwith %}
-                                <input type="text" inputmode="numeric" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control iuputRegister" name="taxId" maxlength="13" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" autocomplete="off" required>
+                                <div id="responseAlert"></div>
+                                <input type="text" inputmode="numeric" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control iuputRegister" name="taxId" id="taxId" maxlength="13" placeholder="กรุณากรอกเลขบัตรประจำตัวประชาชน/เลขทะเบียนนิติบุคคล" value="">
                                 <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="displayName" name="displayName" maxlength="70" hidden required>
                                 <input type="text" class="form-control iuputRegister" id="statusMessage" name="statusMessage" maxlength="70" hidden required>
@@ -148,24 +149,21 @@
                             </div>
                         </di>
                     </div>
-                    <div class="fooBom">
-                        <input type="submit" class="btn register fontZ" value="ลงทะเบียน" name="submit">
+                    <br>
+                    <div class="fooBom2">
+                        <input type="submit" class="btn register fontZ" value="ลงทะเบียน" name="submit" onclick="push()">
                     </div>
-                    </form>
     </body>
     <script>
-        var closeCheck = 'open';
-        liff.init({ liffId: "1657866737-M0N4RwZL" }, () => {
+        $('#alertRegis').hide();
+
+        liff.init({ liffId: "2000031997-mGrDYE4v" }, () => {
             if (liff.isLoggedIn()) {
                 liff.getProfile().then(profile => {
                     document.getElementById("userId").value = profile.userId;
                     document.getElementById("displayName").value = profile.displayName;
                     document.getElementById("statusMessage").value = profile.statusMessage;
                     document.getElementById("pictureUrl").value = profile.pictureUrl;
-                    console.log(closeCheck);
-                    if (closeCheck == 'close') {
-                        liff.closeWindow();
-                    }
                 }).catch(
                     err => console.error(err)
                 );
@@ -173,11 +171,68 @@
                 liff.login();
             }
         }, err => console.error(err.code, error.message));
-    </script>
-    <script type="text/javascript">
-        setTimeout(function () {
-        // Closing the alert
-        $('#error-alert').alert('close');
-        }, 5000);
+
+        function push() {
+            var taxId = document.getElementById("taxId").value;
+            var userId = document.getElementById("userId").value;
+            var nameLine = document.getElementById("displayName").value;
+            var imageLine = document.getElementById("pictureUrl").value;
+            $('#alertRegis').hide();
+            document.getElementById("responseAlert").textContent = '';
+            $.ajax({
+                type: "post",
+                url: 'https://zerobotz.azurewebsites.ne/insert_register',
+                data: {
+                    "taxId":taxId,
+                    "userId":userId,
+                    "displayName":nameLine,
+                    "pictureUrl":imageLine
+                },
+                success: function(response){
+                    console.log(response);
+                    var s = 5000;
+                    var close = false;
+                    $('#alertRegis').show();
+                    if (response == 'not taxId') {
+                        document.getElementById("responseAlert").innerHTML = '<div id="alertRegis" class="alert alert-danger alert-dismissible fade show" role="alert">ไม่พบเลขบัตรประจำตัวประชาชนหรือเลขทะเบียนนิติบุคคล<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                    }
+                    else if (response == 'duplicate taxId') {
+                        document.getElementById("responseAlert").innerHTML = '<div id="alertRegis" class="alert alert-danger alert-dismissible fade show" role="alert">เลขบัตรประจำตัวประชาชนนี้ได้ลงทะเบียนไปแล้ว!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                    }
+                    else if (response == 'duplicate user') {
+                        document.getElementById("responseAlert").innerHTML = '<div id="alertRegis" class="alert alert-danger alert-dismissible fade show" role="alert">คุณได้ทำการลงทะเบียนแล้ว<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                    }
+                    else if (response == 'not id ER') {
+                        document.getElementById("responseAlert").innerHTML = '<div id="alertRegis" class="alert alert-danger alert-dismissible fade show" role="alert">ไม่สามารถลงทะเบียนใช้งานเนื่องจากคุณไม่มี Kubota ID กรุณาติดต่อร้านผู้แทนจำหน่ายใกล้บ้านคุณหรือติดต่อ 1747<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                        s = 7000;
+                        close = true;
+                    }
+                    else if (response = 'success') {
+                        document.getElementById("responseAlert").innerHTML = '<div id="alertRegis" class="alert alert-success alert-dismissible fade show" role="alert">ลงทะเบียนสำเร็จ<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                        s = 2000;
+                        close = true;
+                    }
+                    else {
+                        $('#error-alert').show();
+                        document.getElementById("responseAlert").innerHTML = '<div id="alertRegis" class="alert alert-danger alert-dismissible fade show" role="alert">ระบบเกิดข้อผิดพลาด!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                        s = 3000;
+                    }
+
+                    setTimeout(function () {
+                        $('#alertRegis').hide();
+                        document.getElementById("responseAlert").textContent = '';
+                        if (close) {
+                            liff.init({ liffId: "2000031997-mGrDYE4v" }, () => {
+                                if (liff.isLoggedIn()) {
+                                    liff.closeWindow();
+                                } else {
+                                    liff.login();
+                                }
+                            }, err => console.error(err.code, error.message));
+                        }
+                    }, s);
+                }
+            });
+        }
     </script>
 </html>
