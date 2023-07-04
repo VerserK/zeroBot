@@ -249,7 +249,7 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
         if len(results_as_dict)==0:
-            webbrowser.open('http://google.co.th')
+            webbrowser.open('https://liff.line.me/1657866737-7AGR9mW5')
             # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
             # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
