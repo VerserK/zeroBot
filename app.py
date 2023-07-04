@@ -22,6 +22,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 from pythainlp.util import thai_strftime
+import webbrowser
 
 app = Flask(__name__)
 app.secret_key = "flash message"
@@ -248,12 +249,12 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
         if len(results_as_dict)==0:
-            register()
-           #Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
-            #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-           # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
-            #headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
-            #r = requests.post(url, headers=headers)
+            webbrowser.open('http://google.co.th')
+            # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+            # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+            # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
+            # headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
+            # r = requests.post(url, headers=headers)
         else:
             url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-3d294128c3e987c17d056902d251eab0'
             headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
