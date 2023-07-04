@@ -249,14 +249,8 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
         if len(results_as_dict)==0:
-            buttons_template = ButtonsTemplate(
-                title='ลงทะเบียน', text='ลงทะเบียน', actions=[
-                    URIAction(label='ลงทะเบียน', uri='https://zerobotz.azurewebsites.net/register'),
-                ])
-            template_message = TemplateSendMessage(
-                alt_text='Buttons alt text', template=buttons_template)
-            line_bot_api.reply_message(event.reply_token, template_message)
-            # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+            URIAction(label='Go to line.me', uri='https://zerobotz.azurewebsites.net/register')
+                # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
             # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
             # headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
