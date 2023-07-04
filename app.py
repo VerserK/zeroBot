@@ -251,6 +251,7 @@ def handle_message(event):
         if len(results_as_dict)==0:
             buttons_template = ButtonsTemplate(
                 title='My buttons sample', text='Hello, my buttons', actions=[
+                    URIAction(label='Go to line.me', uri='https://zerobotz.azurewebsites.net/register'),
                 ])
             template_message = TemplateSendMessage(
                 alt_text='Buttons alt text', template=buttons_template)
