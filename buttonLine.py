@@ -5,7 +5,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,LocationSendMessage
+    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,LocationSendMessage,URIAction
 )
 
 import sqlalchemy as sa
@@ -418,6 +418,12 @@ def locMap(EquipmentName,latitude,longitude,Address):
     )
     return loc
 
+def CallURL():
+    url = URIAction(
+    type = "uri",
+    label = "Menu",
+    uri = "https://zerobotz.azurewebsites.net/register"
+    )
 # userid = 'U97caf21a53b92919005e158b429c8c2b'
 # con = ConnectDB('Line Data')
 # with con.begin() as conn:
