@@ -8,7 +8,8 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage, RichMenu, RichMenuArea, RichMenuSize,
-    RichMenuBounds, URIAction, MessageAction, FollowEvent, VideoSendMessage, QuickReply, QuickReplyButton
+    RichMenuBounds, URIAction, MessageAction, FollowEvent, VideoSendMessage, QuickReply, QuickReplyButton,ButtonsTemplate,PostbackAction,
+    TemplateSendMessage
 )
 from linebot.models.actions import RichMenuSwitchAction
 from linebot.models.rich_menu import RichMenuAlias
@@ -22,7 +23,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 from pythainlp.util import thai_strftime
-import webbrowser
 
 app = Flask(__name__)
 app.secret_key = "flash message"
@@ -249,8 +249,17 @@ def handle_message(event):
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
         if len(results_as_dict)==0:
-            webbrowser.open('https://liff.line.me/1657866737-7AGR9mW5')
-            # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+            buttons_template = ButtonsTemplate(
+                title='My buttons sample', text='Hello, my buttons', actions=[
+                    URIAction(label='Go to line.me', uri='https://liff.line.me/2000031997-mGrDYE4v'),
+                    PostbackAction(label='ping', data='ping'),
+                    PostbackAction(label='ping with text', data='ping', text='ping'),
+                    MessageAction(label='Translate Rice', text='米')
+                ])
+            template_message = TemplateSendMessage(
+                alt_text='Buttons alt text', template=buttons_template)
+            line_bot_api.reply_message(event.reply_token, template_message)
+                # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
             # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
             # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
             # headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
