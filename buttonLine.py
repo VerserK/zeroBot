@@ -16,7 +16,7 @@ BASE_URL = 'https://zerobotz.azurewebsites.net'
 
 def ConnectDB(db):
     #configure sql server
-    server = 'skcdwhprdmi.siamkubota.co.th'
+    server = 'skcdwhprdmi.public.bf8966ba22c0.database.windows.net,3342'
     database =  db
     username = 'skcadminuser'
     password = 'DEE@skcdwhtocloud2022prd'
