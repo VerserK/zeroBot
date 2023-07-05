@@ -226,10 +226,9 @@ def handle_message(event):
                         if McName != '':
                             setDataName = McName
                         else :
-                            setDataName = i['EquipmentName']
+                            setDataName = i['equipmentName']
                         latitude = i['latitude']
                         longitude = i['longitude']
-                        
                         queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName))
                     flex_message = Allvalue(queryEngineLocationAgg)
                     location_message = locMap(setDataName,latitude,longitude)
