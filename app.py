@@ -73,7 +73,10 @@ def handle_message(event):
             else:
                 bubbleJsonZ = []
                 if text == 'ดูข้อมูลรถทั้งหมด':
-                    num = 5
+                    if len(results_as_dict) == '5':
+                        num = 5
+                    elif len(results_as_dict) < 5:
+                        num = len(results_as_dict)
                 else :
                     del results_as_dict[0:5]
                     num = len(results_as_dict)
