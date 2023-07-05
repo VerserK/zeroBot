@@ -37,7 +37,7 @@ def Allvalue(bubbleJS):
     )
     return flex_message
 
-def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId,urlMcName="https://liff.line.me/2000031997-mGrDYE4v"):
+def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId,urlMcName="https://liff.line.me/2000031997-L3QB36lz"):
     true = True
     bubbleJson =  {
         "type": "bubble",
