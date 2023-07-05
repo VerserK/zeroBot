@@ -75,7 +75,7 @@ def handle_message(event):
                 if text == 'ดูข้อมูลรถทั้งหมด':
                     if len(results_as_dict) == '5':
                         num = 5
-                    elif len(results_as_dict) < 5:
+                    else:
                         num = len(results_as_dict)
                 else :
                     del results_as_dict[0:5]
@@ -208,10 +208,10 @@ def handle_message(event):
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:    
-                qry = sa.text("SELECT CRM.[Product Type] , RAW.[equipmentName] , RAW.[latitude] , RAW.[longitude]"
-                    "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM"
+                qry = sa.text("SELECT CRM.[Product Type] , RAW.[equipmentName] , RAW.[latitude] , RAW.[longitude] "
+                    "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
                     "INNER JOIN [RAW Data].[dbo].[Engine_Location_Record] RAW ON RAW.[equipmentName] = CRM.[VIN] "
-                    "WHERE RAW.[equipmentName] = 'KBCAZ23ALM3F37257' AND RAW.[positionTime] = (SELECT MAX([positionTime]) FROM [RAW Data].[dbo].[Engine_Location_Record] WHERE [equipmentName] = 'KBCAZ23ALM3F37257')"
+                    "WHERE RAW.[equipmentName] = '" + VINnumber + "' AND RAW.[positionTime] = (SELECT MAX([positionTime]) FROM [RAW Data].[dbo].[Engine_Location_Record] WHERE [equipmentName] = '" + VINnumber + "') "
                     "ORDER BY RAW.[positionTime] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
                     )
                 resultset = conn.execute(qry)
