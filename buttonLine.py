@@ -29,7 +29,7 @@ def ConnectDB(db):
 
 def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
-    alt_text='zerosearch',
+    alt_text='กรุณาเลือกหมายเลขรถ',
     contents={
         "type": "carousel",
         "contents": bubbleJS
@@ -322,7 +322,7 @@ def CallButtonSelectByVINHistory(VIN, setDataName):
             }
     return CallButton
 
-def CallLocVINText(ProductType,EquipmentName,Address):
+def CallLocVINText(ProductType,EquipmentName):
     Callloc = {
     "type": "bubble",
     "header": {
@@ -384,35 +384,16 @@ def CallLocVINText(ProductType,EquipmentName,Address):
                 "wrap": True
             }
             ]
-        },
-        {
-            "type": "box",
-            "layout": "baseline",
-            "contents": [
-            {
-                "type": "text",
-                "text": "ตำแหน่งรถปัจจุบัน",
-                "size": "sm",
-                "color": "#aaaaaa"
-            },
-            {
-                "type": "text",
-                "text": str(Address),
-                "color": "#666666",
-                "size": "sm",
-                "wrap": True
-            }
-            ]
         }
         ]
     }
     }
     return Callloc
 
-def locMap(EquipmentName,latitude,longitude,Address):
+def locMap(EquipmentName,latitude,longitude):
     loc = LocationSendMessage(
     title=str(EquipmentName),
-    address=str(Address),
+  
     latitude=str(latitude),
     longitude=str(longitude)
     )

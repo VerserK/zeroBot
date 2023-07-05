@@ -199,7 +199,7 @@ def handle_message(event):
         with con.begin() as conn:
             qryVIN = sa.text("SELECT [Equipment_ID],[Equipment_Name],[Product],[Subscription_End_Date],[Subscription_Status],[SKL]"
                     ",[Subscription_Type],[Subscription_Date],[UpdateTime] "
-                    "FROM Engine_Detail WHERE [Equipment_Name] = '" + VINnumber + "'"
+                    "FROM [KIS Data].[dbo].[Engine_Detail] WHERE [Equipment_Name] = '" + VINnumber + "'"
                     "ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
             )
             vincheck =  conn.execute(qryVIN)
@@ -208,12 +208,11 @@ def handle_message(event):
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:    
-                qry = sa.text("SELECT CRM.[Product Type] , KIS.[EquipmentName] , RAW.[latitude] , RAW.[longitude] , KIS.[SubDistrict] , KIS.[District] , KIS.[Province] , KIS.[Country] , KIS.[LastUpdate]"
-                    "FROM [KIS Data].[dbo].[Engine_Location_Agg] KIS "
-                    "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] CRM ON KIS.[EquipmentName] = CRM.[VIN] "
-                    "INNER JOIN [RAW Data].[dbo].[Engine_Location_Record] RAW ON KIS.[EquipmentName] = RAW.[equipmentName]"
-                    "WHERE KIS.[EquipmentName] = '" + VINnumber + "' AND KIS.[LastUpdate] = CAST( GETDATE() AS Date )"
-                    "ORDER BY LastUpdate OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+                qry = sa.text("SELECT CRM.[Product Type] , RAW.[equipmentName] , RAW.[latitude] , RAW.[longitude]"
+                    "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM"
+                    "INNER JOIN [RAW Data].[dbo].[Engine_Location_Record] RAW ON RAW.[equipmentName] = CRM.[VIN] "
+                    "WHERE RAW.[equipmentName] = 'KBCAZ23ALM3F37257' AND RAW.[positionTime] = (SELECT MAX([positionTime]) FROM [RAW Data].[dbo].[Engine_Location_Record] WHERE [equipmentName] = 'KBCAZ23ALM3F37257')"
+                    "ORDER BY RAW.[positionTime] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
                     )
                 resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
@@ -230,14 +229,10 @@ def handle_message(event):
                             setDataName = i['EquipmentName']
                         latitude = i['latitude']
                         longitude = i['longitude']
-                        SubDistrict = i['SubDistrict']
-                        District = i['District']
-                        Province = i['Province']
-                        Country = i['Country']
-                        Address = 'ต.'+ str(SubDistrict) + ' อ.' + str(District) + ' จ.' + str(Province) + ' ' + str(Country)
-                        queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName,Address))
+                        
+                        queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName))
                     flex_message = Allvalue(queryEngineLocationAgg)
-                    location_message = locMap(setDataName,latitude,longitude,Address)
+                    location_message = locMap(setDataName,latitude,longitude)
                     # line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
                     line_bot_api.reply_message(event.reply_token,location_message)
     # elif text == 'เข้าสู่ระบบ':
