@@ -237,34 +237,34 @@ def handle_message(event):
                     location_message = locMap(setDataName,latitude,longitude,Address)
                     # line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
                     line_bot_api.reply_message(event.reply_token,location_message)
-    elif text == 'เข้าสู่ระบบ':
-        profile = line_bot_api.get_profile(event.source.user_id)
-        userid = profile.user_id
-        con = ConnectDB('Line Data')
-        with con.begin() as conn:
-            qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
-            "WHERE UserId = '" + userid + "'"
-            "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
-            )
-            resultset = conn.execute(qry)
-            results_as_dict = resultset.mappings().all()
-        if len(results_as_dict)==0:
-            buttons_template = ButtonsTemplate(
-                title='My buttons sample', text='Hello, my buttons', actions=[
-                    URIAction(label='Go to line.me', uri='https://zerobotz.azurewebsites.net/register'),
-                ])
-            template_message = TemplateSendMessage(
-                alt_text='Buttons alt text', template=buttons_template)
-            line_bot_api.reply_message(event.reply_token, template_message)
-                # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
-            # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
-            # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
-            # headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
-            # r = requests.post(url, headers=headers)
-        else:
-            url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-3d294128c3e987c17d056902d251eab0'
-            headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
-            r = requests.post(url, headers=headers)
+    # elif text == 'เข้าสู่ระบบ':
+    #     profile = line_bot_api.get_profile(event.source.user_id)
+    #     userid = profile.user_id
+    #     con = ConnectDB('Line Data')
+    #     with con.begin() as conn:
+    #         qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
+    #         "WHERE UserId = '" + userid + "'"
+    #         "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+    #         )
+    #         resultset = conn.execute(qry)
+    #         results_as_dict = resultset.mappings().all()
+    #     if len(results_as_dict)==0:
+    #         buttons_template = ButtonsTemplate(
+    #             title='My buttons sample', text='Hello, my buttons', actions=[
+    #                 URIAction(label='Go to line.me', uri='https://zerobotz.azurewebsites.net/register'),
+    #             ])
+    #         template_message = TemplateSendMessage(
+    #             alt_text='Buttons alt text', template=buttons_template)
+    #         line_bot_api.reply_message(event.reply_token, template_message)
+    #             # Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+    #         # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+    #         # url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-8a9237957ad0ee5157e72d6bd5dd13aa'
+    #         # headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
+    #         # r = requests.post(url, headers=headers)
+    #     else:
+    #         url = 'https://api.line.me/v2/bot/user/'+userid+'/richmenu/richmenu-3d294128c3e987c17d056902d251eab0'
+    #         headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
+    #         r = requests.post(url, headers=headers)
     elif text == 'ประวัติบริการ':
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
@@ -480,8 +480,8 @@ def insert_register():
                 "('"+ id +"','"+ status +"','"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"')"
                 )
                 resultsetInsertData = conn.execute(insertData)
-            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-554cd1b93958321263960f82ba1a4e06'
-            headers = {'content-type': 'application/json','Authorization':'Bearer J9o+1YH2mYc/4RiFFOjgXTYqCIxT//ctqWgLjB4kyYlw8qaieSnNl42uyn/TMfk7PuWAe9S8hyL5JDIA00Vfr24Ltdq+97ds4BNk4htsAIRkiDDAVQ0PKiz2wreUTFBG4Vpv+hDtLSk1QAnu2V2pOwdB04t89/1O/w1cDnyilFU='}
+            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-3d294128c3e987c17d056902d251eab0'
+            headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
 
             messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
