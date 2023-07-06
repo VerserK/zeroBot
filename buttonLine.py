@@ -24,7 +24,7 @@ def ConnectDB(db):
 
     dsn = 'DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password
     params = urllib.parse.quote_plus(dsn)
-    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
+    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s?charset=utf8' % params)
     return engine
 
 def Allvalue(bubbleJS):
