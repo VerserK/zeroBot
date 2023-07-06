@@ -317,6 +317,11 @@ def mediaInsert():
     name = 'วิดีโอแนะนำการใช้งาน'
     return send_from_directory(os.path.join(app.root_path, 'media'),name+'.mp4')
 
+@app.route('/media_insert_preview', methods=['GET'])
+def mediaInsert():
+    name = 'VDO ช่างจริงใจ'
+    return send_from_directory(os.path.join(app.root_path, 'media'),name+'.png')
+
 @app.route('/register_mc_name', methods=['GET'])
 def register_mc_name():
     return render_template('register_mc_name.html')
@@ -483,9 +488,10 @@ def insert_register():
 
             messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
             urlVideo = BASE_URL+'/media_insert'
+            urlPreview = BASE_URL+'/media_insert_preview'
             videoMessage = VideoSendMessage(
                 original_content_url=urlVideo,
-                preview_image_url=BASE_URL+'/media_insert/VDO ช่างจริงใจ.png'
+                preview_image_url=urlPreview
             )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
             return "success"
