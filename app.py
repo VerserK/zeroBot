@@ -485,7 +485,7 @@ def insert_register():
             urlVideo = BASE_URL+'/media_insert'
             videoMessage = VideoSendMessage(
                 original_content_url=urlVideo,
-                preview_image_url=urlVideo
+                preview_image_url=BASE_URL+'/media_insert/VDO ช่างจริงใจ.png'
             )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
             return "success"
