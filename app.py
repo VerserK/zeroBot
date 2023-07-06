@@ -393,7 +393,7 @@ def insert_mc_name():
                             insertData = sa.text("INSERT INTO [Line Data].[dbo].[Mc Name] "
                             "([ProductType], [Model], [VIN], [ProfileId], [Name], [CreateTime])"
                             "VALUES"
-                            "('"+ dataResponse['Product Type'] +"','"+ dataResponse['Model'] +"','"+ VIN +"','"+ ProfileId +"','"+ McName +"','"+ dateTime +"')"
+                            "('"+ dataResponse['Product Type'] +"','"+ dataResponse['Model'] +"','"+ VIN +"','"+ ProfileId +"',N'"+ McName +"','"+ dateTime +"')"
                             )
                             logging.info(insertData)
                             resultsetInsertData = conn.execute(insertData)
