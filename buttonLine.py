@@ -29,7 +29,7 @@ def ConnectDB(db):
 
 def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
-    alt_text='กรุณาเลือกหมายเลขรถ',
+    alt_text='Flex Message',
     contents={
         "type": "carousel",
         "contents": bubbleJS
