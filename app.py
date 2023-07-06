@@ -74,9 +74,12 @@ def handle_message(event):
             else:
                 bubbleJsonZ = []
                 if text == 'ดูข้อมูลรถทั้งหมด':
-                    if len(results_as_dict) <= 5:
-                        num = len(results_as_dict)
-                    for i in range(num):
+                    num = 5
+                else :
+                    del results_as_dict[0:5]
+                    num = len(results_as_dict)
+                for i in range(num):
+                    if len(results_as_dict) <= num:
                         ProductType = results_as_dict[i]['Product Type']
                         if ProductType == 'TRACTOR':
                             url = BASE_URL+'/image?name=tractopV2'
@@ -115,55 +118,11 @@ def handle_message(event):
                         # SaleDate = i['Sale Date'].strftime("%d %B, %Y")
                         bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId))
                     flex_message = Allvalue(bubbleJsonZ)
-                    if len(results_as_dict) > 5:
-                        quickReply = TextSendMessage(text='คลิกเพื่อดูข้อมูลถัดไป', quick_reply=QuickReply(items=[QuickReplyButton(action=MessageAction(label="ดูข้อมูลถัดไป", text="ดูข้อมูลรถทั้งหมด_ถัดไป"))]))
-                        line_bot_api.reply_message(event.reply_token,[flex_message, quickReply])
-                    else :
-                        line_bot_api.reply_message(event.reply_token,flex_message)
-                # for i in range(num):
-                #     ProductType = results_as_dict[i]['Product Type']
-                #     if ProductType == 'TRACTOR':
-                #         url = BASE_URL+'/image?name=tractopV2'
-                #     elif ProductType == 'MINI EXCAVATOR':
-                #         url = BASE_URL+'/image?name=miniV2'
-                #     elif ProductType == 'RICE TRANSPLANTER':
-                #         url = BASE_URL+'/image?name=riceV2'
-                #     elif ProductType == 'COMBINE HARVESTER':
-                #         url = BASE_URL+'/image?name=combineV2'
-                #     if ProductType == 'TRACTOR':
-                #         ProductType = 'รถแทรกเตอร์'
-                #     elif ProductType == 'MINI EXCAVATOR':
-                #         ProductType = 'รถขุด'
-                #     elif ProductType == 'RICE TRANSPLANTER':
-                #         ProductType = 'รถดำนา'
-                #     elif ProductType == 'COMBINE HARVESTER':
-                #         ProductType = 'รถเกี่ยวนวดข้าว'
-                #     Model = results_as_dict[i]['Model']
-                #     VIN = results_as_dict[i]['VIN']
-                #     UsageHour = results_as_dict[i]['Usage Hours']
-                #     try:
-                #         listHour = str(results_as_dict[i]['Usage Hours']).split('.')
-                #         if listHour[0] == '0':
-                #             UsageHour = listHour[1]+' นาที'
-                #         else :
-                #             UsageHour = listHour[0]+' ชม. '+listHour[1]+' นาที'   
-                #     except:     
-                #         UsageHour = str(results_as_dict[i]['Usage Hours'])+' ชม.'
-                #     SaleDate = thai_strftime(results_as_dict[i]['Sale Date'], "%d %B %Y")
-                #     SorgName = results_as_dict[i]['SOrg Name']
-                #     if results_as_dict[i]['McName'] == None:
-                #         McName = '-'
-                #     else :
-                #         McName = results_as_dict[i]['McName']
-                #     ProfileId = results_as_dict[i]['ProfileId']
-                #     # SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-                #     bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId))
-                # flex_message = Allvalue(bubbleJsonZ)
-                # if len(results_as_dict) > 5:
-                #     quickReply = TextSendMessage(text='คลิกเพื่อดูข้อมูลถัดไป', quick_reply=QuickReply(items=[QuickReplyButton(action=MessageAction(label="ดูข้อมูลถัดไป", text="ดูข้อมูลรถทั้งหมด_ถัดไป"))]))
-                #     line_bot_api.reply_message(event.reply_token,[flex_message, quickReply])
-                # else :
-                #     line_bot_api.reply_message(event.reply_token,flex_message)
+                if len(results_as_dict) > 5:
+                    quickReply = TextSendMessage(text='คลิกเพื่อดูข้อมูลถัดไป', quick_reply=QuickReply(items=[QuickReplyButton(action=MessageAction(label="ดูข้อมูลถัดไป", text="ดูข้อมูลรถทั้งหมด_ถัดไป"))]))
+                    line_bot_api.reply_message(event.reply_token,[flex_message, quickReply])
+                else :
+                    line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
