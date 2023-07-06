@@ -23,6 +23,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 from pythainlp.util import thai_strftime
+import logging
 
 app = Flask(__name__)
 app.secret_key = "flash message"
@@ -394,6 +395,7 @@ def insert_mc_name():
                             "VALUES"
                             "('"+ dataResponse['Product Type'] +"','"+ dataResponse['Model'] +"','"+ VIN +"','"+ ProfileId +"','"+ McName +"','"+ dateTime +"')"
                             )
+                            logging.info(insertData)
                             resultsetInsertData = conn.execute(insertData)
                         return "success"
                     else :
@@ -403,6 +405,7 @@ def insert_mc_name():
                             "SET [Name]='"+McName+"', [UpdateTime]='"+dateTime+"'"
                             "WHERE [VIN] = '"+ VIN + "'"
                             )
+                            logging.info(updateData)
                             resultsetUpdateData = conn.execute(updateData)
                         return "success"
                 else :
