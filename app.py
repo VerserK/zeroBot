@@ -318,7 +318,7 @@ def mediaInsert():
     return send_from_directory(os.path.join(app.root_path, 'media'),name+'.mp4')
 
 @app.route('/media_insert_preview', methods=['GET'])
-def mediaInsert():
+def mediaInsertPreview():
     name = 'VDO ช่างจริงใจ'
     return send_from_directory(os.path.join(app.root_path, 'media'),name+'.png')
 
