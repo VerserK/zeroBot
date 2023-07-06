@@ -74,10 +74,7 @@ def handle_message(event):
             else:
                 bubbleJsonZ = []
                 if text == 'ดูข้อมูลรถทั้งหมด':
-                    if len(results_as_dict) == '5':
-                        num = 5
-                    else:
-                        num = len(results_as_dict)
+                    num = 5
                 else :
                     del results_as_dict[0:5]
                     num = len(results_as_dict)
@@ -402,7 +399,7 @@ def insert_mc_name():
                         con = ConnectDB('Line Data')
                         with con.begin() as conn:
                             updateData = sa.text("UPDATE [Line Data].[dbo].[Mc Name] "
-                            "SET [Name]='"+McName+"', [UpdateTime]='"+dateTime+"'"
+                            "SET [Name]=N'"+McName+"', [UpdateTime]='"+dateTime+"'"
                             "WHERE [VIN] = '"+ VIN + "'"
                             )
                             logging.info(updateData)
@@ -482,7 +479,7 @@ def insert_register():
                 insertData = sa.text("INSERT INTO [Line Data].[dbo].[Profile Line] "
                 "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime])"
                 "VALUES"
-                "('"+ id +"','"+ status +"','"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"')"
+                "('"+ id +"','"+ status +"',N'"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"')"
                 )
                 resultsetInsertData = conn.execute(insertData)
             url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-31abd8fea20ef1b1006ef5ed9710c538'
