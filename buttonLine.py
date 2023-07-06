@@ -22,9 +22,9 @@ def ConnectDB(db):
     password = 'DEE@skcdwhtocloud2022prd'
     driver = '{ODBC Driver 17 for SQL Server}'
 
-    dsn = 'DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password
+    dsn = 'DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password +';charset=utf8'
     params = urllib.parse.quote_plus(dsn)
-    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s?charset=utf8' % params)
+    engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
     return engine
 
 def Allvalue(bubbleJS):
