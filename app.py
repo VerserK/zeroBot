@@ -543,7 +543,6 @@ def history():
 
         if i['Billing Date'] != None:
             Billing_Date = i['Billing Date']
-            print(Billing_Date)
             BDStr = datetime.strptime(str(Billing_Date),'%Y-%m-%d').date()
             listBillingDate = thai_strftime(BDStr, "%d %B %Y")
             # listBillingDate = str(i['Billing Date']).split('-')
@@ -554,7 +553,6 @@ def history():
         
         if i['Billing Created On'] != None:
             Billing_Created_On = i['Billing Created On']
-            print(Billing_Created_On)
             BCOStr = datetime.strptime(str(Billing_Created_On),'%Y-%m-%d').date()
             listBillingCreatedOn = thai_strftime(BCOStr, "%d %B %Y")
             # listBillingCreatedOn = str(i['Billing Created On']).split('-')
