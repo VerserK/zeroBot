@@ -116,7 +116,8 @@ def handle_message(event):
                             UsageHour = '-'
                         else:
                             UsageHour = ('{:,}'.format(UsageHour))
-                            UsageHour = str(UsageHour)+' ชั่วโมง'
+                            UsageHour = str(UsageHour).split('.')
+                            UsageHour = UsageHour[0] + ' ชั่วโมง'
                     SaleDate = thai_strftime(results_as_dict[i]['Sale Date'], "%d %B %Y")
                     SorgName = results_as_dict[i]['SOrg Name']
                     if results_as_dict[i]['McName'] == None:
@@ -553,6 +554,7 @@ def history():
             item['billingCreatedOn'] = ''
 
         item['symptom'] = i['Symptom']
+        i['Net Value'] = ('{:,}'.format(i['Net Value']))
         item['netValue'] = i['Net Value']
         if i['Vehicle Type Text'] == 'รถแทรกเตอร์':
             image = 'tractop_history'
