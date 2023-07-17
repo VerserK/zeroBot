@@ -85,12 +85,12 @@ def handle_message(event):
                     num = len(results_as_dict)
                 for i in range(num):
                     VINHours = results_as_dict[i]['VIN']
-                    qryHour = sa.text("SELECT MAX([Hours]) as MAXHOURS"
+                    qryHour = sa.text("SELECT MAX([Hours]) as MAXHOURS "
                     "FROM [KIS Data].[dbo].[Engine_Hours_Record]"
                     "WHERE [Equipment_Name] = '" + VINHours + "'"
                     )
                     resultHours = conn.execute(qryHour)
-                    resultHours_as_dict = resultset.mappings().all()
+                    resultHours_as_dict = resultHours.mappings().all()
                     ProductType = results_as_dict[i]['Product Type']
                     if ProductType == 'TRACTOR':
                         url = BASE_URL+'/image?name=tractopV2'
@@ -552,7 +552,7 @@ def history():
             item['billingCreatedOn'] = ''
 
         item['symptom'] = i['Symptom']
-        item['netValue'] = (format(i['Net Value'],',d'))
+        item['netValue'] = i['Net Value']
         if i['Vehicle Type Text'] == 'รถแทรกเตอร์':
             image = 'tractop_history'
         elif i['Vehicle Type Text'] == 'รถขุด':
