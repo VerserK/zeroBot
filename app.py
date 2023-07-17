@@ -546,7 +546,7 @@ def history():
             item['billingCreatedOn'] = ''
 
         item['symptom'] = i['Symptom']
-        item['netValue'] = i['Net Value']
+        item['netValue'] = (format(i['Net Value'],',d'))
         if i['Vehicle Type Text'] == 'รถแทรกเตอร์':
             image = 'tractop_history'
         elif i['Vehicle Type Text'] == 'รถขุด':
