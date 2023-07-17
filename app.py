@@ -490,7 +490,7 @@ def insert_register():
             r = requests.post(url, headers=headers)
 
             messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
-            urlVideo = 'https://dwhwebstorage.blob.core.windows.net/test/วิดีโอแนะนำการใช้งาน.mp4'
+            urlVideo = BASE_URL+'/media_insert'
             urlPreview = BASE_URL+'/media_insert_preview'
             videoMessage = VideoSendMessage(
                 original_content_url=urlVideo,
