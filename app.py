@@ -102,14 +102,11 @@ def handle_message(event):
                     Model = results_as_dict[i]['Model']
                     VIN = results_as_dict[i]['VIN']
                     UsageHour = results_as_dict[i]['Usage Hours']
-                    try:
-                        listHour = str(results_as_dict[i]['Usage Hours']).split('.')
-                        if listHour[0] == '0':
-                            UsageHour = listHour[1]+' นาที'
-                        else :
-                            UsageHour = listHour[0]+' ชม. '+listHour[1]+' นาที'   
-                    except:     
-                        UsageHour = str(results_as_dict[i]['Usage Hours'])+' ชม.'
+                    if UsageHour == 0:
+                        UsageHour = '-'
+                    else:
+                        UsageHour = ('{:,}'.format(UsageHour))
+                        UsageHour = str(UsageHour)+' ชั่วโมง'
                     SaleDate = thai_strftime(results_as_dict[i]['Sale Date'], "%d %B %Y")
                     SorgName = results_as_dict[i]['SOrg Name']
                     if results_as_dict[i]['McName'] == None:
@@ -493,7 +490,7 @@ def insert_register():
             urlVideo = BASE_URL+'/media_insert'
             urlPreview = BASE_URL+'/media_insert_preview'
             videoMessage = VideoSendMessage(
-                original_content_url=urlVideo,
+                original_content_url='https://dwhwebstorage.blob.core.windows.net/test/วิดีโอแนะนำการใช้งาน.mp4',
                 preview_image_url=urlPreview
             )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])

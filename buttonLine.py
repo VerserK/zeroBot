@@ -38,7 +38,6 @@ def Allvalue(bubbleJS):
     return flex_message
 
 def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId,urlMcName="https://liff.line.me/2000031997-L3QB36lz"):
-    UsageHour = ('{:,}'.format(UsageHour))
     true = True
     bubbleJson =  {
         "type": "bubble",
