@@ -61,13 +61,15 @@ def handle_message(event):
         Userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],IAC.[Firstname],IAC.[VIN],IAC.[Product Type],IAC.[Model],IAC.[Usage Hours],IAC.[Sale Date],IAC.[SOrg Name], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
+            qry = sa.text("SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],IAC.[Firstname],IAC.[VIN],IAC.[Product Type],IAC.[Model],IAC.[Usage Hours],IAC.[Sale Date],IAC.[SOrg Name], MC.[Name] AS McName "
+            "FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
             "WHERE PL.[UserId] = '"+ Userid + "'"
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
+
             if len(results_as_dict)==0:
                 Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
@@ -82,6 +84,13 @@ def handle_message(event):
                     del results_as_dict[0:5]
                     num = len(results_as_dict)
                 for i in range(num):
+                    VINHours = results_as_dict[i]['VIN']
+                    qryHour = sa.text("SELECT MAX([Hours]) as MAXHOURS"
+                    "FROM [KIS Data].[dbo].[Engine_Hours_Record]"
+                    "WHERE [Equipment_Name] = '" + VINHours + "'"
+                    )
+                    resultHours = conn.execute(qryHour)
+                    resultHours_as_dict = resultset.mappings().all()
                     ProductType = results_as_dict[i]['Product Type']
                     if ProductType == 'TRACTOR':
                         url = BASE_URL+'/image?name=tractopV2'
@@ -101,7 +110,7 @@ def handle_message(event):
                         ProductType = 'รถเกี่ยวนวดข้าว'
                     Model = results_as_dict[i]['Model']
                     VIN = results_as_dict[i]['VIN']
-                    UsageHour = results_as_dict[i]['Usage Hours']
+                    UsageHour = resultHours_as_dict['MAXHOURS']
                     if UsageHour == 0:
                         UsageHour = '-'
                     else:
