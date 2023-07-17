@@ -110,12 +110,13 @@ def handle_message(event):
                         ProductType = 'รถเกี่ยวนวดข้าว'
                     Model = results_as_dict[i]['Model']
                     VIN = results_as_dict[i]['VIN']
-                    UsageHour = resultHours_as_dict['MAXHOURS']
-                    if UsageHour == 0:
-                        UsageHour = '-'
-                    else:
-                        UsageHour = ('{:,}'.format(UsageHour))
-                        UsageHour = str(UsageHour)+' ชั่วโมง'
+                    for x in resultHours_as_dict:
+                        UsageHour = x['MAXHOURS']
+                        if UsageHour == 0:
+                            UsageHour = '-'
+                        else:
+                            UsageHour = ('{:,}'.format(UsageHour))
+                            UsageHour = str(UsageHour)+' ชั่วโมง'
                     SaleDate = thai_strftime(results_as_dict[i]['Sale Date'], "%d %B %Y")
                     SorgName = results_as_dict[i]['SOrg Name']
                     if results_as_dict[i]['McName'] == None:
