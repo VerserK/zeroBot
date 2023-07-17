@@ -542,20 +542,23 @@ def history():
         item['lvMainType'] = i['LV Main Type']
 
         if i['Billing Date'] != None:
-            listBillingDate = str(i['Billing Date']).split('-')
-            item['billingDate'] = listBillingDate[2]+'-'+listBillingDate[1]+'-'+listBillingDate[0]
+            listBillingDate = thai_strftime(i['Billing Date'], "%d %B %Y")
+            # listBillingDate = str(i['Billing Date']).split('-')
+            # item['billingDate'] = listBillingDate[2]+'-'+listBillingDate[1]+'-'+listBillingDate[0]
+            item['billingDate'] = listBillingDate
         else :
             item['billingDate'] = ''
         
         if i['Billing Created On'] != None:
-            listBillingCreatedOn = str(i['Billing Created On']).split('-')
-            item['billingCreatedOn'] = listBillingCreatedOn[2]+'-'+listBillingCreatedOn[1]+'-'+listBillingCreatedOn[0]
+            listBillingCreatedOn = thai_strftime(i['Billing Created'], "%d %B %Y")
+            # listBillingCreatedOn = str(i['Billing Created On']).split('-')
+            # item['billingCreatedOn'] = listBillingCreatedOn[2]+'-'+listBillingCreatedOn[1]+'-'+listBillingCreatedOn[0]
+            item['billingCreatedOn'] = listBillingCreatedOn
         else :
             item['billingCreatedOn'] = ''
 
         item['symptom'] = i['Symptom']
-        i['Net Value'] = ('{:,}'.format(i['Net Value']))
-        item['netValue'] = i['Net Value']
+        item['netValue'] = ('{:,}'.format(i['Net Value']))
         if i['Vehicle Type Text'] == 'รถแทรกเตอร์':
             image = 'tractop_history'
         elif i['Vehicle Type Text'] == 'รถขุด':
