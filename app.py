@@ -542,7 +542,8 @@ def history():
         item['lvMainType'] = i['LV Main Type']
 
         if i['Billing Date'] != None:
-            listBillingDate = thai_strftime(date(i['Billing Date']), "%d %B %Y")
+            BDStr = datetime.strptime(i['Billing Date'],'%Y-%m-%d').date()
+            listBillingDate = thai_strftime(BDStr, "%d %B %Y")
             # listBillingDate = str(i['Billing Date']).split('-')
             # item['billingDate'] = listBillingDate[2]+'-'+listBillingDate[1]+'-'+listBillingDate[0]
             item['billingDate'] = listBillingDate
@@ -550,7 +551,8 @@ def history():
             item['billingDate'] = ''
         
         if i['Billing Created On'] != None:
-            listBillingCreatedOn = thai_strftime(date(i['Billing Created']), "%d %B %Y")
+            BCOStr = datetime.strptime(i['Billing Created On'],'%Y-%m-%d').date()
+            listBillingCreatedOn = thai_strftime(BCOStr, "%d %B %Y")
             # listBillingCreatedOn = str(i['Billing Created On']).split('-')
             # item['billingCreatedOn'] = listBillingCreatedOn[2]+'-'+listBillingCreatedOn[1]+'-'+listBillingCreatedOn[0]
             item['billingCreatedOn'] = listBillingCreatedOn
