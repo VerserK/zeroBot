@@ -490,7 +490,7 @@ def insert_register():
             urlVideo = BASE_URL+'/media_insert'
             urlPreview = BASE_URL+'/media_insert_preview'
             videoMessage = VideoSendMessage(
-                original_content_url='https://dwhwebstorage.blob.core.windows.net/test/วิดีโอแนะนำการใช้งาน.mp4',
+                original_content_url=urlVideo,
                 preview_image_url=urlPreview
             )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
