@@ -71,6 +71,7 @@ def handle_message(event):
             # results_as_dict = resultset.mappings().all()
             results_as_dict = pd.DataFrame(resultset.fetchall())
             results_as_dict = results_as_dict.drop_duplicates(subset=['VIN'])
+            results_as_dict = results_as_dict.to_dict('records')
 
             if len(results_as_dict)==0:
                 Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
@@ -86,15 +87,14 @@ def handle_message(event):
                     del results_as_dict[0:5]
                     num = len(results_as_dict)
                 for i in range(num):
-                    VINHours = results_as_dict['VIN']
-                    print(VINHours)
+                    VINHours = results_as_dict[i]['VIN']
                     qryHour = sa.text("SELECT MAX([Hours]) as MAXHOURS "
-                    "FROM [KIS Data].[dbo].[Engine_Hours_Record] "
+                    "FROM [KIS Data].[dbo].[Engine_Hours_Record]"
                     "WHERE [Equipment_Name] = '" + VINHours + "'"
                     )
                     resultHours = conn.execute(qryHour)
                     resultHours_as_dict = resultHours.mappings().all()
-                    ProductType = results_as_dict['Product Type']
+                    ProductType = results_as_dict[i]['Product Type']
                     if ProductType == 'TRACTOR':
                         url = BASE_URL+'/image?name=tractopV2'
                     elif ProductType == 'MINI EXCAVATOR':
@@ -111,8 +111,8 @@ def handle_message(event):
                         ProductType = 'รถดำนา'
                     elif ProductType == 'COMBINE HARVESTER':
                         ProductType = 'รถเกี่ยวนวดข้าว'
-                    Model = results_as_dict['Model']
-                    VIN = results_as_dict['VIN']
+                    Model = results_as_dict[i]['Model']
+                    VIN = results_as_dict[i]['VIN']
                     for x in resultHours_as_dict:
                         UsageHour = x['MAXHOURS']
                         if UsageHour == 0:
@@ -121,13 +121,13 @@ def handle_message(event):
                             UsageHour = ('{:,}'.format(UsageHour))
                             UsageHour = str(UsageHour).split('.')
                             UsageHour = UsageHour[0] + ' ชั่วโมง'
-                    SaleDate = thai_strftime(results_as_dict['Sale Date'], "%d %B %Y")
-                    SorgName = results_as_dict['SOrg Name']
-                    if results_as_dict['McName'] == None:
+                    SaleDate = thai_strftime(results_as_dict[i]['Sale Date'], "%d %B %Y")
+                    SorgName = results_as_dict[i]['SOrg Name']
+                    if results_as_dict[i]['McName'] == None:
                         McName = '-'
                     else :
-                        McName = results_as_dict['McName']
-                    ProfileId = results_as_dict['ProfileId']
+                        McName = results_as_dict[i]['McName']
+                    ProfileId = results_as_dict[i]['ProfileId']
                     # SaleDate = i['Sale Date'].strftime("%d %B, %Y")
                     bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId))
                 flex_message = Allvalue(bubbleJsonZ)
