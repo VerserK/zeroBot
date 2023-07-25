@@ -67,12 +67,6 @@ def handle_message(event):
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
             "WHERE PL.[UserId] = '"+ Userid + "'"
             )
-            qry1 = sa.text( "SELECT DISTINCT IAC.[VIN]"
-                            "FROM [Line Data].[dbo].[Profile Line] PL "
-                            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
-                            "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-                            "WHERE PL.[UserId] = '"+ Userid + "'"
-                            )
             resultset = conn.execute(qry)
             # results_as_dict = resultset.mappings().all()
             results_as_dict = pd.DataFrame(resultset.fetchall())
@@ -93,8 +87,9 @@ def handle_message(event):
                     num = len(results_as_dict)
                 for i in range(num):
                     VINHours = results_as_dict['VIN']
+                    print(VINHours)
                     qryHour = sa.text("SELECT MAX([Hours]) as MAXHOURS "
-                    "FROM [KIS Data].[dbo].[Engine_Hours_Record]"
+                    "FROM [KIS Data].[dbo].[Engine_Hours_Record] "
                     "WHERE [Equipment_Name] = '" + VINHours + "'"
                     )
                     resultHours = conn.execute(qryHour)
