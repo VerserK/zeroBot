@@ -70,7 +70,7 @@ def handle_message(event):
             resultset = conn.execute(qry)
             # results_as_dict = resultset.mappings().all()
             results_as_dict = pd.DataFrame(resultset.fetchall())
-            results_as_dict = results_as_dict.drop_duplicates(subset=['VIN'])
+            results_as_dict = results_as_dict.drop_duplicates(subset=['VIN'], keep='last')
             results_as_dict = results_as_dict.to_dict('records')
 
             if len(results_as_dict)==0:
