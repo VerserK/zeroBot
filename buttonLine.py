@@ -37,7 +37,8 @@ def Allvalue(bubbleJS):
     )
     return flex_message
 
-def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId,urlMcName="https://liff.line.me/2000031997-L3QB36lz"):
+# def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId,urlMcName="https://liff.line.me/2000031997-L3QB36lz"):
+def bubble(url,ProductType,Model,VIN,SaleDate,SorgName,McName,ProfileId,urlMcName="https://liff.line.me/2000031997-L3QB36lz"):
     true = True
     bubbleJson =  {
         "type": "bubble",
@@ -138,50 +139,50 @@ def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileI
                 ],
                 "margin": "sm"
             },
-            {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "ชั่วโมงสะสม :",
-                        "wrap": true,
-                        "color": "#818181"
-                    },
-                    {
-                        "type": "text",
-                        "text": str(UsageHour),
-                        "wrap": true
-                    }
-                    ]
-                }
-                ],
-                "margin": "sm"
-            },
-            {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "(รถติด KIS เท่านั้น)",
-                        "wrap": true,
-                        "color": "#818181",
-                        "size": "xs"
-                    }
-                    ]
-                }
-                ],
-                "margin": "sm"
-            },
+            # {
+            #     "type": "box",
+            #     "layout": "vertical",
+            #     "contents": [
+            #     {
+            #         "type": "box",
+            #         "layout": "baseline",
+            #         "contents": [
+            #         {
+            #             "type": "text",
+            #             "text": "ชั่วโมงสะสม :",
+            #             "wrap": true,
+            #             "color": "#818181"
+            #         },
+            #         {
+            #             "type": "text",
+            #             "text": str(UsageHour),
+            #             "wrap": true
+            #         }
+            #         ]
+            #     }
+            #     ],
+            #     "margin": "sm"
+            # },
+            # {
+            #     "type": "box",
+            #     "layout": "vertical",
+            #     "contents": [
+            #     {
+            #         "type": "box",
+            #         "layout": "baseline",
+            #         "contents": [
+            #         {
+            #             "type": "text",
+            #             "text": "(รถติด KIS เท่านั้น)",
+            #             "wrap": true,
+            #             "color": "#818181",
+            #             "size": "xs"
+            #         }
+            #         ]
+            #     }
+            #     ],
+            #     "margin": "sm"
+            # },
             {
                 "type": "box",
                 "layout": "vertical",
