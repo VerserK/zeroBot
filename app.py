@@ -500,7 +500,7 @@ def insert_register():
                 "('"+ id +"','"+ status +"',N'"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"')"
                 )
                 resultsetInsertData = conn.execute(insertData)
-            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-f93488028f299a4eda5308b256ab1408'
+            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-4f83958b50c48161fd2bf572cc53f0a0'
             headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
 
