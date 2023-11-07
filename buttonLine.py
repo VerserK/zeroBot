@@ -41,7 +41,7 @@ def getPos(sn):
         if last_position is not None:
             coordinates = last_position.get('coordinates')
             Pos = [coordinates[1], coordinates[0]]
-            return Pos 
+            return coordinates[1], coordinates[0] 
         else:
             return "Invalid serial number please try again !!"
     else:
