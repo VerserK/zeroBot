@@ -115,7 +115,7 @@ def handle_message(event):
                     VIN = results_as_dict[i]['VIN']
                     for x in resultHours_as_dict:
                         UsageHour = x['Max_Hour']
-                        if UsageHour == None:
+                        if UsageHour is None:
                             UsageHour = '-'
                         else:
                             UsageHour = ('{:,}'.format(UsageHour))
