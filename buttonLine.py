@@ -11,6 +11,7 @@ from linebot.models import (
 import sqlalchemy as sa
 import urllib
 import pandas as pd
+import requests
 
 BASE_URL = 'https://zerobotz.azurewebsites.net'
 
@@ -26,6 +27,25 @@ def ConnectDB(db):
     params = urllib.parse.quote_plus(dsn)
     engine = sa.create_engine('mssql+pyodbc:///?odbc_connect=%s' % params)
     return engine
+
+def getPos(sn):
+    headers = {"Authorization": "Bearer 06b4aa5b-dafd-4971-b600-0b862b723209"}
+    urlID = f'https://wolf-prp-prod-head-api.propulsetelematics.com/wlf/api/users/me/search?search={sn}&start=0&limit=1'
+    
+    resID = requests.get(urlID, headers=headers)
+    js = resID.json()
+    
+    if 'items' in js and js['items']:
+        item = js['items'][0]
+        last_position = item.get('lastPosition')
+        if last_position is not None:
+            coordinates = last_position.get('coordinates')
+            Pos = [coordinates[1], coordinates[0]]
+            return Pos 
+        else:
+            return "Invalid serial number please try again !!"
+    else:
+        return "Invalid serial number please try again !!"
 
 def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
