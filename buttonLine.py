@@ -411,10 +411,10 @@ def CallLocVINText(ProductType,EquipmentName):
     }
     return Callloc
 
-def locMap(EquipmentName,latitude,longitude):
+def locMap(EquipmentName,ProductType,latitude,longitude):
     loc = LocationSendMessage(
     title=str(EquipmentName),
-    address='Tokyo',
+    address=str(ProductType),
     latitude=str(latitude),
     longitude=str(longitude)
     )
