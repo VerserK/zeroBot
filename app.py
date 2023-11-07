@@ -88,12 +88,12 @@ def handle_message(event):
                     num = len(results_as_dict)
                 for i in range(num):
                     VINHours = results_as_dict[i]['VIN']
-                    # qryHour = sa.text("SELECT MAX([Hours]) as MAXHOURS "
-                    # "FROM [KIS Data].[dbo].[Engine_Hours_Record]"
-                    # "WHERE [Equipment_Name] = '" + VINHours + "'"
-                    # )
-                    # resultHours = conn.execute(qryHour)
-                    # resultHours_as_dict = resultHours.mappings().all()
+                    qryHour = sa.text("SELECT [Max_Hour] "
+                    "FROM [App_View].[dbo].[KIS_Maxhour]"
+                    "WHERE [Equipment_Name] = '" + VINHours + "'"
+                    )
+                    resultHours = conn.execute(qryHour)
+                    resultHours_as_dict = resultHours.mappings().all()
                     ProductType = results_as_dict[i]['Product Type']
                     if ProductType == 'TRACTOR':
                         url = BASE_URL+'/image?name=tractopV2'
@@ -113,14 +113,14 @@ def handle_message(event):
                         ProductType = 'รถเกี่ยวนวดข้าว'
                     Model = results_as_dict[i]['Model']
                     VIN = results_as_dict[i]['VIN']
-                    # for x in resultHours_as_dict:
-                    #     UsageHour = x['MAXHOURS']
-                    #     if UsageHour == None:
-                    #         UsageHour = '-'
-                    #     else:
-                    #         UsageHour = ('{:,}'.format(UsageHour))
-                    #         UsageHour = str(UsageHour).split('.')
-                    #         UsageHour = UsageHour[0] + ' ชั่วโมง'
+                    for x in resultHours_as_dict:
+                        UsageHour = x['Max_Hour']
+                        if UsageHour == None:
+                            UsageHour = '-'
+                        else:
+                            UsageHour = ('{:,}'.format(UsageHour))
+                            UsageHour = str(UsageHour).split('.')
+                            UsageHour = UsageHour[0] + ' ชั่วโมง'
                     SaleDate = thai_strftime(results_as_dict[i]['Sale Date'], "%d %B %Y")
                     SorgName = results_as_dict[i]['SOrg Name']
                     if results_as_dict[i]['McName'] == None:
@@ -129,8 +129,8 @@ def handle_message(event):
                         McName = results_as_dict[i]['McName']
                     ProfileId = results_as_dict[i]['ProfileId']
                     # SaleDate = i['Sale Date'].strftime("%d %B, %Y")
-                    # bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId))
-                    bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,SaleDate,SorgName,McName,ProfileId))
+                    bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileId))
+                    # bubbleJsonZ.append(bubble(url,ProductType,Model,VIN,SaleDate,SorgName,McName,ProfileId))
                 flex_message = Allvalue(bubbleJsonZ)
                 if len(results_as_dict) > 5:
                     quickReply = TextSendMessage(text='คลิกเพื่อดูข้อมูลถัดไป', quick_reply=QuickReply(items=[QuickReplyButton(action=MessageAction(label="ดูข้อมูลถัดไป", text="ดูข้อมูลรถทั้งหมด_ถัดไป"))]))
