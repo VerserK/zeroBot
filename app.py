@@ -221,7 +221,7 @@ def handle_message(event):
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:
-                qry = sa.text("SELECT CRM.[Product Type] "
+                qry = sa.text("SELECT CRM.[Product Type], CRM.[VIN] "
                     "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
                     "WHERE CRM.[VIN] = '" + VINnumber + "'"
                     )
@@ -238,8 +238,8 @@ def handle_message(event):
                         setDataName = McName
                     else :
                         setDataName = i['VIN']
-                    latitude = getPos('KBCCZ474HL3G10281')[0]
-                    longitude = getPos('KBCCZ474HL3G10281')[1]
+                    latitude = getPos(i['VIN'])[0]
+                    longitude = getPos(i['VIN'])[1]
                     queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName))
                 flex_message = Allvalue(queryEngineLocationAgg)
                 location_message = locMap(setDataName,latitude,longitude)
