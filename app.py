@@ -113,11 +113,11 @@ def handle_message(event):
                         ProductType = 'รถเกี่ยวนวดข้าว'
                     Model = results_as_dict[i]['Model']
                     VIN = results_as_dict[i]['VIN']
-                    for x in resultHours_as_dict:
-                        UsageHour = x['Max_Hour']
-                        if UsageHour is None:
-                            UsageHour = '-'
-                        else:
+                    if not resultHours_as_dict:
+                        UsageHour = '-'
+                    else:
+                        for x in resultHours_as_dict:
+                            UsageHour = x['Max_Hour']
                             UsageHour = ('{:,}'.format(UsageHour))
                             UsageHour = str(UsageHour).split('.')
                             UsageHour = UsageHour[0] + ' ชั่วโมง'
