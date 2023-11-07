@@ -414,7 +414,7 @@ def CallLocVINText(ProductType,EquipmentName):
 def locMap(EquipmentName,latitude,longitude):
     loc = LocationSendMessage(
     title=str(EquipmentName),
-  
+    address='Tokyo',
     latitude=str(latitude),
     longitude=str(longitude)
     )

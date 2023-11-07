@@ -238,13 +238,13 @@ def handle_message(event):
                         setDataName = McName
                     else :
                         setDataName = i['VIN']
-                    latitude = str(getPos(i['VIN'])[0])
-                    longitude = str(getPos(i['VIN'])[1])
+                    latitude = getPos(i['VIN'])[0]
+                    longitude = getPos(i['VIN'])[1]
                     queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName))
                 flex_message = Allvalue(queryEngineLocationAgg)
                 location_message = locMap(setDataName,latitude,longitude)
-                line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
-                # line_bot_api.reply_message(event.reply_token,location_message)
+                # line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
+                line_bot_api.reply_message(event.reply_token,location_message)
     # elif text == 'เข้าสู่ระบบ':
     #     profile = line_bot_api.get_profile(event.source.user_id)
     #     userid = profile.user_id
