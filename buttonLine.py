@@ -257,7 +257,7 @@ def bubble(url,ProductType,Model,VIN,UsageHour,SaleDate,SorgName,McName,ProfileI
 
 def callButtonBody(bodyVIN):
     flex_message = FlexSendMessage(
-    alt_text='zerosearch',
+    alt_text='เลือกหมายเลขรถของคุณ',
     contents={
         "type": "bubble",
         "size": "giga",
