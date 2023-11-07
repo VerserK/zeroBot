@@ -238,8 +238,8 @@ def handle_message(event):
                         setDataName = McName
                     else :
                         setDataName = i['VIN']
-                    latitude = getPos(i['VIN'])[0]
-                    longitude = getPos(i['VIN'])[1]
+                    latitude = str(getPos(i['VIN'])[0])
+                    longitude = str(getPos(i['VIN'])[1])
                     queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName))
                 flex_message = Allvalue(queryEngineLocationAgg)
                 location_message = locMap(setDataName,latitude,longitude)

@@ -421,12 +421,38 @@ def locMap(EquipmentName,latitude,longitude):
     return loc
 
 # userid = 'U97caf21a53b92919005e158b429c8c2b'
-# con = ConnectDB('Line Data')
+# conn = ConnectDB('Line Data')
 # with con.begin() as conn:
 #     qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
 #     "WHERE UserId = '" + userid + "'"
 #     "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
 #     )
 #     resultset = conn.execute(qry)
-#     results_as_dict = resultset.mappings().all()
-    # print(len(results_as_dict))
+# #     results_as_dict = resultset.mappings().all()
+#     # print(len(results_as_dict))
+# VINnumber = 'KBCCZ494CN3D31304'
+# McName = 'test'
+# qry = sa.text("SELECT CRM.[Product Type], CRM.[VIN] "
+#                     "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
+#                     "WHERE CRM.[VIN] = '" + VINnumber + "'"
+#                     )
+# resultset = conn.execute(qry)
+# results_as_dict = resultset.mappings().all()
+# # if len(results_as_dict)==0:
+# #     noneLocation = 'รถของคุณไม่ถูกใช้งานในวันนี้ ทำให้ไม่สามารถระบุตำแหน่งปัจจุบันได้'
+# #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneLocation))
+# # else:
+# queryEngineLocationAgg = []
+# for i in results_as_dict:
+#     ProductType = i['Product Type']
+#     if McName != '':
+#         setDataName = McName
+#     else :
+#         setDataName = i['VIN']
+#     latitude = str(getPos(i['VIN'])[0])
+#     longitude = str(getPos(i['VIN'])[1])
+#     queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName))
+# flex_message = Allvalue(queryEngineLocationAgg)
+# location_message = locMap(setDataName,latitude,longitude)
+
+# print(location_message)
