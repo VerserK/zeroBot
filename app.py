@@ -328,7 +328,7 @@ def imageInsert():
 
 @app.route('/media_insert', methods=['GET'])
 def mediaInsert():
-    name = 'วิดีโอแนะนำการใช้งาน'
+    name = 'VDO ช่างจริงใจ FINAL'
     return send_from_directory(os.path.join(app.root_path, 'media'),name+'.mp4')
 
 @app.route('/media_insert_preview', methods=['GET'])
