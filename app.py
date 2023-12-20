@@ -196,7 +196,7 @@ def handle_message(event):
             con = ConnectDB('Line Data')
             with con.begin() as conn:
                 qryCheckMcName = sa.text("SELECT [Name] "
-                        "FROM [MC Name] WHERE [Name] = '" + McNameCheck + "'"
+                        "FROM [MC Name] WHERE [Name] = N'" + McNameCheck + "'"
                         "ORDER BY [Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
                 )
                 mcName =  conn.execute(qryCheckMcName)
