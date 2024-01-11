@@ -29,7 +29,7 @@ def ConnectDB(db):
     return engine
 
 def getPos(sn):
-    headers = {"Authorization": "Bearer 06b4aa5b-dafd-4971-b600-0b862b723209"}
+    headers = {"Authorization": "Bearer e814eb26-c947-44f2-bd31-cc9aabfe841f"}
     urlID = f'https://wolf-prp-prod-head-api.propulsetelematics.com/wlf/api/users/me/search?search={sn}&start=0&limit=1'
     
     resID = requests.get(urlID, headers=headers)
