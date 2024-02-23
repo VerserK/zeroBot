@@ -492,7 +492,7 @@ def insert_register():
         resultset = conn.execute(qry)
         results_as_dict = resultset.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)        
-
+    kubotaid = df['KUBOTA ID']
     #check userid
     with con.begin() as conn:
         qryLine = sa.text("SELECT [UserId] FROM [Line Data].[dbo].[Profile Line] "
@@ -517,9 +517,9 @@ def insert_register():
             con = ConnectDB('Line Data')
             with con.begin() as conn:
                 insertData = sa.text("INSERT INTO [Line Data].[dbo].[Profile Line] "
-                "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime])"
+                "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime],[Kubota ID])"
                 "VALUES"
-                "('"+ id +"','"+ status +"',N'"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"')"
+                "('"+ id +"','"+ status +"',N'"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"','" + kubotaid + "')"
                 )
                 resultsetInsertData = conn.execute(insertData)
             url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-f98b700d9e5fbcce036826230a8d2f95'
