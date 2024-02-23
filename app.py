@@ -61,6 +61,14 @@ def handle_message(event):
         Userid = profile.user_id
         con = ConnectDB('Line Data')
         with con.begin() as conn:
+            qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
+                            "([ProfileId], [menu])"
+                            "VALUES"
+                            "('"+ Userid +"','ปุ่มข้อมูลรถทั้งหมด')")
+            resultset = conn.execute(qry)
+
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
             qry = sa.text("SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],IAC.[Firstname],IAC.[VIN],IAC.[Product Type],IAC.[Model],IAC.[Usage Hours],IAC.[Sale Date],IAC.[SOrg Name], MC.[Name] AS McName "
             "FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
@@ -160,6 +168,14 @@ def handle_message(event):
     elif text == 'ค้นหารถ':
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
+                            "([ProfileId], [menu])"
+                            "VALUES"
+                            "('"+ Userid +"','ปุ่มดูตำแหน่งรถ')")
+            resultset = conn.execute(qry)
+
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
@@ -276,6 +292,14 @@ def handle_message(event):
     elif text == 'ประวัติบริการ':
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
+                            "([ProfileId], [menu])"
+                            "VALUES"
+                            "('"+ Userid +"','ปุ่มประวัติบริการ')")
+            resultset = conn.execute(qry)
+
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
