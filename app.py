@@ -492,7 +492,7 @@ def insert_register():
         resultset = conn.execute(qry)
         results_as_dict = resultset.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)        
-    kubotaid = df['KUBOTA ID']
+    kubotaid = df['KUBOTA ID'][0]
     #check userid
     with con.begin() as conn:
         qryLine = sa.text("SELECT [UserId] FROM [Line Data].[dbo].[Profile Line] "
