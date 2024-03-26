@@ -342,9 +342,9 @@ def handle_message(event):
                 results_as_dict = resultset.mappings().all()
                 qryCheck = []
                 for i in results_as_dict:
-                    qryCheck.append(statusOn(i['VIN']))
-                # flex_message = Allvalue(qryCheck)
-                line_bot_api.reply_message(event.reply_token,qryCheck)
+                    VIN_onoff = i['VIN']
+                flex_message = statusOn(VIN_onoff)
+                line_bot_api.reply_message(event.reply_token,flex_message)
     # elif text == 'เข้าสู่ระบบ':
     #     profile = line_bot_api.get_profile(event.source.user_id)
     #     userid = profile.user_id
