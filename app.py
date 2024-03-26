@@ -340,7 +340,10 @@ def handle_message(event):
                     )
                 resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
-                flex_message = Allvalue(statusOn(i['VIN']))
+                qryCheck = []
+                for i in results_as_dict:
+                    qryCheck.append(statusOn(i['VIN']))
+                flex_message = Allvalue(qryCheck)
                 line_bot_api.reply_message(event.reply_token,flex_message)
     # elif text == 'เข้าสู่ระบบ':
     #     profile = line_bot_api.get_profile(event.source.user_id)
