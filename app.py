@@ -13,7 +13,7 @@ from linebot.models import (
 )
 from linebot.models.actions import RichMenuSwitchAction
 from linebot.models.rich_menu import RichMenuAlias
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from buttonLine import *
 import sqlalchemy as sa
 import urllib
@@ -165,6 +165,42 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
+    elif text == 'เช็กสถานะรถ':
+        profile = line_bot_api.get_profile(event.source.user_id)
+        userid = profile.user_id
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
+                            "([ProfileId], [menu])"
+                            "VALUES"
+                            "('"+ userid +"',N'เช็กสถานะรถ')")
+            resultset = conn.execute(qry)
+
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
+            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
+            "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
+            "WHERE UserId = '"+ userid + "'"
+            )
+            resultset = conn.execute(qry)
+            results_as_dict = resultset.mappings().all()
+            if len(results_as_dict)==0:
+                Unregis = 'ไม่สามารถใช้งานได้เนื่องจากคุณยังไม่ลงทะเบียน'
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=Unregis))
+            else:
+                CallButtonJson = []
+                for i in results_as_dict:
+                    if i['McName'] != None:
+                        label = i['McName']
+                        setDataName = 'เลือกดูสถานะ | '+i['VIN']+' | '+i['McName']
+                    else:
+                        label = i['VIN']
+                        setDataName = 'เลือกดูสถานะ | '+i['VIN']+' | (1)'
+                    CallButtonJson.append(CallButtonSelectByVIN(label, setDataName))
+                flex_message = callButtonBody(CallButtonJson)
+                line_bot_api.reply_message(event.reply_token,flex_message)
+
     elif text == 'ค้นหารถ':
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
@@ -261,6 +297,51 @@ def handle_message(event):
                 location_message = locMap(setDataName,ProductType,latitude,longitude)
                 # line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
                 line_bot_api.reply_message(event.reply_token,location_message)
+    elif 'เลือกดูสถานะ' in text:
+        cleantext = text.split("|")
+        VINnumber = ''.join(cleantext[1])
+        VINnumber = VINnumber.lstrip()
+
+        McNameCheck = ''.join(cleantext[2])
+        McNameCheck = McNameCheck.lstrip()
+
+        if McNameCheck != '':
+            con = ConnectDB('Line Data')
+            with con.begin() as conn:
+                qryCheckMcName = sa.text("SELECT [Name] "
+                        "FROM [MC Name] WHERE [Name] = N'" + McNameCheck + "'"
+                        "ORDER BY [Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+                )
+                mcName =  conn.execute(qryCheckMcName)
+                mcName_dict = mcName.mappings().all()
+            if len(mcName_dict) != 0:
+                McName = mcName_dict[0]['Name']
+            else :
+                McName = ''
+        else :
+            McName = ''
+
+        con = ConnectDB('KIS Data')
+        with con.begin() as conn:
+            qryVIN = sa.text("SELECT [Equipment_ID],[Equipment_Name],[Product],[Subscription_End_Date],[Subscription_Status],[SKL]"
+                    ",[Subscription_Type],[Subscription_Date],[UpdateTime] "
+                    "FROM [KIS Data].[dbo].[Engine_Detail] WHERE [Equipment_Name] = '" + VINnumber + "'"
+                    "ORDER BY [Equipment_Name] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+            )
+            vincheck =  conn.execute(qryVIN)
+            vincheck_dict = vincheck.mappings().all()
+            if len(vincheck_dict) == 0:
+                noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
+            else:
+                qry = sa.text("SELECT CRM.[Product Type], CRM.[VIN] "
+                    "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
+                    "WHERE CRM.[VIN] = '" + VINnumber + "'"
+                    )
+                resultset = conn.execute(qry)
+                results_as_dict = resultset.mappings().all()
+                flex_message = Allvalue(statusOn(i['VIN']))
+                line_bot_api.reply_message(event.reply_token,flex_message)
     # elif text == 'เข้าสู่ระบบ':
     #     profile = line_bot_api.get_profile(event.source.user_id)
     #     userid = profile.user_id
@@ -464,7 +545,7 @@ def insert_register():
     userId = request.form.get('userId')
     displayName = request.form.get('displayName')
     pictureUrl = request.form.get('pictureUrl')
-    createTime = datetime.today()
+    createTime = datetime.today() + timedelta(hours=7)
     createTime = createTime.strftime("%Y-%m-%d %H:%M:%S")
     status = '200'
     id = os.urandom(16).hex()

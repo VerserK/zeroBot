@@ -46,6 +46,45 @@ def getPos(sn):
             return "Invalid serial number please try again !!"
     else:
         return "Invalid serial number please try again !!"
+    
+def getStatus(sn):
+    headers = {"Authorization": "Bearer e814eb26-c947-44f2-bd31-cc9aabfe841f"}
+    urlID = f'https://wolf-prp-prod-head-api.propulsetelematics.com/wlf/api/users/me/search?search={sn}&start=0&limit=1'
+    
+    resID = requests.get(urlID, headers=headers)
+    js = resID.json()
+    item = js['items'][0]
+    status = statusKisTH(item.get('statusName'))
+    return status
+
+def statusKisTH(item):
+    if item == 'ON':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        return 'เปิด',picOn
+    elif item == 'Long Idle':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        return 'การทำงานเป็นเวลานาน,สตาร์ทไว้นาน แต่ยังไม่ขับ',picOn
+    elif item == 'Key ON / Engine OFF':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        return 'เปิดใช้งาน / ดับเครื่องยนต์',picOn
+    elif item == 'Light Workload':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        return 'งานไม่หนัก',picOn
+    elif item == 'Idle':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        return 'รอบเดินเบา',picOn
+    elif item == 'Work':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        return 'ทำงาน',picOn
+    elif item == 'OFF':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power off_0.png'
+        return 'ปิด',picOn
+    elif item == 'ON / Idle':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        return 'เปิด/หยุดการทำงาน/พักการทำงาน',picOn
+    elif item == '-none-':
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power off_0.png'
+        return 'ไม่มี',picOn
 
 def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
@@ -420,39 +459,65 @@ def locMap(EquipmentName,ProductType,latitude,longitude):
     )
     return loc
 
-# userid = 'U97caf21a53b92919005e158b429c8c2b'
-# conn = ConnectDB('Line Data')
-# with con.begin() as conn:
-#     qry = sa.text("SELECT Name,TaxId,UserId FROM [Line Data].[dbo].[Profile Line] PL "
-#     "WHERE UserId = '" + userid + "'"
-#     "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
-#     )
-#     resultset = conn.execute(qry)
-# #     results_as_dict = resultset.mappings().all()
-#     # print(len(results_as_dict))
-# VINnumber = 'KBCCZ494CN3D31304'
-# McName = 'test'
-# qry = sa.text("SELECT CRM.[Product Type], CRM.[VIN] "
-#                     "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
-#                     "WHERE CRM.[VIN] = '" + VINnumber + "'"
-#                     )
-# resultset = conn.execute(qry)
-# results_as_dict = resultset.mappings().all()
-# # if len(results_as_dict)==0:
-# #     noneLocation = 'รถของคุณไม่ถูกใช้งานในวันนี้ ทำให้ไม่สามารถระบุตำแหน่งปัจจุบันได้'
-# #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneLocation))
-# # else:
-# queryEngineLocationAgg = []
-# for i in results_as_dict:
-#     ProductType = i['Product Type']
-#     if McName != '':
-#         setDataName = McName
-#     else :
-#         setDataName = i['VIN']
-#     latitude = str(getPos(i['VIN'])[0])
-#     longitude = str(getPos(i['VIN'])[1])
-#     queryEngineLocationAgg.append(CallLocVINText(ProductType,setDataName))
-# flex_message = Allvalue(queryEngineLocationAgg)
-# location_message = locMap(setDataName,latitude,longitude)
+def statusOn(EquipmentName):
+    callStatus = {
+    "type": "bubble",
+    "size": "mega",
+    "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+        {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+            {
+                "type": "text",
+                "text": "สถานะรถของคุณ",
+                "size": "xl",
+                "weight": "bold",
+                "color": "#ffffff",
+                "margin": "sm",
+                "align": "center",
+                "gravity": "center",
+                "wrap": True
+            }
+            ]
+        }
+        ],
+        "paddingAll": "20px",
+        "spacing": "md",
+        "height": "96px",
+        "paddingTop": "22px",
+        "background": {
+        "type": "linearGradient",
+        "angle": "12deg",
+        "startColor": "#F25822",
+        "endColor": "#FDB777",
+        "centerColor": "#FD7F2C"
+        }
+    },
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+        {
+            "type": "image",
+            "url": str(getStatus(EquipmentName)[1]),
+            "margin": "sm",
+            "size": "md"
+        },
+        {
+            "type": "text",
+            "text": str(getStatus(EquipmentName)[0]),
+            "weight": "bold",
+            "align": "center",
+            "wrap": True,
+            "size": "lg",
+            "margin": "lg"
+        }
+        ]
+    }
+    }
 
-# print(location_message)
+    return callStatus
