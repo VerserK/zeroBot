@@ -343,8 +343,8 @@ def handle_message(event):
                 qryCheck = []
                 for i in results_as_dict:
                     qryCheck.append(statusOn(i['VIN']))
-                flex_message = Allvalue(qryCheck)
-                line_bot_api.reply_message(event.reply_token,flex_message)
+                # flex_message = Allvalue(qryCheck)
+                line_bot_api.reply_message(event.reply_token,qryCheck)
     # elif text == 'เข้าสู่ระบบ':
     #     profile = line_bot_api.get_profile(event.source.user_id)
     #     userid = profile.user_id
