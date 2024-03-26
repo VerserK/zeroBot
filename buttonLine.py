@@ -59,31 +59,31 @@ def getStatus(sn):
 
 def statusKisTH(item):
     if item == 'ON':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
         return 'เปิด',picOn
     elif item == 'Long Idle':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
         return 'การทำงานเป็นเวลานาน,สตาร์ทไว้นาน แต่ยังไม่ขับ',picOn
     elif item == 'Key ON / Engine OFF':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
         return 'เปิดใช้งาน / ดับเครื่องยนต์',picOn
     elif item == 'Light Workload':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
         return 'งานไม่หนัก',picOn
     elif item == 'Idle':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
         return 'รอบเดินเบา',picOn
     elif item == 'Work':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
         return 'ทำงาน',picOn
     elif item == 'OFF':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power off_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_off_0.png'
         return 'ปิด',picOn
     elif item == 'ON / Idle':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power on_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
         return 'เปิด/หยุดการทำงาน/พักการทำงาน',picOn
     elif item == '-none-':
-        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power off_0.png'
+        picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_off_0.png'
         return 'ไม่มี',picOn
 
 def Allvalue(bubbleJS):
