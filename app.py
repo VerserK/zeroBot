@@ -340,7 +340,7 @@ def handle_message(event):
                     )
                 resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
-                qryCheck = []
+
                 for i in results_as_dict:
                     VIN_onoff = i['VIN']
                 flex_message = statusOn(VIN_onoff)
