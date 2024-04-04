@@ -60,31 +60,31 @@ def getStatus(sn):
 def statusKisTH(item):
     if item == 'ON':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
-        return 'เปิด',picOn
+        return 'เปิด/ติดเครื่อง',picOn
     elif item == 'Long Idle':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
-        return 'การทำงานเป็นเวลานาน,สตาร์ทไว้นาน แต่ยังไม่ขับ',picOn
+        return 'ติดเครื่อง แต่ยังไม่มีการเคลื่อนที่มากกว่า 5 นาที',picOn
     elif item == 'Key ON / Engine OFF':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
-        return 'เปิดใช้งาน / ดับเครื่องยนต์',picOn
+        return 'เปิดสวิตซ์ แต่ยังไม่ติดเครื่องยนต์',picOn
     elif item == 'Light Workload':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
-        return 'งานไม่หนัก',picOn
+        return 'กำลังทำงานไม่หนัก',picOn
     elif item == 'Idle':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
-        return 'รอบเดินเบา',picOn
+        return 'ติดเครื่อง แต่ยังไม่เคลื่อนที่',picOn
     elif item == 'Work':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
-        return 'ทำงาน',picOn
+        return 'รถกำลังทำงาน',picOn
     elif item == 'OFF':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_off_0.png'
-        return 'ปิด',picOn
+        return 'รถไม่ได้ใช้งาน/ดับเครื่องยนต์/ปิดสวิตซ์',picOn
     elif item == 'ON / Idle':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_on_0.png'
-        return 'เปิด/หยุดการทำงาน/พักการทำงาน',picOn
+        return 'ติดเครื่องไว้/หยุดการทำงาน/พักการทำงาน',picOn
     elif item == '-none-':
         picOn = 'https://dwhwebstorage.blob.core.windows.net/pic/power_off_0.png'
-        return 'ไม่มี',picOn
+        return 'ไม่มีข้อมูล',picOn
 
 def Allvalue(bubbleJS):
     flex_message = FlexSendMessage(
