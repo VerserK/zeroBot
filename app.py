@@ -539,20 +539,32 @@ def insert_mc_name():
 def redirect():
     return render_template('redirect.html')
 
-@app.route('/redirect_tokorp', methods=['GET','POST'])
+@app.route('/redirect_tokorp', methods=['GET', 'POST'])
 def redirect_tokorp():
     userId = request.form.get('userId')
+    
+    # Establish database connection
     con = ConnectDB('Line Data')
+    
+    # Using parameterized query to prevent SQL injection
+    qryLine = sa.text("SELECT [TaxId] FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = :userId ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY")
+    
     with con.begin() as conn:
-        qryLine = sa.text("SELECT [TaxId] FROM [Line Data].[dbo].[Profile Line] "
-        "WHERE [UserId] = '"+ userId +"'"
-        "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
-        )
-        resultChecUserId = conn.execute(qryLine)
-        results_as_dict = resultChecUserId.mappings().all()
-    df = pd.DataFrame.from_dict(results_as_dict)
-    taxid = df['TaxId']
-    return redirect("https://korp.siamkubota.co.th/Customer/index_login.php?cid="+taxid)
+        resultChecUserId = conn.execute(qryLine, userId=userId)
+        # Fetching all results as dictionary
+        results_as_dict = resultChecUserId.fetchall()
+
+    # Checking if any result is returned
+    if results_as_dict:
+        # Convert results to DataFrame
+        df = pd.DataFrame.from_records(results_as_dict)
+        # Accessing the TaxId from DataFrame
+        taxid = df.iloc[0][0]
+        # Redirecting with the obtained TaxId
+        return redirect("https://korp.siamkubota.co.th/Customer/index_login.php?cid=" + str(taxid))
+    else:
+        # Handle case where no result is found
+        return "No data found for the provided userId."
 
 @app.route('/register', methods=['GET','POST'])
 def register():
