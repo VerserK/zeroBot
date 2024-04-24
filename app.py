@@ -539,10 +539,6 @@ def insert_mc_name():
 def redirect():
     return render_template('redirect.html')
 
-@app.route('/test')
-def hello():
-    return redirect("http://www.google.com", 302)
-
 @app.route('/redirect_tokorp', methods=['GET','POST'])
 def redirect_tokorp():
     userId = request.form.get('userId')
@@ -565,10 +561,10 @@ def redirect_tokorp():
         # Accessing the TaxId from DataFrame
         taxid = df.iloc[0][0]
         print(taxid)
-        redirectLink = f'https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}'
+        # redirectLink = f'https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}'
         # Redirecting with the obtained TaxId
         # return redirect(f"https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}")
-        return redirect(redirectLink, code=302)
+        return render_template('redirect_tokorp.html', taxid=taxid)
     else:
         # Handle case where no result is found
         return "No data found for the provided userId."
