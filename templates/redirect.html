@@ -11,11 +11,7 @@
     liff.init({ liffId: "2000031997-zl378qln" }, () => {
         if (liff.isLoggedIn()) {
             liff.getProfile().then(profile => {
-                document.getElementById("userId").value = profile.userId;
-                document.getElementById("displayName").value = profile.displayName;
-                document.getElementById("statusMessage").value = profile.statusMessage;
-                document.getElementById("pictureUrl").value = profile.pictureUrl;
-                
+            
                 // Now that we have the userId, make the AJAX request
                 var userId = profile.userId;
                 $.ajax({
