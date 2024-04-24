@@ -548,7 +548,7 @@ def redirect():
         results_as_dict = resultChecUserId.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)
     taxid = df['TaxId']
-    return render_template('redirect.html', taxid)
+    return render_template('redirect.html', taxids=taxid)
 
 # @app.route('/redirect_tokorp', methods=['GET','POST'])
 # def redirect_tokorp():

@@ -16,7 +16,7 @@
             liff.getProfile().then(profile => {
                 // Now that we have the userId, make the AJAX request
                 var userId = profile.userId;
-                window.location.href = 'https://korp.siamkubota.co.th/Customer/index_login.php?cid={{taxid}}';
+                window.location.href = 'https://korp.siamkubota.co.th/Customer/index_login.php?cid={{taxids}}';
             }).catch(err => console.error(err));
         } else {
             liff.login();
