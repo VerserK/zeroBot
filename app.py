@@ -561,10 +561,10 @@ def redirect_tokorp():
         # Accessing the TaxId from DataFrame
         taxid = df.iloc[0][0]
         print(taxid)
+        redirectLink = f'https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}'
         # Redirecting with the obtained TaxId
-        # return redirect(url_for('https://korp.siamkubota.co.th/Customer/index_login.php?cid='+ str(taxid)))
         # return redirect(f"https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}")
-        return redirect("https://www.google.com", code=302, Response=None)
+        return {"link": redirectLink, "code": 302}
     else:
         # Handle case where no result is found
         return "No data found for the provided userId."
