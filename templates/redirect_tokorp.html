@@ -17,7 +17,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@300&display=swap" rel="stylesheet">
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <META HTTP-EQUIV="Refresh" CONTENT="0;URL=https://korp.siamkubota.co.th/Customer/index_login.php?cid="{{ taxid }}></head>
+    {% for taxidz in taxid %}
+    <META HTTP-EQUIV="Refresh" CONTENT="0;URL=https://korp.siamkubota.co.th/Customer/index_login.php?cid="{{taxidz}}></head>
+    {% endfor %}
 </head>
 <body>
     <div class="px-4 py-3 my-2 text-center">
