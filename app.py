@@ -564,7 +564,7 @@ def redirect_tokorp():
         redirectLink = f'https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}'
         # Redirecting with the obtained TaxId
         # return redirect(f"https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}")
-        return {"link": redirectLink, "code": 302}
+        return redirect(redirectLink, code=302)
     else:
         # Handle case where no result is found
         return "No data found for the provided userId."
