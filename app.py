@@ -563,7 +563,7 @@ def redirect_tokorp():
         print(taxid)
         logging.info(taxid)
         # Redirecting with the obtained TaxId
-        return redirect("https://korp.siamkubota.co.th/Customer/index_login.php?cid=" + str(taxid), code=302)
+        return redirect(url_for('https://korp.siamkubota.co.th/Customer/index_login.php?cid='+ str(taxid)))
     else:
         # Handle case where no result is found
         return "No data found for the provided userId."
