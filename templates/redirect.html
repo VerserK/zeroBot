@@ -24,13 +24,7 @@
 
         setTimeout(function() {
             var userId = document.getElementById("userId").value;
-            $.ajax({
-                type: "post",
-                    url: 'https://zerobotz.azurewebsites.net/redirect_tokorp',
-                    data: {
-                        "userId": userId
-                    }
-            })
+            window.location.href = "https://korp.siamkubota.co.th/Customer/index_login.php?cid="+ userId
         }, 1500);
 </script>
 </html>
