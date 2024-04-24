@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Kubota Online Reservation Platform</title>
+  <!-- <META HTTP-EQUIV="Refresh" CONTENT="0;URL=https://korp.siamkubota.co.th/Customer/index_login.php?cid="{{ cid }}></head> -->
+</head>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+<script>
+    liff.init({ liffId: "2000031997-zl378qln" }, () => {
+            if (liff.isLoggedIn()) {
+                liff.getProfile().then(profile => {
+                    document.getElementById("userId").value = profile.userId;
+                    document.getElementById("displayName").value = profile.displayName;
+                    document.getElementById("statusMessage").value = profile.statusMessage;
+                    document.getElementById("pictureUrl").value = profile.pictureUrl;
+                }).catch(
+                    err => console.error(err)
+                );
+            } else {
+                liff.login();
+            }
+        }, err => console.error(err.code, error.message));
+
+        var userId = document.getElementById("userId").value;
+        $.ajax({
+                type: "post",
+                url: 'https://zerobotz.azurewebsites.net/redirect_tokorp',
+                data: {
+                    "userId":userId
+                }})
+</script>
+</html>
