@@ -539,6 +539,10 @@ def insert_mc_name():
 def redirect():
     return render_template('redirect.html')
 
+@app.route('/test')
+def hello():
+    return redirect("http://www.google.com", code=302)
+
 @app.route('/redirect_tokorp', methods=['GET','POST'])
 def redirect_tokorp():
     userId = request.form.get('userId')
