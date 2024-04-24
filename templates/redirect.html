@@ -32,9 +32,11 @@
                     },
                     success: function(response){
                         console.log(response);
+                        var taxid = response
                     }
                 })
-            window.location.href = "https://korp.siamkubota.co.th/Customer/index_login.php?cid="+ response;
+            // Redirect to the new URL using the response data
+            window.location.href = "https://korp.siamkubota.co.th/Customer/index_login.php?cid=" + taxid;
         }, 1500);
 </script>
 </html>
