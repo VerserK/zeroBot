@@ -539,7 +539,7 @@ def insert_mc_name():
 def redirect():
     return render_template('redirect.html')
 
-@app.route('/redirect_tokorp', methods=['GET', 'POST'])
+@app.route('/redirect_tokorp', methods=['POST'])
 def redirect_tokorp():
     userId = request.form.get('userId')
     
