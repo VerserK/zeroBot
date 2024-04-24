@@ -550,7 +550,7 @@ def redirect_tokorp():
     qryLine = sa.text("SELECT [TaxId] FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = :userId ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY")
     
     with con.begin() as conn:
-        resultChecUserId = conn.execute(qryLine, userId=userId)
+        resultChecUserId = conn.execute(qryLine, {"userId": userId})
         # Fetching all results as dictionary
         results_as_dict = resultChecUserId.fetchall()
 
