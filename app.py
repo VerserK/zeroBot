@@ -173,7 +173,7 @@ def handle_message(event):
             qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
                             "([ProfileId], [menu])"
                             "VALUES"
-                            "('"+ userid +"',N'เช็กสถานะรถ')")
+                            "('"+ userid +"',N'ปุ่มเช็กสถานะรถ')")
             resultset = conn.execute(qry)
 
         con = ConnectDB('Line Data')
@@ -624,7 +624,7 @@ def insert_register():
                 "('"+ id +"','"+ status +"',N'"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"','" + kubotaid + "')"
                 )
                 resultsetInsertData = conn.execute(insertData)
-            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-f98b700d9e5fbcce036826230a8d2f95'
+            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-1b650097b4d65650fcab0bfcc9adbf2d'
             headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
 
