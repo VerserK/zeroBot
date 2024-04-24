@@ -560,6 +560,8 @@ def redirect_tokorp():
         df = pd.DataFrame.from_records(results_as_dict)
         # Accessing the TaxId from DataFrame
         taxid = df.iloc[0][0]
+        print(taxid)
+        logging.info(taxid)
         # Redirecting with the obtained TaxId
         return redirect("https://korp.siamkubota.co.th/Customer/index_login.php?cid=" + str(taxid))
     else:
