@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>Kubota Online Reservation Platform</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- <META HTTP-EQUIV="Refresh" CONTENT="0;URL=https://korp.siamkubota.co.th/Customer/index_login.php?cid="{{ cid }}></head> -->
 </head>
 <body>
@@ -12,26 +13,32 @@
 </body>
 <script>
     liff.init({ liffId: "2000031997-zl378qln" }, () => {
-            if (liff.isLoggedIn()) {
-                liff.getProfile().then(profile => {
-                    document.getElementById("userId").value = profile.userId;
-                    document.getElementById("displayName").value = profile.displayName;
-                    document.getElementById("statusMessage").value = profile.statusMessage;
-                    document.getElementById("pictureUrl").value = profile.pictureUrl;
-                }).catch(
-                    err => console.error(err)
-                );
-            } else {
-                liff.login();
-            }
-        }, err => console.error(err.code, error.message));
-
-        var userId = document.getElementById("userId").value;
-        $.ajax({
-                type: "post",
-                url: 'https://zerobotz.azurewebsites.net/redirect_tokorp',
-                data: {
-                    "userId":userId
-                }})
+        if (liff.isLoggedIn()) {
+            liff.getProfile().then(profile => {
+                document.getElementById("userId").value = profile.userId;
+                document.getElementById("displayName").value = profile.displayName;
+                document.getElementById("statusMessage").value = profile.statusMessage;
+                document.getElementById("pictureUrl").value = profile.pictureUrl;
+                
+                // Now that we have the userId, make the AJAX request
+                var userId = profile.userId;
+                $.ajax({
+                    type: "post",
+                    url: 'https://zerobotz.azurewebsites.net/redirect_tokorp',
+                    data: {
+                        "userId": userId
+                    },
+                    success: function(response) {
+                        console.log(response); // Handle success response here
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr, status, error); // Handle error here
+                    }
+                });
+            }).catch(err => console.error(err));
+        } else {
+            liff.login();
+        }
+    }, err => console.error(err.code, error.message));
 </script>
 </html>
