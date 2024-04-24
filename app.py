@@ -552,7 +552,7 @@ def redirect_tokorp():
         results_as_dict = resultChecUserId.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)
     taxid = df['TaxId']
-    return render_template('redirect_tokorp.html', taxid=taxid)
+    return redirect("https://korp.siamkubota.co.th/Customer/index_login.php?cid="+taxid)
 
 @app.route('/register', methods=['GET','POST'])
 def register():
