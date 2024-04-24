@@ -564,7 +564,7 @@ def redirect_tokorp():
         # Redirecting with the obtained TaxId
         # return redirect(url_for('https://korp.siamkubota.co.th/Customer/index_login.php?cid='+ str(taxid)))
         # return redirect(f"https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}")
-        return redirect("https://www.google.com")
+        return redirect("https://www.google.com", code=302, Response=None)
     else:
         # Handle case where no result is found
         return "No data found for the provided userId."
