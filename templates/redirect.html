@@ -16,7 +16,7 @@
             liff.getProfile().then(profile => {
                 // Now that we have the userId, make the AJAX request
                 var userId = profile.userId;
-                fetch('https://zerobotz.azurewebsites.net/redirect_tokorp', {
+                fetch('https://korp.siamkubota.co.th/Customer/index_login.php?cid='+userId, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
