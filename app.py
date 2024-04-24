@@ -537,10 +537,6 @@ def insert_mc_name():
 
 @app.route('/redirect', methods=['GET','POST'])
 def redirect():
-    return render_template('redirect.html')
-
-@app.route('/redirect_tokorp', methods=['GET','POST'])
-def redirect_tokorp():
     userId = request.form.get('userId')
     con = ConnectDB('Line Data')
     with con.begin() as conn:
@@ -552,7 +548,22 @@ def redirect_tokorp():
         results_as_dict = resultChecUserId.mappings().all()
     df = pd.DataFrame.from_dict(results_as_dict)
     taxid = df['TaxId']
-    return render_template('redirect_tokorp.html', taxid)
+    return render_template('redirect.html', taxid)
+
+# @app.route('/redirect_tokorp', methods=['GET','POST'])
+# def redirect_tokorp():
+#     userId = request.form.get('userId')
+#     con = ConnectDB('Line Data')
+#     with con.begin() as conn:
+#         qryLine = sa.text("SELECT [TaxId] FROM [Line Data].[dbo].[Profile Line] "
+#         "WHERE [UserId] = '"+ userId +"'"
+#         "ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+#         )
+#         resultChecUserId = conn.execute(qryLine)
+#         results_as_dict = resultChecUserId.mappings().all()
+#     df = pd.DataFrame.from_dict(results_as_dict)
+#     taxid = df['TaxId']
+#     return render_template('redirect_tokorp.html', taxid)
 
 @app.route('/register', methods=['GET','POST'])
 def register():

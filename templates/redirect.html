@@ -16,27 +16,7 @@
             liff.getProfile().then(profile => {
                 // Now that we have the userId, make the AJAX request
                 var userId = profile.userId;
-                fetch('https://korp.siamkubota.co.th/Customer/index_login.php?cid='+userId, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userId: userId
-                    }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data); // Handle success response here
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error); // Handle error here
-                });
+                window.location.href = 'https://korp.siamkubota.co.th/Customer/index_login.php?cid={{taxid}}';
             }).catch(err => console.error(err));
         } else {
             liff.login();
