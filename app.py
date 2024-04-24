@@ -541,7 +541,7 @@ def redirect():
 
 @app.route('/test')
 def hello():
-    return redirect("http://www.google.com")
+    return redirect("http://www.google.com", 302)
 
 @app.route('/redirect_tokorp', methods=['GET','POST'])
 def redirect_tokorp():
