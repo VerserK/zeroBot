@@ -10,17 +10,47 @@
 <h1>This is a heading</h1>
 <p>This is a paragraph.</p>
 </body>
+
+It seems like the $ symbol is not recognized, indicating that jQuery is not properly loaded. Let's ensure that jQuery is loaded before using it in your script. You can either add a script tag to include jQuery from a CDN or download jQuery and include it locally.
+
+Here's how you can include jQuery from a CDN:
+
+html
+Copy code
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+Make sure to include this script tag before your script that uses jQuery. Your updated code should look like this:
+
+html
+Copy code
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     liff.init({ liffId: "2000031997-zl378qln" }, () => {
         if (liff.isLoggedIn()) {
             liff.getProfile().then(profile => {
+                document.getElementById("userId").value = profile.userId;
+                document.getElementById("displayName").value = profile.displayName;
+                document.getElementById("statusMessage").value = profile.statusMessage;
+                document.getElementById("pictureUrl").value = profile.pictureUrl;
+                
                 // Now that we have the userId, make the AJAX request
                 var userId = profile.userId;
-                window.location.href = 'https://korp.siamkubota.co.th/Customer/index_login.php?cid={{taxids}}';
+                $.ajax({
+                    type: "post",
+                    url: 'https://zerobotz.azurewebsites.net/redirect_tokorp',
+                    data: {
+                        "userId": userId
+                    },
+                    success: function(response) {
+                        console.log(response); // Handle success response here
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr, status, error); // Handle error here
+                    }
+                });
             }).catch(err => console.error(err));
         } else {
             liff.login();
         }
-    }, err => console.error(err.code, err.message));
+    }, err => console.error(err.code, error.message));
 </script>
 </html>
