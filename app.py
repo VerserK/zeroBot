@@ -214,7 +214,7 @@ def handle_message(event):
 
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
+            qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
             "WHERE UserId = '"+ userid + "'"
@@ -273,7 +273,7 @@ def handle_message(event):
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:
-                qry = sa.text("SELECT CRM.[Product Type], CRM.[VIN] "
+                qry = sa.text("SELECT DISTINCT CRM.[Product Type], CRM.[VIN] "
                     "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
                     "WHERE CRM.[VIN] = '" + VINnumber + "'"
                     )
@@ -334,7 +334,7 @@ def handle_message(event):
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:
-                qry = sa.text("SELECT CRM.[Product Type], CRM.[VIN] "
+                qry = sa.text("SELECT DISTINCT CRM.[Product Type], CRM.[VIN] "
                     "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
                     "WHERE CRM.[VIN] = '" + VINnumber + "'"
                     )
