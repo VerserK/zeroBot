@@ -178,7 +178,7 @@ def handle_message(event):
 
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
+            qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
             "WHERE UserId = '"+ userid + "'"
