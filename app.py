@@ -62,7 +62,7 @@ def handle_message(event):
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
-                            "([ProfileId], [menu])"
+                            "([UserId], [menu])"
                             "VALUES"
                             "('"+ Userid +"',N'ปุ่มข้อมูลรถทั้งหมด')")
             resultset = conn.execute(qry)
