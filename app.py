@@ -62,7 +62,7 @@ def handle_message(event):
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
-                            "([ProfileId], [menu])"
+                            "([UserId], [menu])"
                             "VALUES"
                             "('"+ Userid +"',N'ปุ่มข้อมูลรถทั้งหมด')")
             resultset = conn.execute(qry)
@@ -171,7 +171,7 @@ def handle_message(event):
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
-                            "([ProfileId], [menu])"
+                            "([UserId], [menu])"
                             "VALUES"
                             "('"+ userid +"',N'ปุ่มเช็กสถานะรถ')")
             resultset = conn.execute(qry)
@@ -207,7 +207,7 @@ def handle_message(event):
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
-                            "([ProfileId], [menu])"
+                            "([UserId], [menu])"
                             "VALUES"
                             "('"+ userid +"',N'ปุ่มดูตำแหน่งรถ')")
             resultset = conn.execute(qry)
@@ -380,7 +380,7 @@ def handle_message(event):
         con = ConnectDB('Line Data')
         with con.begin() as conn:
             qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
-                            "([ProfileId], [menu])"
+                            "([UserId], [menu])"
                             "VALUES"
                             "('"+ userid +"',N'ปุ่มประวัติบริการ')")
             resultset = conn.execute(qry)
