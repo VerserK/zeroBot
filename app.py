@@ -73,7 +73,7 @@ def handle_message(event):
             "FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE PL.[UserId] = '"+ Userid + "'"
+            "WHERE PL.[UserId] = '"+ Userid + "' AND IAC.[VIN] IS NOT NULL"
             )
             resultset = conn.execute(qry)
             # results_as_dict = resultset.mappings().all()
@@ -181,7 +181,7 @@ def handle_message(event):
             qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE UserId = '"+ userid + "'"
+            "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
@@ -217,7 +217,7 @@ def handle_message(event):
             qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE UserId = '"+ userid + "'"
+            "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
             )
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
@@ -275,7 +275,7 @@ def handle_message(event):
             else:
                 qry = sa.text("SELECT DISTINCT CRM.[Product Type], CRM.[VIN] "
                     "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
-                    "WHERE CRM.[VIN] = '" + VINnumber + "'"
+                    "WHERE CRM.[VIN] = '" + VINnumber + "' AND CRM.[VIN] IS NOT NULL"
                     )
                 resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
@@ -336,7 +336,7 @@ def handle_message(event):
             else:
                 qry = sa.text("SELECT DISTINCT CRM.[Product Type], CRM.[VIN] "
                     "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
-                    "WHERE CRM.[VIN] = '" + VINnumber + "'"
+                    "WHERE CRM.[VIN] = '" + VINnumber + "'AND CRM.[VIN] IS NOT NULL"
                     )
                 resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
@@ -390,7 +390,7 @@ def handle_message(event):
             qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE UserId = '"+ userid + "'"
+            "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
             )
             resultset = conn.execute(qry)
             # results_as_dict = resultset.mappings().all()
