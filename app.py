@@ -711,6 +711,8 @@ def history():
         item['netValue'] = ('{:,}'.format(i['Net Value']))
         if i['Vehicle Type Text'] == 'รถแทรกเตอร์':
             image = 'tractop_history'
+        elif i['Vehicle Type Text'] == 'รถแทรกเตอร์พร้อมอุปกรณ์ต่อพ่วง':
+            image = 'tractop_history'
         elif i['Vehicle Type Text'] == 'รถขุด':
             image = 'mini_history'
         elif i['Vehicle Type Text'] == 'รถดำนา':
