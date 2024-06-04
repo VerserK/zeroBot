@@ -649,14 +649,7 @@ def insert_register():
             r = requests.post(url, headers=headers)
 
             # messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
-            messagePush = ''' ยินดีต้อนรับสู่ (LINE messenger) ช่างจริงใจสยามคูโบต้า 
-
-            (man giving speech) ผู้ช่วยส่วนตัวของลูกค้าในการจัดการรถคูโบต้า
-
-            (pointing down)กดที่ลิงก์ด้านล่าง เพื่อรับสิทธิ์ลุ้นรับนาฬิกาข้อมืออัจฉริยะ มูลค่า 1,290 บาท ฟรี!!!
-            จำกัด 1 ท่าน/เรือน
-
-            (silver watch)https://forms.gle/7DtRjgwdcciB7EFRA '''
+            messagePush = 'ยินดีต้อนรับสู่ (LINE messenger) ช่างจริงใจสยามคูโบต้า (man giving speech) ผู้ช่วยส่วนตัวของลูกค้าในการจัดการรถคูโบต้า (pointing down)กดที่ลิงก์ด้านล่าง เพื่อรับสิทธิ์ลุ้นรับนาฬิกาข้อมืออัจฉริยะ มูลค่า 1,290 บาท ฟรี!!! จำกัด 1 ท่าน/เรือน (silver watch) https://forms.gle/7DtRjgwdcciB7EFRA'
             # urlVideo = BASE_URL+'/media_insert'
             # urlPreview = BASE_URL+'/media_insert_preview'
             # videoMessage = VideoSendMessage(
