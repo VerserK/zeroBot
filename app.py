@@ -450,6 +450,11 @@ def mediaSeason():
     name = 'ช่างจริงใจ'
     return send_from_directory(os.path.join(app.root_path, 'image'),name+'.jpg')
 
+@app.route('/media_season_preview', methods=['GET'])
+def mediaSeason():
+    name = 'ช่างจริงใจPreview'
+    return send_from_directory(os.path.join(app.root_path, 'image'),name+'.png')
+
 @app.route('/register_mc_name', methods=['GET'])
 def register_mc_name():
     return render_template('register_mc_name.html')
@@ -657,9 +662,10 @@ def insert_register():
             #     preview_image_url=urlPreview
             # )
             urlPic = BASE_URL+'/media_season'
+            urlPicPreview = BASE_URL+'/media_season_preview'
             picMessage = ImageMessage(
                 originalContentUrl=urlPic,
-                previewImageUrl=urlPic
+                previewImageUrl=urlPicPreview
             )
             # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
