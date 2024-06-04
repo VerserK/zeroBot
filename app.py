@@ -8,7 +8,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage, RichMenu, RichMenuArea, RichMenuSize,
-    RichMenuBounds, URIAction, MessageAction, FollowEvent, VideoSendMessage, QuickReply, QuickReplyButton,ButtonsTemplate,PostbackAction,
+    RichMenuBounds, URIAction, MessageAction, FollowEvent, ImageMessage, VideoSendMessage, QuickReply, QuickReplyButton,ButtonsTemplate,PostbackAction,
     TemplateSendMessage
 )
 from linebot.models.actions import RichMenuSwitchAction
@@ -445,6 +445,11 @@ def mediaInsertPreview():
     name = 'VDO ช่างจริงใจ'
     return send_from_directory(os.path.join(app.root_path, 'media'),name+'.png')
 
+@app.route('/media_season', methods=['GET'])
+def mediaInsertPreview():
+    name = 'ช่างจริงใจ'
+    return send_from_directory(os.path.join(app.root_path, 'media'),name+'.jpg')
+
 @app.route('/register_mc_name', methods=['GET'])
 def register_mc_name():
     return render_template('register_mc_name.html')
@@ -643,14 +648,28 @@ def insert_register():
             headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
 
-            messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
-            urlVideo = BASE_URL+'/media_insert'
-            urlPreview = BASE_URL+'/media_insert_preview'
-            videoMessage = VideoSendMessage(
-                original_content_url=urlVideo,
-                preview_image_url=urlPreview
+            # messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
+            messagePush = ''' ยินดีต้อนรับสู่ (LINE messenger) ช่างจริงใจสยามคูโบต้า 
+
+            (man giving speech) ผู้ช่วยส่วนตัวของลูกค้าในการจัดการรถคูโบต้า
+
+            (pointing down)กดที่ลิงก์ด้านล่าง เพื่อรับสิทธิ์ลุ้นรับนาฬิกาข้อมืออัจฉริยะ มูลค่า 1,290 บาท ฟรี!!!
+            จำกัด 1 ท่าน/เรือน
+
+            (silver watch)https://forms.gle/7DtRjgwdcciB7EFRA '''
+            # urlVideo = BASE_URL+'/media_insert'
+            # urlPreview = BASE_URL+'/media_insert_preview'
+            # videoMessage = VideoSendMessage(
+            #     original_content_url=urlVideo,
+            #     preview_image_url=urlPreview
+            # )
+            urlPic = BASE_URL+'/media_season'
+            picMessage = ImageMessage(
+                originalContentUrl=urlPic,
+                previewImageUrl=urlPic
             )
-            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
+            # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
             return "success"
 
 @app.route('/history', methods=['GET','POST'])
