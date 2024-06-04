@@ -664,7 +664,8 @@ def insert_register():
             urlPic = BASE_URL+'/media_season'
             urlPicPreview = BASE_URL+'/media_season_preview'
             picMessage = ImageMessage(
-                originalContentUrl=urlPic
+                original_content_url=urlPic,
+                preview_image_url=urlPicPreview
             )
             # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
