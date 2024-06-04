@@ -446,7 +446,7 @@ def mediaInsertPreview():
     return send_from_directory(os.path.join(app.root_path, 'media'),name+'.png')
 
 @app.route('/media_season', methods=['GET'])
-def mediaInsertPreview():
+def mediaSeason():
     name = 'ช่างจริงใจ'
     return send_from_directory(os.path.join(app.root_path, 'media'),name+'.jpg')
 
