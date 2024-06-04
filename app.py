@@ -8,7 +8,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,SourceUser,LocationSendMessage, RichMenu, RichMenuArea, RichMenuSize,
-    RichMenuBounds, URIAction, MessageAction, FollowEvent, ImageMessage, VideoSendMessage, QuickReply, QuickReplyButton,ButtonsTemplate,PostbackAction,
+    RichMenuBounds, URIAction, MessageAction, FollowEvent, ImageSendMessage, VideoSendMessage, QuickReply, QuickReplyButton,ButtonsTemplate,PostbackAction,
     TemplateSendMessage
 )
 from linebot.models.actions import RichMenuSwitchAction
@@ -663,13 +663,12 @@ def insert_register():
             # )
             urlPic = BASE_URL+'/media_season'
             urlPicPreview = BASE_URL+'/media_season_preview'
-            picMessage = ImageMessage(
+            picMessage = ImageSendMessage(
                 original_content_url=urlPic,
                 preview_image_url=urlPicPreview
             )
             # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
-            # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
-            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush)])
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
             return "success"
 
 @app.route('/history', methods=['GET','POST'])
