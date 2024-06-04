@@ -451,7 +451,7 @@ def mediaSeason():
     return send_from_directory(os.path.join(app.root_path, 'image'),name+'.jpg')
 
 @app.route('/media_season_preview', methods=['GET'])
-def mediaSeason():
+def mediaSeasonPreview():
     name = 'ช่างจริงใจPreview'
     return send_from_directory(os.path.join(app.root_path, 'image'),name+'.png')
 
