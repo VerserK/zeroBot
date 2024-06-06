@@ -39,6 +39,8 @@ def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
+    url = 'https://webhook-lon.ants.co.th/LineWebhook/webhook/LRQI5wfE4'
+
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
@@ -46,6 +48,8 @@ def callback():
     # handle webhook body
     try:
         handler.handle(body, signature)
+        r = requests.post(url, headers=handler)
+        print(r)
     except InvalidSignatureError:
         print("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
