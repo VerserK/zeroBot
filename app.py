@@ -44,7 +44,7 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-    logging.info(body)
+    print(body)
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -59,7 +59,6 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    logging.info(event)
     text = event.message.text
     if text.find('ดูข้อมูลรถทั้งหมด') != -1:
         profile = line_bot_api.get_profile(event.source.user_id)
