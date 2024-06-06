@@ -24,6 +24,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 from pythainlp.util import thai_strftime
 import logging
+import json
 
 app = Flask(__name__)
 app.secret_key = "flash message"
@@ -45,10 +46,12 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
     print(body)
+    #convert string to  object
+    json_object = json.loads(body)
     # handle webhook body
     try:
         handler.handle(body, signature)
-        # r = requests.post(url, data=body)
+        r = requests.post(url, data=json_object)
 
     except InvalidSignatureError:
         print("Invalid signature. Please check your channel access token/channel secret.")
