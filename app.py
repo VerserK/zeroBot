@@ -59,6 +59,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    logging.info(event)
     text = event.message.text
     if text.find('ดูข้อมูลรถทั้งหมด') != -1:
         profile = line_bot_api.get_profile(event.source.user_id)
