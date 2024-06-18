@@ -23,18 +23,18 @@
         }, err => console.error(err.code, error.message));
 
         setTimeout(function() {
-            var userId = document.getElementById("userId").value;
+            var kid = document.getElementById("kid").value;
             $.ajax({
                     type: "post",
                     url: 'https://zerobotz.azurewebsites.net/redirect_tokorp',
                     data: {
-                        "userId": userId
+                        "kid": kid
                     },
                     success: function(response){
                         console.log(response);
-                        var taxid = response
+                        var kid = response
                         // Redirect to the new URL using the response data
-                        window.location.href = "https://korp.siamkubota.co.th/Customer/index_login.php?cid=" + taxid;
+                        window.location.href = "https://korp.siamkubota.co.th/Customer/index_login.php?cid=" + kid;
                     }
                 })
         }, 1500);
