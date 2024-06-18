@@ -557,8 +557,9 @@ def redirect():
     return render_template('redirect.html')
 
 @app.route('/redirect_tokorp', methods=['GET','POST'])
-def redirect_tokorp(kid:int):
+def redirect_tokorp():
     userId = request.form.get('userId')
+    kid = request.args.get('kid')
     
     # Establish database connection
     con = ConnectDB('Line Data')
