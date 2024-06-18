@@ -580,9 +580,9 @@ def redirect_tokorp():
         taxid = df.iloc[0][0]
         print(taxid)
         # redirectLink = f'https://korp.shinee.com/Customer/callback_lon.php?kid={kid}'
-        # Redirecting with the obtained TaxId
+
+        print(f"Redirecting with kid={kid}")
         return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
-        # return taxid
     else:
         # Handle case where no result is found
         return "No data found for the provided userId."
