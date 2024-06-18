@@ -557,17 +557,17 @@ def redirect():
     return render_template('redirect.html')
 
 @app.route('/redirect_tokorp', methods=['GET','POST'])
-def redirect_tokorp():
+def redirect_tokorp(kid:int):
     userId = request.form.get('userId')
     
     # Establish database connection
     con = ConnectDB('Line Data')
     
     # Using parameterized query to prevent SQL injection
-    qryLine = sa.text("SELECT [TaxId] FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = :userId ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY")
+    qryLine = sa.text("SELECT [TaxId] FROM [Line Data].[dbo].[Profile Line] WHERE [Kubota ID] = :kid ORDER BY [Kubota ID] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY")
     
     with con.begin() as conn:
-        resultChecUserId = conn.execute(qryLine, {"userId": userId})
+        resultChecUserId = conn.execute(qryLine, {"kid": kid})
         # Fetching all results as dictionary
         results_as_dict = resultChecUserId.fetchall()
 
@@ -578,10 +578,10 @@ def redirect_tokorp():
         # Accessing the TaxId from DataFrame
         taxid = df.iloc[0][0]
         print(taxid)
-        # redirectLink = f'https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}'
+        # redirectLink = f'https://korp.shinee.com/Customer/callback_lon.php?kid={kid}'
         # Redirecting with the obtained TaxId
-        # return redirect(f"https://korp.siamkubota.co.th/Customer/index_login.php?cid={taxid}")
-        return taxid
+        return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
+        # return taxid
     else:
         # Handle case where no result is found
         return "No data found for the provided userId."
