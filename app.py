@@ -571,7 +571,7 @@ def redirect_tokorp():
         resultChecUserId = conn.execute(qryLine, {"kid": kid})
         # Fetching all results as dictionary
         results_as_dict = resultChecUserId.fetchall()
-
+    print(results_as_dict)
     # Checking if any result is returned
     if results_as_dict:
         # Convert results to DataFrame
@@ -579,13 +579,12 @@ def redirect_tokorp():
         # Accessing the TaxId from DataFrame
         taxid = df.iloc[0][0]
         print(taxid)
-        # redirectLink = f'https://korp.shinee.com/Customer/callback_lon.php?kid={kid}'
 
         print(f"Redirecting with kid={kid}")
         return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
     else:
         # Handle case where no result is found
-        return "No data found for the provided userId."
+        return redirect(f"https://zerobotz.azurewebsites.net/register")
 
 @app.route('/register', methods=['GET','POST'])
 def register():
