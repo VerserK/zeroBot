@@ -584,7 +584,7 @@ def redirect_tokorp():
         return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
     else:
         # Handle case where no result is found
-        return redirect(f"https://zerobotz.azurewebsites.net/register")
+        return redirect(f"https://liff.line.me/2000031997-mGrDYE4v")
 
 @app.route('/register', methods=['GET','POST'])
 def register():
