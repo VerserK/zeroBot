@@ -609,10 +609,12 @@ def redirect_newkorp():
         df = pd.DataFrame.from_records(results_as_dict)
         # Accessing the TaxId from DataFrame
         kid = df.iloc[0][0]
-        print(kid)
+        logging.info(kid)
 
         print(f"Redirecting with kid={kid}")
         return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
+    else:
+        return logging.info('Cant open')
 
 @app.route('/register', methods=['GET','POST'])
 def register():
