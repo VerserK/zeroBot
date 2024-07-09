@@ -10,7 +10,7 @@
     <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
     <input type="text" id="kid"/>
 </body>
-<script>
+<!-- <script>
 
     liff.init({ liffId: "2000031997-J3m7x6wk" }, () => {
                 if (liff.isLoggedIn()) {
@@ -41,5 +41,36 @@
                     console.error("AJAX Error:", status, error);
                 }
             });
+</script> -->
+<script>
+    liff.init({ liffId: "2000031997-J3m7x6wk" }, () => {
+        if (liff.isLoggedIn()) {
+            liff.getProfile().then(profile => {
+                document.getElementById("userId").value = profile.userId;
+                // Make the AJAX request after setting the userId
+                var userId = document.getElementById("userId").value;
+                console.log("User ID:", userId); // Log the user ID to ensure it's set
+                $.ajax({
+                    type: "post",
+                    url: 'https://zerobotz.azurewebsites.net/redirects',
+                    data: {
+                        "userId": userId
+                    },
+                    success: function(response){
+                        console.log("Server Response:", response);
+                        // Access the kid value from the JSON response
+                        var kid = response.kid;
+                        // Set the kid value in the textbox
+                        document.getElementById("kid").value = kid;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", status, error);
+                    }
+                });
+            }).catch(err => console.error("LIFF getProfile Error:", err));
+        } else {
+            liff.login();
+        }
+    }, err => console.error("LIFF Init Error:", err.code, err.message));
 </script>
 </html>
