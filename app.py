@@ -587,41 +587,34 @@ def redirect_tokorp():
         # Handle case where no result is found
         return redirect(f"https://liff.line.me/2000031997-mGrDYE4v")
     
-@app.route('/redirects', methods=['GET','POST'])
+@app.route('/redirects', methods=['GET', 'POST'])
 def redirects():
     userId = request.form.get('userId')
     logging.info(userId)
-    # userId = request.args.get('userId')
-    # kid = request.args.get('kid')
-    
+
     # Establish database connection
     con = ConnectDB('Line Data')
-    
+
     # Using parameterized query to prevent SQL injection
     qryLine = sa.text("SELECT [Kubota ID] FROM [Line Data].[dbo].[Profile Line] WHERE [UserId] = :userId ORDER BY [UserId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY")
-    
+
     with con.begin() as conn:
         resultChecUserId = conn.execute(qryLine, {"userId": userId})
-        # Fetching all results as dictionary
         results_as_dict = resultChecUserId.fetchall()
+
     print(results_as_dict)
+
     # Checking if any result is returned
     if results_as_dict:
         # Convert results to DataFrame
         df = pd.DataFrame.from_records(results_as_dict)
-        # Accessing the TaxId from DataFrame
+        # Accessing the Kubota ID from DataFrame
         kid = df.iloc[0][0]
         logging.info(kid)
-        return kid
+        return jsonify({"kid": kid})
     else:
         logging.info('No user found with the given userId')
-        return "No user found", 404
-
-    #     print(f"Redirecting with kid={kid}")
-    #     return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
-    # else:
-    #     logging.info('Cant open')
-    #     return "Cannot open", 400  # Returning a 400 Bad Request response with a message
+        return jsonify({"error": "No user found"}), 404
 
 @app.route('/register', methods=['GET','POST'])
 def register():

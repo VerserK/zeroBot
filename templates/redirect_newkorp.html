@@ -16,6 +16,7 @@
                 document.getElementById("userId").value = profile.userId;
                 // Make the AJAX request after setting the userId
                 var userId = document.getElementById("userId").value;
+                console.log("User ID:", userId); // Log the user ID to ensure it's set
                 $.ajax({
                     type: "post",
                     url: 'https://zerobotz.azurewebsites.net/redirects',
@@ -23,16 +24,21 @@
                         "userId": userId
                     },
                     success: function(response){
-                        console.log(response);
-                        var kid = response;
+                        console.log("Server Response:", response);
+                        // Assume the response is JSON and parse it accordingly
+                        var kid = response.kid;
+                        console.log("Redirecting with kid:", kid);
                         // Redirect to the new URL using the response data
                         window.location.href = "https://korp.siamkubota.co.th/Customer/callback_lon.php?kid=" + kid;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", status, error);
                     }
                 });
-            }).catch(err => console.error(err));
+            }).catch(err => console.error("LIFF getProfile Error:", err));
         } else {
             liff.login();
         }
-    }, err => console.error(err.code, err.message));
+    }, err => console.error("LIFF Init Error:", err.code, err.message));
 </script>
 </html>
