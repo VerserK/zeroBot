@@ -11,20 +11,12 @@
 </body>
 <script>
     liff.init({ liffId: "2000031997-zl378qln" }, () => {
-            if (liff.isLoggedIn()) {
-                liff.getProfile().then(profile => {
-                    document.getElementById("userId").value = profile.userId;
-                }).catch(
-                    err => console.error(err)
-                );
-            } else {
-                liff.login();
-            }
-        }, err => console.error(err.code, error.message));
-
-        setTimeout(function() {
-            var userId = document.getElementById("userId").value;
-            $.ajax({
+        if (liff.isLoggedIn()) {
+            liff.getProfile().then(profile => {
+                document.getElementById("userId").value = profile.userId;
+                // Make the AJAX request after setting the userId
+                var userId = document.getElementById("userId").value;
+                $.ajax({
                     type: "post",
                     url: 'https://zerobotz.azurewebsites.net/redirects',
                     data: {
@@ -32,11 +24,15 @@
                     },
                     success: function(response){
                         console.log(response);
-                        var kid = response
+                        var kid = response;
                         // Redirect to the new URL using the response data
                         window.location.href = "https://korp.siamkubota.co.th/Customer/callback_lon.php?kid=" + kid;
                     }
-                })
-        }, 1500);
+                });
+            }).catch(err => console.error(err));
+        } else {
+            liff.login();
+        }
+    }, err => console.error(err.code, err.message));
 </script>
 </html>
