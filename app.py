@@ -582,7 +582,7 @@ def redirect_tokorp():
         print(taxid)
 
         print(f"Redirecting with kid={kid}")
-        return redirect(f"https://korp.siamkubota.co.th/Customer/callback_lon.php?kid={kid}")
+        return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
     else:
         # Handle case where no result is found
         return redirect(f"https://liff.line.me/2000031997-mGrDYE4v")
@@ -612,7 +612,7 @@ def redirect_newkorp():
         print(kid)
 
         print(f"Redirecting with kid={kid}")
-        return redirect(f"https://korp.siamkubota.co.th/Customer/callback_lon.php?kid={kid}")
+        return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
 
 @app.route('/register', methods=['GET','POST'])
 def register():
