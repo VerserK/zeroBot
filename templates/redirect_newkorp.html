@@ -8,6 +8,7 @@
 </head>
 <body>
     <input type="text" class="form-control iuputRegister" id="userId" name="userId" maxlength="70" hidden required>
+    <input type="text" value="kid"/>
 </body>
 <script>
     liff.init({ liffId: "2000031997-J3m7x6wk" }, () => {
@@ -29,7 +30,8 @@
                         var kid = response.kid;
                         console.log("Redirecting with kid:", kid);
                         // Redirect to the new URL using the response data
-                        window.location.href = "https://korp.siamkubota.co.th/Customer/callback_lon.php?kid=" + kid;
+                        document.getElementById("kid").value = kid;
+                        // window.location.href = "https://korp.siamkubota.co.th/Customer/callback_lon.php?kid=" + kid;
                     },
                     error: function(xhr, status, error) {
                         console.error("AJAX Error:", status, error);
