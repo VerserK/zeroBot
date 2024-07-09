@@ -612,7 +612,7 @@ def redirects():
         # Accessing the TaxId from DataFrame
         kid = df.iloc[0][0]
         logging.info(kid)
-        return redirect(f"https://korp.siamkubota.co.th/Customer/callback_lon.php?kid={kid}")
+        return kid
     else:
         logging.info('No user found with the given userId')
         return "No user found", 404
