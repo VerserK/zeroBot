@@ -554,7 +554,7 @@ def insert_mc_name():
                 return "not mcName"
 
 @app.route('/redirect_newkorp', methods=['GET','POST'])
-def redirects():
+def redirect_newkorp():
     return render_template('redirect.html')
 
 @app.route('/redirect_tokorp', methods=['GET','POST'])
@@ -588,7 +588,7 @@ def redirect_tokorp():
         return redirect(f"https://liff.line.me/2000031997-mGrDYE4v")
     
 @app.route('/redirects', methods=['GET','POST'])
-def redirect_newkorp():
+def redirects():
     userId = request.form.get('userId')
     logging.info(userId)
     # userId = request.args.get('userId')
