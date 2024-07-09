@@ -589,8 +589,9 @@ def redirect_tokorp():
     
 @app.route('/redirects', methods=['GET','POST'])
 def redirect_newkorp():
-    # userId = request.form.get('userId')
-    userId = request.args.get('userId')
+    userId = request.form.get('userId')
+    logging.info(userId)
+    # userId = request.args.get('userId')
     # kid = request.args.get('kid')
     
     # Establish database connection
