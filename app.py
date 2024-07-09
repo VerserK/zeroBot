@@ -612,7 +612,7 @@ def redirects():
         # Accessing the TaxId from DataFrame
         kid = df.iloc[0][0]
         logging.info(kid)
-        return jsonify({"kid": kid})
+        return kid
     else:
         logging.info('No user found with the given userId')
         return jsonify({"error": "No user found"}), 404
