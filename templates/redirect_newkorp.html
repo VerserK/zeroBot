@@ -26,7 +26,7 @@
                     },
                     success: function(response){
                         // Assume the response is JSON and parse it accordingly
-                        var kid = response.kid;
+                        var kid = response;
                         // Redirect to the new URL using the response data
                         document.getElementById("kid").value = kid;
                         // window.location.href = "https://korp.siamkubota.co.th/Customer/callback_lon.php?kid=" + kid;
