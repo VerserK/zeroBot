@@ -59,7 +59,7 @@
                     success: function(response){
                         console.log("Server Response:", response);
                         // Access the kid value from the JSON response
-                        var kid = response.kid;
+                        var kid = response;
                         // Set the kid value in the textbox
                         document.getElementById("kid").value = kid;
                     },
