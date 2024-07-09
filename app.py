@@ -49,6 +49,7 @@ def callback():
     #convert string to  object
     json_object = json.loads(body)
     # handle webhook body
+    logging.info(json_object)
     try:
         handler.handle(body, signature)
         r = requests.post(url, data=json_object)
