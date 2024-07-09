@@ -582,14 +582,15 @@ def redirect_tokorp():
         print(taxid)
 
         print(f"Redirecting with kid={kid}")
-        return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
+        return redirect(f"https://korp.siamkubota.co.th/Customer/callback_lon.php?kid={kid}")
     else:
         # Handle case where no result is found
         return redirect(f"https://liff.line.me/2000031997-mGrDYE4v")
     
 @app.route('/redirects', methods=['GET','POST'])
 def redirect_newkorp():
-    userId = request.form.get('userId')
+    # userId = request.form.get('userId')
+    userId = request.args.get('userId')
     # kid = request.args.get('kid')
     
     # Establish database connection
