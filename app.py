@@ -587,7 +587,7 @@ def redirect_tokorp():
         # Handle case where no result is found
         return redirect(f"https://liff.line.me/2000031997-mGrDYE4v")
     
-@app.route('/redirect_newkorp', methods=['GET'])
+@app.route('/redirect_newkorp', methods=['GET','POST'])
 def redirect_newkorp():
     userId = request.form.get('userId')
     # kid = request.args.get('kid')
