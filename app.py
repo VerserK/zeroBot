@@ -553,7 +553,7 @@ def insert_mc_name():
             else :
                 return "not mcName"
 
-@app.route('/redirects', methods=['GET','POST'])
+@app.route('/redirect_newkorp', methods=['GET','POST'])
 def redirects():
     return render_template('redirect.html')
 
@@ -587,7 +587,7 @@ def redirect_tokorp():
         # Handle case where no result is found
         return redirect(f"https://liff.line.me/2000031997-mGrDYE4v")
     
-@app.route('/redirect_newkorp', methods=['GET','POST'])
+@app.route('/redirects', methods=['GET','POST'])
 def redirect_newkorp():
     userId = request.form.get('userId')
     # kid = request.args.get('kid')
@@ -610,11 +610,13 @@ def redirect_newkorp():
         # Accessing the TaxId from DataFrame
         kid = df.iloc[0][0]
         logging.info(kid)
+        return kid
 
-        print(f"Redirecting with kid={kid}")
-        return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
-    else:
-        return logging.info('Cant open')
+    #     print(f"Redirecting with kid={kid}")
+    #     return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
+    # else:
+    #     logging.info('Cant open')
+    #     return "Cannot open", 400  # Returning a 400 Bad Request response with a message
 
 @app.route('/register', methods=['GET','POST'])
 def register():
