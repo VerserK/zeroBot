@@ -553,9 +553,9 @@ def insert_mc_name():
             else :
                 return "not mcName"
 
-@app.route('/redirect_newkorp', methods=['GET','POST'])
-def redirect_newkorp():
-    return render_template('redirect_newkorp.html')
+@app.route('/redirect', methods=['GET','POST'])
+def redirect():
+    return render_template('redirect.html')
 
 @app.route('/redirect_tokorp', methods=['GET','POST'])
 def redirect_tokorp():
