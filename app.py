@@ -612,7 +612,7 @@ def redirects():
         # Accessing the TaxId from DataFrame
         kid = df.iloc[0][0]
         logging.info(kid)
-        return kid
+    return kid
 
     #     print(f"Redirecting with kid={kid}")
     #     return redirect(f"https://korp.shinee.com/Customer/callback_lon.php?kid={kid}")
