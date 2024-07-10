@@ -52,7 +52,7 @@ def callback():
     logging.info(json_object)
     try:
         handler.handle(body, signature)
-        r = requests.post(url, data=json_object)
+        r = requests.post(url, json=json_object)
         logging.info(r)
 
     except InvalidSignatureError:
