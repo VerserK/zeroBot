@@ -420,9 +420,10 @@ def handle_message(event):
                 flex_message = callButtonBody(CallButtonJson)
                 line_bot_api.reply_message(event.reply_token,flex_message)
     else:
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
+        pass
+        # line_bot_api.reply_message(
+        # event.reply_token,
+        # TextSendMessage(text=event.message.text))
 
 @app.route('/favicon.ico')
 def favicon():
@@ -706,14 +707,14 @@ def insert_register():
                 original_content_url=urlVideo,
                 preview_image_url=urlPreview
             )
-            urlPic = BASE_URL+'/media_season'
-            urlPicPreview = BASE_URL+'/media_season_preview'
-            picMessage = ImageSendMessage(
-                original_content_url=urlPic,
-                preview_image_url=urlPicPreview
-            )
+            # urlPic = BASE_URL+'/media_season'
+            # urlPicPreview = BASE_URL+'/media_season_preview'
+            # picMessage = ImageSendMessage(
+            #     original_content_url=urlPic,
+            #     preview_image_url=urlPicPreview
+            # )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
-            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
+            # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
             return "success"
 
 @app.route('/history', methods=['GET','POST'])
