@@ -727,7 +727,7 @@ def history():
     con = ConnectDB('Service Data')
     if Limit == 'all':
         with con.begin() as conn:
-            qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Usage Hours],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
+            qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
             "FROM [Service Data].[dbo].[Service_Header]"
             "WHERE [VIN] = '"+ VIN +"'"
             "ORDER BY [Billing Date] Desc"
@@ -736,7 +736,7 @@ def history():
             data = resultset.mappings().all()
     else :
         with con.begin() as conn:
-            qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Usage Hours],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
+            qry = sa.text("SELECT [VIN],[Vehicle Type Text],[LV Main Type],[Billing Date],[Billing Created On],[Symptom],[Net Value]"
             "FROM [Service Data].[dbo].[Service_Header]"
             "WHERE [VIN] = '"+ VIN +"'"
             "ORDER BY [Billing Date] Desc OFFSET 0 ROWS FETCH NEXT "+Limit+" ROWS ONLY"
