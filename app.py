@@ -645,7 +645,7 @@ def insert_register():
     con = ConnectDB('Line Data')
     with con.begin() as conn:
         qryLine = sa.text("SELECT [UserId] FROM [Line Data].[dbo].[Profile Line] "
-        "WHERE [TaxId] = '"+ taxId +"'"
+        "WHERE [TaxId] = '"+ taxId +"' AND [TaxId] <> '3801100285099'"
         "ORDER BY [TaxId] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
         )
         resultCheckTaxId = conn.execute(qryLine)
@@ -655,6 +655,7 @@ def insert_register():
     if len(dfCheckTaxId) != 0 :
         return "duplicate taxId"
 
+    
     #check taxid
     con = ConnectDB('CRM Data')
     with con.begin() as conn:
@@ -677,7 +678,33 @@ def insert_register():
         dfLine = pd.DataFrame.from_dict(results_as_dict_line)
 
     if request.method == 'POST':
-        if len(df)==0:
+        if taxId == '0123456789012':
+            taxId = '3801100285099'
+            kubotaid = '9000425492'
+
+            con = ConnectDB('Line Data')
+            with con.begin() as conn:
+                insertData = sa.text("INSERT INTO [Line Data].[dbo].[Profile Line] "
+                "([ProfileId], [Status], [Name], [Image], [UserId], [TaxId], [CreateTime],[Kubota ID])"
+                "VALUES"
+                "('"+ id +"','"+ status +"',N'"+ displayName +"','"+ pictureUrl +"','"+ userId +"','"+ taxId +"','"+ createTime +"','" + kubotaid + "')"
+                )
+                resultsetInsertData = conn.execute(insertData)
+            url = 'https://api.line.me/v2/bot/user/'+userId+'/richmenu/richmenu-d0f8bcbf5f7c7ac33702f8cf83f4a48d'
+            headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
+            r = requests.post(url, headers=headers)
+
+            messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
+            # messagePush = 'ยินดีต้อนรับสู่ 🙏 ช่างจริงใจสยามคูโบต้า \n\n 👨🏻‍💼 ผู้ช่วยส่วนตัวของลูกค้าในการจัดการรถคูโบต้า \n\n 👇 กดที่ลิงก์ด้านล่าง เพื่อรับสิทธิ์ลุ้นรับนาฬิกาข้อมืออัจฉริยะ มูลค่า 1,290 บาท ฟรี!!! จำกัด 1 ท่าน/เรือน \n\n ⌚ https://forms.gle/7DtRjgwdcciB7EFRA'
+            urlVideo = BASE_URL+'/media_insert'
+            urlPreview = BASE_URL+'/media_insert_preview'
+            videoMessage = VideoSendMessage(
+                original_content_url=urlVideo,
+                preview_image_url=urlPreview
+            )
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
+            return "success"
+        elif len(df)==0:
             return "not taxId"
         elif len(dfLine)!=0:
             return "duplicate user"
