@@ -82,7 +82,7 @@ def handle_message(event):
             "FROM [Line Data].[dbo].[Profile Line] PL "
             "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
             "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE PL.[UserId] = '"+ Userid + "' AND IAC.[VIN] IS NOT NULL"
+            "WHERE PL.[UserId] = '"+ Userid + "' AND IAC.[VIN] IS NOT NULL AND IAC.[Sale Date] IS NOT NULL"
             )
             resultset = conn.execute(qry)
             # results_as_dict = resultset.mappings().all()
