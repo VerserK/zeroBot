@@ -5,8 +5,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,LocationSendMessage,URIAction,ImagemapSendMessage, BaseSize
-)
+    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,LocationSendMessage,URIAction
 
 import sqlalchemy as sa
 import urllib
@@ -521,59 +520,3 @@ def statusOn(EquipmentName):
     }
 
     return callStatus
-
-def imageMapForTextOther() :
-    baseSize = BaseSize(
-        width=1040,
-        height=1040
-    )
-    
-    imagemap = ImagemapSendMessage(
-        base_url="https://dwhwebstorage.blob.core.windows.net/pic/ImageMapChatbot.jpg?w=1040",
-        alt_text="menu",
-        base_size=baseSize,
-        actions=[
-            {
-            "type": "message",
-            "area": {
-                "x": 14,
-                "y": 175,
-                "width": 498,
-                "height": 426
-            },
-            "text": "ติดต่อสอบถามงานบริการได้ที่สายด่วนโทร 1747 ได้เลยครับ"
-            },
-            {
-            "type": "uri",
-            "area": {
-                "x": 536,
-                "y": 175,
-                "width": 498,
-                "height": 418
-            },
-            "linkUri": "https://kubota.campaignserv.com/kubota-customerservice-promotion/"
-            },
-            {
-            "type": "uri",
-            "area": {
-                "x": 12,
-                "y": 605,
-                "width": 500,
-                "height": 434
-            },
-            "linkUri": "https://kubota.campaignserv.com/kubota-customerservice-news/"
-            },
-            {
-            "type": "uri",
-            "area": {
-                "x": 536,
-                "y": 597,
-                "width": 498,
-                "height": 439
-            },
-            "linkUri": "https://kubota.campaignserv.com/kubota-customerservice-maintenance/"
-            }
-        ]
-    )
-    
-    return imagemap
