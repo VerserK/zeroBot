@@ -15,7 +15,7 @@ def LoadingLine(userId, token) :
  
     data = {
         "chatId": userIdLine,
-        "loadingSeconds": 100
+        "loadingSeconds": 5
     }
     
     response = requests.post(url, headers=headers, json=data)
