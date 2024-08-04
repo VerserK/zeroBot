@@ -6,7 +6,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,FlexSendMessage,LocationSendMessage,URIAction
-
+)
 import sqlalchemy as sa
 import urllib
 import pandas as pd
@@ -520,3 +520,4 @@ def statusOn(EquipmentName):
     }
 
     return callStatus
+
