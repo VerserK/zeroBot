@@ -67,7 +67,7 @@ def callback():
 def handle_message(event):
     text = event.message.text
     if text.find('ดูข้อมูลรถทั้งหมด') != -1:
-        callApi.LoadingLine(event.source.user_id, tokenLineBot)
+        LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         Userid = profile.user_id
         con = ConnectDB('Line Data')
@@ -157,7 +157,7 @@ def handle_message(event):
                 else :
                     line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
-        callApi.LoadingLine(event.source.user_id, tokenLineBot)
+        LoadingLine(event.source.user_id, tokenLineBot)
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
             line_bot_api.reply_message(
@@ -178,7 +178,7 @@ def handle_message(event):
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
     elif text == 'เช็กสถานะรถ':
-        callApi.LoadingLine(event.source.user_id, tokenLineBot)
+        LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
         con = ConnectDB('Line Data')
@@ -215,7 +215,7 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token,flex_message)
 
     elif text == 'ค้นหารถ':
-        callApi.LoadingLine(event.source.user_id, tokenLineBot)
+        LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
         con = ConnectDB('Line Data')
@@ -251,7 +251,7 @@ def handle_message(event):
                 flex_message = callButtonBody(CallButtonJson)
                 line_bot_api.reply_message(event.reply_token,flex_message)
     elif 'เลือกรหัส' in text:
-        callApi.LoadingLine(event.source.user_id, tokenLineBot)
+        LoadingLine(event.source.user_id, tokenLineBot)
         cleantext = text.split("|")
         VINnumber = ''.join(cleantext[1])
         VINnumber = VINnumber.lstrip()
@@ -313,7 +313,7 @@ def handle_message(event):
                 # line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
                 line_bot_api.reply_message(event.reply_token,location_message)
     elif 'เลือกดูสถานะ' in text:
-        callApi.LoadingLine(event.source.user_id, tokenLineBot)
+        LoadingLine(event.source.user_id, tokenLineBot)
         cleantext = text.split("|")
         VINnumber = ''.join(cleantext[1])
         VINnumber = VINnumber.lstrip()
@@ -391,7 +391,7 @@ def handle_message(event):
     #         headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
     #         r = requests.post(url, headers=headers)
     elif text == 'ประวัติบริการ':
-        callApi.LoadingLine(event.source.user_id, tokenLineBot)
+        LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
         con = ConnectDB('Line Data')
