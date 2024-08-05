@@ -26,7 +26,7 @@ from pythainlp.util import thai_strftime
 import logging
 import json
 from . import callApi
-import callApi
+from callApi import *
 
 app = Flask(__name__)
 app.secret_key = "flash message"
