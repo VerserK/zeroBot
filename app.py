@@ -25,6 +25,7 @@ from wtforms.validators import DataRequired, Length
 from pythainlp.util import thai_strftime
 import logging
 import json
+from . import callApi
 
 app = Flask(__name__)
 app.secret_key = "flash message"
@@ -33,7 +34,7 @@ line_bot_api = LineBotApi('HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj
 handler = WebhookHandler('43e76823a2c8d5a457d62a11a9c822cf')
 
 BASE_URL = 'https://zerobotz.azurewebsites.net'
-
+tokenLineBot = 'HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -66,7 +67,7 @@ def callback():
 def handle_message(event):
     text = event.message.text
     if text.find('ดูข้อมูลรถทั้งหมด') != -1:
-        LoadingLine(event.source.user_id, tokenLineBot)
+        callApi.LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         Userid = profile.user_id
         con = ConnectDB('Line Data')
@@ -156,7 +157,7 @@ def handle_message(event):
                 else :
                     line_bot_api.reply_message(event.reply_token,flex_message)
     elif text == 'profile':
-        LoadingLine(event.source.user_id, tokenLineBot)
+        callApi.LoadingLine(event.source.user_id, tokenLineBot)
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
             line_bot_api.reply_message(
@@ -177,7 +178,7 @@ def handle_message(event):
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
     elif text == 'เช็กสถานะรถ':
-        LoadingLine(event.source.user_id, tokenLineBot)
+        callApi.LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
         con = ConnectDB('Line Data')
@@ -214,7 +215,7 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token,flex_message)
 
     elif text == 'ค้นหารถ':
-        LoadingLine(event.source.user_id, tokenLineBot)
+        callApi.LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
         con = ConnectDB('Line Data')
@@ -250,7 +251,7 @@ def handle_message(event):
                 flex_message = callButtonBody(CallButtonJson)
                 line_bot_api.reply_message(event.reply_token,flex_message)
     elif 'เลือกรหัส' in text:
-        LoadingLine(event.source.user_id, tokenLineBot)
+        callApi.LoadingLine(event.source.user_id, tokenLineBot)
         cleantext = text.split("|")
         VINnumber = ''.join(cleantext[1])
         VINnumber = VINnumber.lstrip()
@@ -312,7 +313,7 @@ def handle_message(event):
                 # line_bot_api.reply_message(event.reply_token,[flex_message,location_message])
                 line_bot_api.reply_message(event.reply_token,location_message)
     elif 'เลือกดูสถานะ' in text:
-        LoadingLine(event.source.user_id, tokenLineBot)
+        callApi.LoadingLine(event.source.user_id, tokenLineBot)
         cleantext = text.split("|")
         VINnumber = ''.join(cleantext[1])
         VINnumber = VINnumber.lstrip()
@@ -390,7 +391,7 @@ def handle_message(event):
     #         headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
     #         r = requests.post(url, headers=headers)
     elif text == 'ประวัติบริการ':
-        LoadingLine(event.source.user_id, tokenLineBot)
+        callApi.LoadingLine(event.source.user_id, tokenLineBot)
         profile = line_bot_api.get_profile(event.source.user_id)
         userid = profile.user_id
         con = ConnectDB('Line Data')
