@@ -429,8 +429,10 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token,flex_message)
     else:
         dataImageMap = imageMapForTextOther()
-        line_bot_api.reply_message(event.reply_token,dataImageMap)
-        pass
+        if text == 'ติดต่อสอบถามงานบริการได้ที่สายด่วนโทร 1747 ได้เลยครับ':
+            pass
+        else:
+            line_bot_api.reply_message(event.reply_token,dataImageMap)
         # line_bot_api.reply_message(
         # event.reply_token,
         # TextSendMessage(text=event.message.text))
