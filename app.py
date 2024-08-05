@@ -25,7 +25,6 @@ from wtforms.validators import DataRequired, Length
 from pythainlp.util import thai_strftime
 import logging
 import json
-from . import callApi
 from callApi import *
 
 app = Flask(__name__)
