@@ -473,7 +473,7 @@ def handle_message(event):
                 resultset = conn.execute(qry)
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=f'ช่างจริงใจขออนุญาตประสานงานทีมขายที่เกี่ยวข้องเพื่อติดต่อ คุณ{str(row['Fullname'])} กลับนะครับ'))
+                TextSendMessage(text=f"ช่างจริงใจขออนุญาตประสานงานทีมขายที่เกี่ยวข้องเพื่อติดต่อ คุณ{str(row['Fullname'])} กลับนะครับ"))
     else:
         dataImageMap = imageMapForTextOther()
         if text == 'ติดต่อสอบถามงานบริการได้ที่สายด่วนโทร 1747 ได้เลยครับ':
