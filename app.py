@@ -469,7 +469,7 @@ def handle_message(event):
                 qry = sa.text("INSERT INTO [Line Data].[dbo].[Excellent history] "
                             "([Linename],[TaxId],[Fullname],[KUBOTA ID],[Telephone],[Mobile])"
                             "VALUES"
-                            f"(์N'{row['Linename']}',N'{row['TaxId']}',N'{row['Fullname']}',N'{row['KUBOTA ID']}',N'{row['Telephone']}',N'{row['Mobile']}')")
+                            f"(N'{row['Linename']}',N'{row['TaxId']}',N'{row['Fullname']}',N'{row['KUBOTA ID']}',N'{row['Telephone']}',N'{row['Mobile']}')")
                 resultset = conn.execute(qry)
                 line_bot_api.reply_message(
                 event.reply_token,
