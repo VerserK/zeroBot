@@ -427,6 +427,53 @@ def handle_message(event):
                     CallButtonJson.append(CallButtonSelectByVINHistory(i['VIN'], setDataName))
                 flex_message = callButtonBody(CallButtonJson)
                 line_bot_api.reply_message(event.reply_token,flex_message)
+    elif text == 'สนใจ':
+        LoadingLine(event.source.user_id, tokenLineBot)
+        profile = line_bot_api.get_profile(event.source.user_id)
+        userid = profile.user_id
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text("INSERT INTO [Line Data].[dbo].[log richmenu] "
+                            "([UserId], [menu])"
+                            "VALUES"
+                            "('"+ userid +"',N'ปุ่มสนใจ')")
+            resultset = conn.execute(qry)
+        
+        con = ConnectDB('Line Data')
+        with con.begin() as conn:
+            qry = sa.text(f'''SELECT TOP 1
+                    PL.[Name] AS Linename,
+                    PL.[TaxId],
+                    IAC.[Firstname] + ' ' + IAC.[Lastname] AS Fullname,
+                    IAC.[KUBOTA ID],
+                    IAC.[Telephone],
+                    IAC.[Mobile]
+                FROM [Line Data].[dbo].[Profile Line] PL 
+                INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC 
+                    ON PL.[TaxId] = IAC.[Tax ID]
+                WHERE 
+                    UserId = '{userid}' 
+                    AND IAC.[VIN] IS NOT NULL
+                    AND PL.[Name] IS NOT NULL
+                    AND PL.[TaxId] IS NOT NULL
+                    AND IAC.[Firstname] IS NOT NULL
+                    AND IAC.[Lastname] IS NOT NULL
+                    AND IAC.[KUBOTA ID] IS NOT NULL
+                    AND IAC.[Telephone] IS NOT NULL
+                    AND IAC.[Mobile] IS NOT NULL;'''
+            )
+            resultset = conn.execute(qry)
+            results_as_dict = pd.DataFrame(resultset.fetchall())
+
+            for index, row in results_as_dict.iterrows():
+                qry = sa.text("INSERT INTO [Line Data].[dbo].[Excellent history] "
+                            "([Linename],[TaxId],[Fullname],[KUBOTA ID],[Telephone],[Mobile])"
+                            "VALUES"
+                            f"(์N'{row['Linename']}',N'{row['TaxId']}',N'{row['Fullname']}',N'{row['KUBOTA ID']}',N'{row['Telephone']}',N'{row['Mobile']}')")
+                resultset = conn.execute(qry)
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=f'ช่างจริงใจขออนุญาตประสานงานทีมขายที่เกี่ยวข้องเพื่อติดต่อ คุณ{str(row['Fullname'])} กลับนะครับ'))
     else:
         dataImageMap = imageMapForTextOther()
         if text == 'ติดต่อสอบถามงานบริการได้ที่สายด่วนโทร 1747 ได้เลยครับ':
