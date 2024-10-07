@@ -46,7 +46,7 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-    print(body)
+    # print(body)
     #convert string to  object
     json_object = json.loads(body)
     # handle webhook body
@@ -55,10 +55,10 @@ def callback():
         handler.handle(body, signature)
         r = requests.post(url, json=json_object)
         if r.status_code == 200:
-            print("Success!")
-            print(r.status_code)
+            logging.info("Success!")
+            logging.info(r.status_code)
         elif r.status_code == 404:
-            print("Not Found.")
+            logging.info("Not Found.")
 
     except InvalidSignatureError:
         print("Invalid signature. Please check your channel access token/channel secret.")
