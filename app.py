@@ -55,10 +55,10 @@ def callback():
         handler.handle(body, signature)
         r = requests.post(url, json=json_object)
         if r.status_code == 200:
-            logging.info("Success!")
-            logging.info(r.status_code)
+            print("Success!")
+            print(r.status_code)
         elif r.status_code == 404:
-            logging.info("Not Found.")
+            print("Not Found.")
 
     except InvalidSignatureError:
         print("Invalid signature. Please check your channel access token/channel secret.")
