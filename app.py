@@ -91,7 +91,7 @@ def handle_message(event):
             # "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
             # "WHERE PL.[UserId] = '"+ Userid + "' AND IAC.[VIN] IS NOT NULL AND IAC.[Sale Date] IS NOT NULL"
             # )
-            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN],AVD.[Product Type],AVD.[LV Main Type] AS [Model],AVD.[Usage Hours],AVD.[Sales Date],AVD.[SOrg Name], MC.[Name] AS McName
+            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN],AVD.[Product Type],AVD.[LV Main Type] AS [Model],AVD.[Usage Hours],AVD.[Sales Date] AS [Sale Date],AVD.[SOrg Name], MC.[Name] AS McName
             FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
             LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
@@ -208,7 +208,7 @@ def handle_message(event):
             # "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
             # "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
             # )
-            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN],AVD.[Product Type],AVD.[LV Main Type] AS [Model],AVD.[Usage Hours],AVD.[Sales Date],AVD.[SOrg Name], MC.[Name] AS McName
+            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN],AVD.[Product Type],AVD.[LV Main Type] AS [Model],AVD.[Usage Hours],AVD.[Sales Date] AS [Sale Date],AVD.[SOrg Name], MC.[Name] AS McName
             FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
             LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
