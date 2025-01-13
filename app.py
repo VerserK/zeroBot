@@ -256,7 +256,7 @@ def handle_message(event):
             FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
             LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
-            WHERE PL.[UserId] = '{Userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL 
+            WHERE PL.[UserId] = '{userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL 
             AND AVD.[Query_Date] = (SELECT MAX([Query_Date]) FROM [Service Data].[dbo].[All_Vehicle_Data] 
             WHERE [Vehicle Identification Number] = AVD.[Vehicle Identification Number])''')
             resultset = conn.execute(qry)
@@ -439,7 +439,7 @@ def handle_message(event):
             FROM [Line Data].[dbo].[Profile Line] PL 
             INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
             LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
-            WHERE PL.[UserId] = '{Userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL 
+            WHERE PL.[UserId] = '{userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL 
             AND AVD.[Query_Date] = (SELECT MAX([Query_Date]) FROM [Service Data].[dbo].[All_Vehicle_Data] 
             WHERE [Vehicle Identification Number] = AVD.[Vehicle Identification Number])''')
             resultset = conn.execute(qry)
