@@ -85,12 +85,19 @@ def handle_message(event):
 
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],IAC.[Firstname],IAC.[VIN],IAC.[Product Type],IAC.[Model],IAC.[Usage Hours],IAC.[Sale Date],IAC.[SOrg Name], MC.[Name] AS McName "
-            "FROM [Line Data].[dbo].[Profile Line] PL "
-            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
-            "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE PL.[UserId] = '"+ Userid + "' AND IAC.[VIN] IS NOT NULL AND IAC.[Sale Date] IS NOT NULL"
-            )
+            # qry = sa.text("SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],IAC.[Firstname],IAC.[VIN],IAC.[Product Type],IAC.[Model],IAC.[Usage Hours],IAC.[Sale Date],IAC.[SOrg Name], MC.[Name] AS McName "
+            # "FROM [Line Data].[dbo].[Profile Line] PL "
+            # "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
+            # "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
+            # "WHERE PL.[UserId] = '"+ Userid + "' AND IAC.[VIN] IS NOT NULL AND IAC.[Sale Date] IS NOT NULL"
+            # )
+            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN],AVD.[Product Type],AVD.[LV Main Type] AS [Model],AVD.[Usage Hours],AVD.[Sales Date],AVD.[SOrg Name], MC.[Name] AS McName
+            FROM [Line Data].[dbo].[Profile Line] PL 
+            INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
+            LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
+            WHERE PL.[UserId] = '{Userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL AND AVD.[Sales Date] IS NOT NULL 
+            AND AVD.[Query_Date] = (SELECT MAX([Query_Date]) FROM [Service Data].[dbo].[All_Vehicle_Data] 
+            WHERE [Vehicle Identification Number] = AVD.[Vehicle Identification Number])''')
             resultset = conn.execute(qry)
             # results_as_dict = resultset.mappings().all()
             results_as_dict = pd.DataFrame(resultset.fetchall())
@@ -196,11 +203,18 @@ def handle_message(event):
 
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
-            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
-            "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
-            )
+            # qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
+            # "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
+            # "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
+            # "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
+            # )
+            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN],AVD.[Product Type],AVD.[LV Main Type] AS [Model],AVD.[Usage Hours],AVD.[Sales Date],AVD.[SOrg Name], MC.[Name] AS McName
+            FROM [Line Data].[dbo].[Profile Line] PL 
+            INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
+            LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
+            WHERE PL.[UserId] = '{Userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL 
+            AND AVD.[Query_Date] = (SELECT MAX([Query_Date]) FROM [Service Data].[dbo].[All_Vehicle_Data] 
+            WHERE [Vehicle Identification Number] = AVD.[Vehicle Identification Number])''')
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
@@ -233,11 +247,18 @@ def handle_message(event):
 
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
-            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
-            "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
-            )
+            # qry = sa.text("SELECT DISTINCT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
+            # "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
+            # "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
+            # "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
+            # )
+            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN], MC.[Name] AS McName
+            FROM [Line Data].[dbo].[Profile Line] PL 
+            INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
+            LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
+            WHERE PL.[UserId] = '{Userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL 
+            AND AVD.[Query_Date] = (SELECT MAX([Query_Date]) FROM [Service Data].[dbo].[All_Vehicle_Data] 
+            WHERE [Vehicle Identification Number] = AVD.[Vehicle Identification Number])''')
             resultset = conn.execute(qry)
             results_as_dict = resultset.mappings().all()
             if len(results_as_dict)==0:
@@ -293,9 +314,9 @@ def handle_message(event):
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:
-                qry = sa.text("SELECT DISTINCT CRM.[Product Type], CRM.[VIN] "
-                    "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
-                    "WHERE CRM.[VIN] = '" + VINnumber + "' AND CRM.[VIN] IS NOT NULL"
+                qry = sa.text("SELECT DISTINCT AVD.[Product Type], AVD.[Vehicle Identification Number] AS [VIN] "
+                    "FROM [Service Data].[dbo].[All_Vehicle_Data] AVD "
+                    "WHERE AVD.[Vehicle Identification Number] = '" + VINnumber + "' AND AVD.[Vehicle Identification Number] IS NOT NULL"
                     )
                 resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
@@ -355,9 +376,9 @@ def handle_message(event):
                 noneKIS = 'ไม่สามารถใช้ฟังก์ชันนี้ได้ เนื่องจากรถของคุณไม่ได้ติด KIS'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=noneKIS))
             else:
-                qry = sa.text("SELECT DISTINCT CRM.[Product Type], CRM.[VIN] "
-                    "FROM [CRM Data].[dbo].[ID_Address_Consent] CRM "
-                    "WHERE CRM.[VIN] = '" + VINnumber + "'AND CRM.[VIN] IS NOT NULL"
+                qry = sa.text("SELECT DISTINCT AVD.[Product Type], AVD.[Vehicle Identification Number] AS [VIN] "
+                    "FROM [Service Data].[dbo].[All_Vehicle_Data] AVD "
+                    "WHERE AVD.[Vehicle Identification Number] = '" + VINnumber + "' AND AVD.[Vehicle Identification Number] IS NOT NULL"
                     )
                 resultset = conn.execute(qry)
                 results_as_dict = resultset.mappings().all()
@@ -409,11 +430,18 @@ def handle_message(event):
 
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
-            "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
-            "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
-            "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
-            )
+            # qry = sa.text("SELECT PL.[Name],PL.[TaxId],IAC.[Firstname],IAC.[VIN], MC.[Name] AS McName FROM [Line Data].[dbo].[Profile Line] PL "
+            # "INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC ON PL.[TaxId] = IAC.[Tax ID]"
+            # "LEFT JOIN [Line Data].[dbo].[MC Name] MC ON IAC.[VIN] = MC.[VIN]"
+            # "WHERE UserId = '"+ userid + "' AND IAC.[VIN] IS NOT NULL"
+            # )
+            qry = sa.text(f'''SELECT PL.[Name],PL.[TaxId],PL.[ProfileId],AVD.[Name 2/First Name],AVD.[Vehicle Identification Number] AS [VIN], MC.[Name] AS McName
+            FROM [Line Data].[dbo].[Profile Line] PL 
+            INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD ON PL.[TaxId] = AVD.[Tax Number 3]
+            LEFT JOIN [Line Data].[dbo].[MC Name] MC ON AVD.[Vehicle Identification Number] = MC.[VIN]
+            WHERE PL.[UserId] = '{Userid}' AND AVD.[Vehicle Identification Number] IS NOT NULL 
+            AND AVD.[Query_Date] = (SELECT MAX([Query_Date]) FROM [Service Data].[dbo].[All_Vehicle_Data] 
+            WHERE [Vehicle Identification Number] = AVD.[Vehicle Identification Number])''')
             resultset = conn.execute(qry)
             # results_as_dict = resultset.mappings().all()
             results_as_dict = pd.DataFrame(resultset.fetchall())
@@ -446,27 +474,49 @@ def handle_message(event):
         
         con = ConnectDB('Line Data')
         with con.begin() as conn:
-            qry = sa.text(f'''SELECT TOP 1
+            # qry = sa.text(f'''SELECT TOP 1
+            #         PL.[Name] AS Linename,
+            #         PL.[TaxId],
+            #         IAC.[Firstname] + ' ' + IAC.[Lastname] AS Fullname,
+            #         IAC.[KUBOTA ID],
+            #         IAC.[Telephone],
+            #         IAC.[Mobile]
+            #     FROM [Line Data].[dbo].[Profile Line] PL 
+            #     INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC 
+            #         ON PL.[TaxId] = IAC.[Tax ID]
+            #     WHERE 
+            #         UserId = '{userid}' 
+            #         AND IAC.[VIN] IS NOT NULL
+            #         AND PL.[Name] IS NOT NULL
+            #         AND PL.[TaxId] IS NOT NULL
+            #         AND IAC.[Firstname] IS NOT NULL
+            #         AND IAC.[Lastname] IS NOT NULL
+            #         AND IAC.[KUBOTA ID] IS NOT NULL
+            #         AND IAC.[Telephone] IS NOT NULL
+            #         AND IAC.[Mobile] IS NOT NULL;'''
+            # )
+            qry = sa.text(f'''
+                SELECT TOP 1
                     PL.[Name] AS Linename,
                     PL.[TaxId],
-                    IAC.[Firstname] + ' ' + IAC.[Lastname] AS Fullname,
-                    IAC.[KUBOTA ID],
-                    IAC.[Telephone],
-                    IAC.[Mobile]
+                    AVD.[Name 2/First Name] + ' ' + AVD.[Name 1/Last Name] AS Fullname,
+                    AVD.[KUBOTA ID],
+                    AVD.[Telephone],
+                    AVD.[Caller number] AS [Mobile]
                 FROM [Line Data].[dbo].[Profile Line] PL 
-                INNER JOIN [CRM Data].[dbo].[ID_Address_Consent] IAC 
-                    ON PL.[TaxId] = IAC.[Tax ID]
+                INNER JOIN [Service Data].[dbo].[All_Vehicle_Data] AVD
+                    ON PL.[TaxId] = AVD.[Tax Number 3]
                 WHERE 
-                    UserId = '{userid}' 
-                    AND IAC.[VIN] IS NOT NULL
+                    UserId = '{userid}'
+                    AND AVD.[Vehicle Identification Number] IS NOT NULL
                     AND PL.[Name] IS NOT NULL
                     AND PL.[TaxId] IS NOT NULL
-                    AND IAC.[Firstname] IS NOT NULL
-                    AND IAC.[Lastname] IS NOT NULL
-                    AND IAC.[KUBOTA ID] IS NOT NULL
-                    AND IAC.[Telephone] IS NOT NULL
-                    AND IAC.[Mobile] IS NOT NULL;'''
-            )
+                    AND AVD.[Name 2/First Name] IS NOT NULL
+                    AND AVD.[Name 1/Last Name] IS NOT NULL
+                    AND AVD.[KUBOTA ID] IS NOT NULL
+                    AND AVD.[Telephone] IS NOT NULL
+                    AND AVD.[Caller number] IS NOT NULL;
+            ''')
             resultset = conn.execute(qry)
             results_as_dict = pd.DataFrame(resultset.fetchall())
 
@@ -540,10 +590,16 @@ def insert_mc_name():
     ProfileId = request.args.get('profileId')
     con = ConnectDB('CRM Data')
     with con.begin() as conn:
-        qry = sa.text("SELECT [VIN],[Model],[Product Type] FROM [CRM Data].[dbo].[ID_Address_Consent] "
-        "WHERE [VIN] = '"+ VIN + "'"
-        "ORDER BY [VIN] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
-        )
+        # qry = sa.text("SELECT [VIN],[Model],[Product Type] FROM [CRM Data].[dbo].[ID_Address_Consent] "
+        # "WHERE [VIN] = '"+ VIN + "'"
+        # "ORDER BY [VIN] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+        # )
+        qry = sa.text(f'''
+            SELECT [Vehicle Identification Number] as [VIN], [LV Main Type] as [Model], [Product Type] 
+            FROM [Service Data].[dbo].[All_Vehicle_Data]
+            WHERE [Vehicle Identification Number] = '{VIN}' 
+            ORDER BY [VIN] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
+        ''')
         resultset = conn.execute(qry)
         results = resultset.mappings().all()
 
@@ -721,11 +777,11 @@ def insert_register():
 
     
     #check taxid
-    con = ConnectDB('CRM Data')
+    con = ConnectDB('Service Data')
     with con.begin() as conn:
-        qry = sa.text("SELECT [KUBOTA ID],[Tax ID] FROM [CRM Data].[dbo].[ID_Address_Consent] "
-        "WHERE [Tax ID] = '"+ taxId +"'"
-        "ORDER BY [Tax ID] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
+        qry = sa.text("SELECT [KUBOTA ID],[Tax Number 3] AS [Tax ID] FROM [Service Data].[dbo].[All_Vehicle_Data] "
+        "WHERE [Tax Number 3] = '"+ taxId +"'"
+        "ORDER BY [Tax Number 3] OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY"
         )
         resultset = conn.execute(qry)
         results_as_dict = resultset.mappings().all()
