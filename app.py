@@ -886,11 +886,11 @@ def insert_register():
             urlPic1 = BASE_URL+'/image?name=AW_Leaflet TT_Front_0'
             urlPic2 = BASE_URL+'/imagejpg?name=AW_Leaflet ME_Front_0'
             urlweb = 'https://www.siamkubota.co.th/kubota-customerservice-promotion/'
-            ImageSendMessage = ImageSendMessage(
+            picMessage = ImageSendMessage(
                 original_content_url=urlPic1,
                 preview_image_url=urlPic1
             )
-            ImageSendMessage2 = ImageSendMessage(
+            picMessage2 = ImageSendMessage(
                 original_content_url=urlPic2,
                 preview_image_url=urlPic2
             )
