@@ -858,22 +858,38 @@ def insert_register():
             headers = {'content-type': 'application/json','Authorization':'Bearer HvSWl3gV8+hLK5/2xb8Fejzg5QxJRdvtZiHf5irm0RiMpD6h1Owlj15XpwdHX6bVbXtfktmgXCEc0WmYzk/i8lKxNNCRnmo78QPupI9CVqvUTPaPtrbETMzLZcE+AKiEBK4CP7BzcE9Y2jy1YEDjRwdB04t89/1O/w1cDnyilFU='}
             r = requests.post(url, headers=headers)
 
-            messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
-            # messagePush = 'ยินดีต้อนรับสู่ 🙏 ช่างจริงใจสยามคูโบต้า \n\n 👨🏻‍💼 ผู้ช่วยส่วนตัวของลูกค้าในการจัดการรถคูโบต้า \n\n 👇 กดที่ลิงก์ด้านล่าง เพื่อรับสิทธิ์ลุ้นรับนาฬิกาข้อมืออัจฉริยะ มูลค่า 1,290 บาท ฟรี!!! จำกัด 1 ท่าน/เรือน \n\n ⌚ https://forms.gle/7DtRjgwdcciB7EFRA'
-            urlVideo = BASE_URL+'/media_insert'
-            urlPreview = BASE_URL+'/media_insert_preview'
-            videoMessage = VideoSendMessage(
-                original_content_url=urlVideo,
-                preview_image_url=urlPreview
-            )
-            # urlPic = BASE_URL+'/media_season'
-            # urlPicPreview = BASE_URL+'/media_season_preview'
-            # picMessage = ImageSendMessage(
-            #     original_content_url=urlPic,
-            #     preview_image_url=urlPicPreview
+            # messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว สามารถศึกษาวิธีการใช้งานได้ที่วิดีโอด้านล่างครับ"
+            # # messagePush = 'ยินดีต้อนรับสู่ 🙏 ช่างจริงใจสยามคูโบต้า \n\n 👨🏻‍💼 ผู้ช่วยส่วนตัวของลูกค้าในการจัดการรถคูโบต้า \n\n 👇 กดที่ลิงก์ด้านล่าง เพื่อรับสิทธิ์ลุ้นรับนาฬิกาข้อมืออัจฉริยะ มูลค่า 1,290 บาท ฟรี!!! จำกัด 1 ท่าน/เรือน \n\n ⌚ https://forms.gle/7DtRjgwdcciB7EFRA'
+            # urlVideo = BASE_URL+'/media_insert'
+            # urlPreview = BASE_URL+'/media_insert_preview'
+            # videoMessage = VideoSendMessage(
+            #     original_content_url=urlVideo,
+            #     preview_image_url=urlPreview
             # )
-            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
-            # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
+            # # urlPic = BASE_URL+'/media_season'
+            # # urlPicPreview = BASE_URL+'/media_season_preview'
+            # # picMessage = ImageSendMessage(
+            # #     original_content_url=urlPic,
+            # #     preview_image_url=urlPicPreview
+            # # )
+            # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), videoMessage])
+            # # line_bot_api.push_message(userId, [TextSendMessage(text=messagePush), picMessage])
+            messagePush = "คุณ "+displayName+" ได้ลงทะเบียนเรียบร้อยแล้ว"
+            # messagePush = 'ยินดีต้อนรับสู่ 🙏 ช่างจริงใจสยามคูโบต้า \n\n 👨🏻‍💼 ผู้ช่วยส่วนตัวของลูกค้าในการจัดการรถคูโบต้า \n\n 👇 กดที่ลิงก์ด้านล่าง เพื่อรับสิทธิ์ลุ้นรับนาฬิกาข้อมืออัจฉริยะ มูลค่า 1,290 บาท ฟรี!!! จำกัด 1 ท่าน/เรือน \n\n ⌚ https://forms.gle/7DtRjgwdcciB7EFRA'
+            messagePush2 = 'โปรโมชันสำหรับลูกค้าพ้นระยะประกัน ดูรายละเอียดเพิ่มเติม: https://www.siamkubota.co.th/kubota-customerservice-promotion/'
+            # urlVideo = BASE_URL+'/media_insert'
+            # urlPreview = BASE_URL+'/media_insert_preview'
+            # videoMessage = VideoSendMessage(
+            #     original_content_url=urlVideo,
+            #     preview_image_url=urlPreview
+            # )
+            urlPic1 = BASE_URL+'/image?name=AW_Leaflet TT_Front_0'
+            urlPic2 = BASE_URL+'/imagejpg?name=AW_Leaflet ME_Front_0'
+            urlweb = 'https://www.siamkubota.co.th/kubota-customerservice-promotion/'
+            ImageSendMessage = ImageSendMessage(urlPic1,urlweb)
+            ImageSendMessage2 = ImageSendMessage(urlPic2,urlweb)
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush)])
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), ImageSendMessage, ImageSendMessage2])
             return "success"
 
 @app.route('/history', methods=['GET','POST'])
