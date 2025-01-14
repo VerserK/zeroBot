@@ -827,7 +827,9 @@ def insert_register():
             # videoMessage = VideoSendMessage(
             #     original_content_url=urlVideo,
             #     preview_image_url=urlPreview
-            # )
+            # )ั
+            urlPic1 = BASE_URL+'/image?name=AW_Leaflet TT_Front_0'
+            urlPic2 = BASE_URL+'/imagejpg?name=AW_Leaflet ME_Front_0'
             picMessage = ImageSendMessage(
                 original_content_url=urlPic1,
                 preview_image_url=urlPic1
@@ -837,7 +839,9 @@ def insert_register():
                 preview_image_url=urlPic2
             )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush)])
-            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), picMessage, picMessage2])
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), picMessage])
+            line_bot_api.push_message(userId, picMessage2)
+
             return "success"
         elif len(df)==0:
             return "not taxId"
@@ -888,7 +892,6 @@ def insert_register():
             # )
             urlPic1 = BASE_URL+'/image?name=AW_Leaflet TT_Front_0'
             urlPic2 = BASE_URL+'/imagejpg?name=AW_Leaflet ME_Front_0'
-            urlweb = 'https://www.siamkubota.co.th/kubota-customerservice-promotion/'
             picMessage = ImageSendMessage(
                 original_content_url=urlPic1,
                 preview_image_url=urlPic1
@@ -898,7 +901,8 @@ def insert_register():
                 preview_image_url=urlPic2
             )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush)])
-            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), picMessage, picMessage2])
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), picMessage])
+            line_bot_api.push_message(userId, picMessage2)
             return "success"
 
 @app.route('/history', methods=['GET','POST'])
