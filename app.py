@@ -886,8 +886,14 @@ def insert_register():
             urlPic1 = BASE_URL+'/image?name=AW_Leaflet TT_Front_0'
             urlPic2 = BASE_URL+'/imagejpg?name=AW_Leaflet ME_Front_0'
             urlweb = 'https://www.siamkubota.co.th/kubota-customerservice-promotion/'
-            ImageSendMessage = ImageSendMessage(urlPic1,urlweb)
-            ImageSendMessage2 = ImageSendMessage(urlPic2,urlweb)
+            ImageSendMessage = ImageSendMessage(
+                original_content_url=urlPic1,
+                preview_image_url=urlPic1
+            )
+            ImageSendMessage2 = ImageSendMessage(
+                original_content_url=urlPic2,
+                preview_image_url=urlPic2
+            )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush)])
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), ImageSendMessage, ImageSendMessage2])
             return "success"
