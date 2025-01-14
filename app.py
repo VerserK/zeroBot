@@ -895,7 +895,7 @@ def insert_register():
                 preview_image_url=urlPic2
             )
             line_bot_api.push_message(userId, [TextSendMessage(text=messagePush)])
-            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), ImageSendMessage, ImageSendMessage2])
+            line_bot_api.push_message(userId, [TextSendMessage(text=messagePush2), picMessage, picMessage2])
             return "success"
 
 @app.route('/history', methods=['GET','POST'])
