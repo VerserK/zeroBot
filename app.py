@@ -550,7 +550,7 @@ def openFolderImage():
     return send_from_directory(os.path.join(app.root_path, 'image'),name+'.png')
 
 @app.route('/imagejpg', methods=['GET'])
-def openFolderImage():
+def openFolderImagejpg():
     name = request.args.get('name')
     return send_from_directory(os.path.join(app.root_path, 'image'),name+'.jpg')
 
